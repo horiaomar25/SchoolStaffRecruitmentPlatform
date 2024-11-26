@@ -11,8 +11,9 @@ The project involves the development of a CRM type platform that simplifies recr
 # Background
 Schools across the UK are facing a shortage of teachers and teaching assistants, leading to a growing reliance on agencies to provide supply staff. This has become a costly solution, as highlighted in the articles linked below:  
 
-- [£13 million spent on supply teachers in Caerphilly last year](https://www.southwalesargus.co.uk/news/24509537.13m-spent-caerphilly-supply-teachers-last-year/)  
-
+- [£13 million spent on supply teachers in Caerphilly last year](https://www.southwalesargus.co.uk/news/24509537.13m-spent-caerphilly-supply-teachers-last-year/)
+- [School staff recruitment 'challenging' says Hertfordshire agency](https://www.bbc.co.uk/news/uk-england-beds-bucks-herts-64810330)
+  
 Primary schools spend a lot on agency staff to cover teaching and support roles. To get the best value, it’s important for schools to have a insight into candidates interests/experience. 
 
 From my experience working with several teaching agencies for both primary schools and private nurseries, most communication between agencies, supply staff, and schools happens through emails, phone calls, and text messages. Some education recruitment agency still rely on paper for timesheets. However, this process can be inefficient and time-consuming.  
