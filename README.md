@@ -6,7 +6,7 @@ The project involves the development of a CRM type platform that simplifies recr
 - Recruitment agencies to share detailed candidate profiles with schools.
 - Schools to efficiently review candidates and book suitable staff to meet specific needs.
 - Supply staff, such as teachers and teaching assistants, to create and manage profiles, highlight experience, and upload essential documents(timesheets).
-- Schools will be able to provide written feedback for supply staff at the end of their contract that can then be placed on their profile for other clients to be able to see. 
+- Schools will be able to provide written feedback for supply staff at the end of their contract that can then be placed on their profile for other schools clients to be able to see. 
 
 # Background
 Schools across the UK are facing a shortage of teachers and teaching assistants, leading to a growing reliance on agencies to provide supply staff. This has become a costly solution, as highlighted in the articles linked below:  
@@ -18,7 +18,7 @@ Primary schools spend a lot on agency staff to cover teaching and support roles.
 
 From my experience working with several teaching agencies for both primary schools and private nurseries, most communication between agencies, supply staff, and schools happens through emails, phone calls, and text messages. Some education recruitment agency still rely on paper for timesheets. However, this process can be inefficient and time-consuming.  
 
-This is article brings up some interesting points about more engagement needed with supply staff as well as mention of software being used in both Scotland, Northern Ireland and soon in Wales to make it easier for both schools and supply staff to find available staff quickly. According to this article, this type of software is not avaliable in England as of yet despite England having the highest number of schools in the United Kingdom:
+This is article brings up some interesting points about more engagement needed with supply staff as well as mention of software being used in both Scotland, Northern Ireland and soon in Wales to make it easier for both schools and supply staff to find available staff quickly:
 - [Scotland and Northern Ireland have it sussed - it’s time England caught up with its neighbours](https://www.theheadteacher.com/staff-management/recruitment/the-teacher-supply-system-isnt-working)
 
 As highlighted in this article, there is already software in use in Scotland, Northern Ireland, and soon in Wales, which makes it easier for schools and supply staff to find suitable candidates quickly. Unfortunately, such a system is not yet available in England, despite having the highest number of schools in the UK.
