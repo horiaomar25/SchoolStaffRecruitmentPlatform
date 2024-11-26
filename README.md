@@ -18,6 +18,14 @@ Primary schools spend a lot on agency staff to cover teaching and support roles.
 
 From my experience working with several teaching agencies for both primary schools and private nurseries, most communication between agencies, supply staff, and schools happens through emails, phone calls, and text messages. Some education recruitment agency still rely on paper for timesheets. However, this process can be inefficient and time-consuming.  
 
+This is interesting article below that talks about software being used in both Scotland, Northern Ireland and soon in Wales to make it easier for both schools and supply staff to find available staff quickly:
+- [Scotland and Northern Ireland have it sussed - it’s time England caught up with its neighbours]([https://www.bbc.co.uk/news/uk-england-beds-bucks-herts-64810330](https://www.theheadteacher.com/staff-management/recruitment/the-teacher-supply-system-isnt-working)
+
+According to this article, this type of software is not avaliable in England as of yet despite England having the highest number of schools in the United Kingdom. 
+- [Scotland and Northern Ireland have it sussed - it’s time England caught up with its neighbours]([(https://www.besa.org.uk/key-uk-education-statistics/)
+
+This type of software would to make the hiring process a lot easier for all 3 parties in the case of agencies.
+
 # Outline
 Below listed is will be the key features of the software:
 
@@ -49,7 +57,7 @@ Recruiters:
 - Overview of staff performance based on school feedback.
 
 # Conclusion
-The development of a  CRM type system for primary school recruitment represents a  step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a user-friendly platform, the system aims to enhance  collaboration across all parties involved.
+The development of a CRM type system for primary school recruitment represents a  step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a user-friendly platform, the system aims to enhance  collaboration across all parties involved.
 
 This solution not only simplifies the recruitment and scheduling process but also empowers supply staff to manage their profiles, availability, and professional growth effectively. Schools benefit from access to detailed candidate profiles, scheduling tools, and performance reviews, enabling them to make informed hiring decisions and improve classroom outcomes.
 
