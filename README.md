@@ -1,7 +1,7 @@
 # Introduction
-This project aims to create a system for primary school recruitment agencies that provide the neccessary information all one platform for both their staff and school clients. This software will addresses inefficiencies in connecting education recruitment agencies, supply staff, and primary schools, fostering smoother collaboration between the 3.
+This project aims to create a system for primary school recruitment agencies that provide the neccessary information all on 1 platform for both their staff and school clients. This software will addresses inefficiencies in connecting education recruitment agencies, supply staff, and primary schools, fostering smoother collaboration between the 3.
 
-The project involves the development of a CRM type platform that simplifies recruitment and staffing for primary schools. It will enable:
+The project involves the development of a CRM type platform that simplifies recruitment and staffing for primary schools through agencies. It will enable:
 
 - Recruitment agencies to share detailed candidate profiles with schools.
 - Schools to efficiently review candidates and book suitable staff to meet specific needs.
@@ -18,24 +18,22 @@ Primary schools spend a lot on agency staff to cover teaching and support roles.
 
 From my experience working with several teaching agencies for both primary schools and private nurseries, most communication between agencies, supply staff, and schools happens through emails, phone calls, and text messages. Some education recruitment agency still rely on paper for timesheets. However, this process can be inefficient and time-consuming.  
 
-This is interesting article below that talks about software being used in both Scotland, Northern Ireland and soon in Wales to make it easier for both schools and supply staff to find available staff quickly:
-- [Scotland and Northern Ireland have it sussed - it’s time England caught up with its neighbours]([https://www.bbc.co.uk/news/uk-england-beds-bucks-herts-64810330](https://www.theheadteacher.com/staff-management/recruitment/the-teacher-supply-system-isnt-working)
+This is article brings up some interesting points about more engagement needed with supply staff as well as mention of software being used in both Scotland, Northern Ireland and soon in Wales to make it easier for both schools and supply staff to find available staff quickly. According to this article, this type of software is not avaliable in England as of yet despite England having the highest number of schools in the United Kingdom:
+- [Scotland and Northern Ireland have it sussed - it’s time England caught up with its neighbours](https://www.theheadteacher.com/staff-management/recruitment/the-teacher-supply-system-isnt-working)
 
-According to this article, this type of software is not avaliable in England as of yet despite England having the highest number of schools in the United Kingdom. 
-- [Scotland and Northern Ireland have it sussed - it’s time England caught up with its neighbours]([(https://www.besa.org.uk/key-uk-education-statistics/)
-
-This type of software would to make the hiring process a lot easier for all 3 parties in the case of agencies.
+As highlighted in this article, there is already software in use in Scotland, Northern Ireland, and soon in Wales, which makes it easier for schools and supply staff to find suitable candidates quickly. Unfortunately, such a system is not yet available in England, despite having the highest number of schools in the UK.
 
 # Outline
+
+For the scoop of my project, I will be focusing on London schools for the most part. I want to have a main focus on 2 user groups, which is the candiadate and the school client. Although the user persona of a recruiter is still relevant. 
+
 Below listed is will be the key features of the software:
 
 1. **Candidate Selection**: Recruitment agencies can upload and share detailed profiles of supply staff, enabling schools to review qualifications and experience before selecting candidates.
-2. **Supply Staff**: Staff can create and update profiles, manage availability through a calendar, and deal with timesheets. Upload Timesheets
+2. **Supply Staff**: Staff can create and update profiles, manage availability through a calendar, and deal with timesheets. This can add a bit more of personal approach to
 3. **Facilitate Feedback and Reviews**: Schools can provide feedback on supply staff performance, which can be used to build professional profiles and assist future hiring decisions.
 
 Listed below is some of the features for each user group:
-
-I want to have a main focus on 2 user groups, which is the candiadate and the school client.
 
 Supply Staff:
 - Profile creation with qualifications, work history, and school feedback.
@@ -57,7 +55,7 @@ Recruiters:
 - Overview of staff performance based on school feedback.
 
 # Conclusion
-The development of a CRM type system for primary school recruitment represents a  step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a user-friendly platform, the system aims to enhance  collaboration across all parties involved.
+The development of a CRM type system for primary school recruitment represents a step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a user-friendly platform, the system aims to enhance  collaboration across all parties involved. 
 
 This solution not only simplifies the recruitment and scheduling process but also empowers supply staff to manage their profiles, availability, and professional growth effectively. Schools benefit from access to detailed candidate profiles, scheduling tools, and performance reviews, enabling them to make informed hiring decisions and improve classroom outcomes.
 
