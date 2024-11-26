@@ -54,7 +54,8 @@ This solution not only simplifies the recruitment and scheduling process but als
 
 # Other Projects Ideas
 
-LendLogic:
+##LendLogic
+
 I previously did a group project on mortgage tool for a financial company. The project is linked here: [https://github.com/horiaomar25/Lend-Logic](url) .
 
 We focused on first time buyers and those looking to remortgage. I would like to narrow the scope on this project and focus on one user group (First Time Buyers). The first time buyer dashboard can be better developed.
