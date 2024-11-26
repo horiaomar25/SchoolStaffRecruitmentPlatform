@@ -49,7 +49,7 @@ Recruiters:
 - Overview of staff performance based on school feedback.
 
 # Conclusion
-The development of a specialized CRM system for primary school recruitment represents a significant step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a centralized, user-friendly platform, the system aims to enhance efficiency, transparency, and collaboration across all parties involved.
+The development of a  CRM type system for primary school recruitment represents a  step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a user-friendly platform, the system aims to enhance  collaboration across all parties involved.
 
 This solution not only simplifies the recruitment and scheduling process but also empowers supply staff to manage their profiles, availability, and professional growth effectively. Schools benefit from access to detailed candidate profiles, scheduling tools, and performance reviews, enabling them to make informed hiring decisions and improve classroom outcomes.
 
