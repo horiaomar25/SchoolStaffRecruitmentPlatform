@@ -54,6 +54,9 @@ Recruiters:
 - Scheduling features for assigning shifts and tracking staff availability.
 - Overview of staff performance based on school feedback.
 
+  I am considering using Java Springboot to build my API to handle the data from supply staff and information about school.
+  I am considering using React/Next.js for building the frontend. 
+
 # Conclusion
 The development of a CRM type system for primary school recruitment represents a step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a user-friendly platform, the system aims to enhance  collaboration across all parties involved. 
 
