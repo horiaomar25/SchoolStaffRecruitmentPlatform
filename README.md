@@ -54,7 +54,7 @@ Recruiters:
 - Scheduling features for assigning shifts and tracking staff availability.
 - Overview of staff performance based on school feedback.
 
-  I am considering using Java Springboot to build my API to handle the data from supply staff and information about school.
+  I am considering using Java Springboot to build my API to handle the data from supply staff and information about school. I might consider using Http Server.
   I am considering using React/Next.js for building the frontend. 
 
 # Conclusion
