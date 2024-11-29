@@ -38,13 +38,12 @@ Listed below is some of the features for each user group:
 Supply Staff:
 - Profile creation with qualifications, work history, and school feedback.
 - Calendar to mark avaliability.
-- Easy submission of timesheets and shift management.
 - Clear details on assigned schools, locations, and roles.
 - A personal work history log to build experience and credibility.
   
 Schools:
 - Ability to browse candidate profiles with qualifications and feedback.
-- Give recruiter their selection from the profiles.
+- Give recruiter their selection from the profile.
 - Access to a history of supply staff who have previously worked at their school.
 - Simplified feedback mechanism for supply staff performance.
 
