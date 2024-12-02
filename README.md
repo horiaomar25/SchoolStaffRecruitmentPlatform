@@ -37,13 +37,21 @@ Below listed is will be the key features of the software:
 
 
 This is my MVP for the creation on this project:
+
+Schools:
+- Ability to browse candidate profiles with qualifications and feedback.
+- Selected candidate sent to recruiter.
+- Access to a history of supply staff who have previously worked at their school.
+- Simplified feedback mechanism for supply staff performance.
+- Dashboard to summarize all information.
+
+In terms of scalability I would create these features for recruiter and school:
+
 Supply Staff:
 - Profile creation with qualifications, work history, and school feedback.
 - Calendar to mark avaliability.
 - Clear details on assigned schools, locations, and roles.
 - A personal work history log to build experience and credibility.
-
-In terms of scalability I would create these features for recruiter and school:
   
 Schools:
 - Ability to browse candidate profiles with qualifications and feedback.
