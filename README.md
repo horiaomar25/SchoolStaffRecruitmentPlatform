@@ -44,11 +44,6 @@ Supply Staff:
 - Clear details on assigned schools, locations, and roles.
 - A personal work history log to build experience and credibility.
   
-Schools:
-- Ability to browse candidate profiles with qualifications and feedback.
-- Give recruiter their selection from the profile.
-- Access to a history of supply staff who have previously worked at their school.
-- Simplified feedback mechanism for supply staff performance.
 
 Recruiters:
 - Platform to manage schools clients and supply staff.
