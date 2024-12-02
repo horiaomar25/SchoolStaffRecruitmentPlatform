@@ -29,8 +29,12 @@ For the scoop of my project, I will be focusing on London schools for the most p
 
 Below listed is will be the key features of the software:
 
-1. **Supply Staff**: Staff can create and update profiles, manage availability through a calendar, and deal with timesheets. This can add a bit more of personal approach when interacting with schools and recruiters
-3. **Facilitate Feedback and Reviews**: Schools can provide feedback on supply staff performance, which can be used to build professional profiles and assist future hiring decisions.
+1. **Supply Staff**:
+- Profile creation with qualifications, work history, and school feedback.
+- Calendar to mark avaliability.
+- Clear details on assigned schools, locations, and roles.
+- A personal work history log to build experience and credibility.
+
 
 This is my MVP for the creation on this project:
 Supply Staff:
