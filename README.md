@@ -25,14 +25,7 @@ As highlighted in this article, there is already software in use in Scotland, No
 
 # Outline
 
-For the scoop of my project, I will be focusing on London schools for the most part. I want to have a main focus on the school client. Although the user persona of a recruiter is still relevant. 
-
-Below listed is will be the key features of the software:
-
-- Profile creation with qualifications, work history, and school feedback.
-- Calendar to mark avaliability.
-- Clear details on assigned schools, locations, and roles.
-- A personal work history log to build experience and credibility.
+For the scoop of my project, I will be focusing on London schools for the most part. I want to have a main focus on the school client. 
 
 This is my MVP for the creation on this project:
 
