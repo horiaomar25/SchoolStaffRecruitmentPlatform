@@ -28,6 +28,7 @@ As highlighted in this article, there is already software in use in Scotland, No
 For the scoop of my project, I will be focusing on London schools for the most part. I want to have a main focus on the school client. 
 
 This is my MVP for the creation on this project:
+
   Supply Staff:
 - Profile creation with qualifications, work history, and school feedback.
 - Calendar to mark avaliability.
@@ -37,6 +38,7 @@ This is my MVP for the creation on this project:
 
 
 In terms of scalability I would create these features for recruiter and school:
+
 Schools:
 - Ability to browse candidate profiles with qualifications and feedback.
 - Selected candidate sent to recruiter.
