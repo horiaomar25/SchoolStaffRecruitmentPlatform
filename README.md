@@ -1,3 +1,7 @@
+# Overview
+The frontend will be stored on this repo [here](https://github.com/horiaomar25/SchoolStaffRecruitmentPlatform-Frontend)
+
+
 # Introduction
 This project aims to create a system for primary school recruitment agencies that provide the neccessary information all on 1 platform for both their staff and school clients. This software will addresses inefficiencies in connecting education recruitment agencies, supply staff, and primary schools, fostering smoother collaboration between the 3.
 
