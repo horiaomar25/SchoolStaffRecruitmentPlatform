@@ -15,16 +15,16 @@ public class Qualifications {
 
     private String qualificationName;
     private String result;
+
     // The Users object to reference the associated user
     @ManyToOne
     @JoinColumn(name = "users_id", nullable = false)
-    private Users users;  // Assuming 'Users' is the User entity.
+    private Users users;
 
     // Getters and Setters
     public Long getQualification_id() {
         return qualificationId;
     }
-
 
 
     public String getQualificationName() {

@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
-
 @RestController
 @RequestMapping("/api/assignments")
 public class AssignmentController {
+    // Repository has built in methods to use such as findByID
     private final AssignmentRepository assignmentRepository;
     private final UserRepository userRepository;
     private final SchoolRepository schoolRepository;
@@ -59,6 +58,7 @@ public class AssignmentController {
         if (user == null) {
             return ResponseEntity.status(404).body("User not found");
         }
+
         if (school == null) {
             return ResponseEntity.status(404).body("School not found");
         }
@@ -78,6 +78,7 @@ public class AssignmentController {
     @PutMapping("/{id}")
     public ResponseEntity<Assignment> updateAssignment(@PathVariable Long id, @RequestBody Assignment assignmentRequest) {
         Assignment existingAssignment = assignmentRepository.findById(id).orElse(null);
+
         if (existingAssignment == null) {
             return ResponseEntity.status(404).build();
         }

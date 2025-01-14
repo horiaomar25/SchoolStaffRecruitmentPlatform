@@ -20,10 +20,6 @@ public class AssignmentDTO {
         return schoolId;
     }
 
-    public void setSchoolId(Long schoolId) {
-        this.schoolId = schoolId;
-    }
-
     public String getRole() {
         return role;
     }

@@ -2,7 +2,6 @@ package com.example.SchoolStaffRecrutimentPlatform.model;
 
 import jakarta.persistence.*;
 
-import java.util.Optional;
 
 @Entity
 @Table(name = "Assignment")
@@ -39,10 +38,6 @@ public class Assignment {
     // Getters and Setters
     public Long getAssignmentId() {
         return assignment_id;
-    }
-
-    public void setAssignmentId(Long assignment_id) {
-        this.assignment_id = assignment_id;
     }
 
     public Users getUsers() {

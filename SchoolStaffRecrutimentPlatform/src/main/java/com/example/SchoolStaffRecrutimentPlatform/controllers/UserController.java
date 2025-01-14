@@ -16,7 +16,6 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    // Constructor injection for UserRepository
     @Autowired
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -33,15 +32,15 @@ public class UserController {
     public ResponseEntity<Users> getUserById(@PathVariable Long id) {
         Users user = userRepository.findById(id).get();
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); // http status 404 Not Found returned
         }
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(user); // return http status 200 ok response
     }
 
     // POST request to create a new user
     @PostMapping
     public Users createUser(@RequestBody Users user) {
-        return userRepository.save(user);
+        return userRepository.save(user); // update the data
     }
 
     // DELETE request to delete a user by ID

@@ -10,8 +10,6 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long users_id; // Primary key
 
-
-
     @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;
 
@@ -54,9 +52,7 @@ public class Users {
         return users_id;
     }
 
-    public void setUsersId(Long usersId) {
-        this.users_id = users_id;
-    }
+
 
     public String getFirstName() {
         return firstName;

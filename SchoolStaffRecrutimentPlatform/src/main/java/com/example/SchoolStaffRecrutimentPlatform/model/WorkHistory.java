@@ -28,10 +28,6 @@ public class WorkHistory {
         return workHistoryId;
     }
 
-    public void setWorkHistoryId(long workHistoryId) {
-        this.workHistoryId = workHistoryId;
-    }
-
     public Users getUser() {
         return user;
     }

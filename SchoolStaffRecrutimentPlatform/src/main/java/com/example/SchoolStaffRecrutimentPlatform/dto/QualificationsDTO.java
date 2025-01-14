@@ -26,7 +26,5 @@ public class QualificationsDTO {
         return users_id;
     }
 
-    public void setUsersId(Long usersId) {
-        this.users_id = usersId;
-    }
+
 }
