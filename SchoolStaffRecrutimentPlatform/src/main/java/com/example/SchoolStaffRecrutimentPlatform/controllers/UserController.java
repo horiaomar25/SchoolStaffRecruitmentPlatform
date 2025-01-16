@@ -44,15 +44,5 @@ public class UserController {
         return userRepository.save(user); // update the data
     }
 
-    // DELETE request to delete a user by ID
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        Users user = userRepository.findById(id).get();
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        userRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
 
-    }
 }

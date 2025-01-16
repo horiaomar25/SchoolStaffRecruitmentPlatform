@@ -31,29 +31,9 @@ public class FeedbackController {
         return feedbackRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Feedback> getFeedbackById(@PathVariable Long id) {
-        Feedback feedback = feedbackRepository.findById(id).get();
-        if (feedback == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(feedback);
-    }
 
-    @PostMapping
-    public ResponseEntity<Feedback> createFeedback(@RequestBody Feedback feedback) {
-        Users user = usersRepository.findById(feedback.getUser().getUsersId()).get();
-        School school = schoolRepository.findById(feedback.getSchool().getSchoolId()).get();
 
-        if (user == null || school == null) {
-            return ResponseEntity.badRequest().build();
-        }
 
-        feedback.setUser(user);
-        feedback.setSchool(school);
-        Feedback savedFeedback = feedbackRepository.save(feedback);
-        return ResponseEntity.ok(savedFeedback);
-    }
 
 
 }
