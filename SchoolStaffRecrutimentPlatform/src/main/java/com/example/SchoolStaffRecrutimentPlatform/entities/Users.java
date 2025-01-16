@@ -52,8 +52,6 @@ public class Users {
         return users_id;
     }
 
-
-
     public String getFirstName() {
         return firstName;
     }

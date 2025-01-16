@@ -37,34 +37,42 @@ public class Assignment {
 
     // Getters and Setters
     public Long getAssignmentId() {
+
         return assignment_id;
     }
 
     public Users getUsers() {
+
         return users;
     }
 
     public void setUsers(Users users) {
+
         this.users = users;
     }
 
     public School getSchool() {
+
         return school;
     }
 
     public void setSchool(School school) {
+
         this.school = school;
     }
 
     public String getRole() {
+
         return role;
     }
 
     public void setRole(String role) {
+
         this.role = role;
     }
 
     public Integer getDuration() {
+
         return duration;
     }
 

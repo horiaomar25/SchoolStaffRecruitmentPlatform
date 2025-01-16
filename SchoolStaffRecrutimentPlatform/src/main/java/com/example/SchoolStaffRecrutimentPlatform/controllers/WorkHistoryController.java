@@ -16,24 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/workhistory")
 public class WorkHistoryController {
-    private WorkHistoryRepository workHistoryRepository;
-    private UserRepository userRepository;
 
-    @Autowired
-    public WorkHistoryController(WorkHistoryRepository workHistoryRepository, UserRepository userRepository) {
-        this.workHistoryRepository = workHistoryRepository;
-        this.userRepository = userRepository;
-    }
 
-    // GET request to get all workHistory
-    @GetMapping
-    public List<WorkHistory> getAllWorkHistory(){
-        return workHistoryRepository.findAll();
-    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<WorkHistory> getWorkHistoryById(@PathVariable Long id) {
-
-    }
 
 }
