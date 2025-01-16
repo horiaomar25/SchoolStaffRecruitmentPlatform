@@ -2,7 +2,7 @@ package com.example.SchoolStaffRecrutimentPlatform.model;
 
 import jakarta.persistence.*;
 
-
+// Database table
 @Entity
 @Table(name = "Assignment")
 public class Assignment {

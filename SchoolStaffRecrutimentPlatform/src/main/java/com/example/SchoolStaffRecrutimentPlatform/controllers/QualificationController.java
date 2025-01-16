@@ -1,6 +1,4 @@
 package com.example.SchoolStaffRecrutimentPlatform.controllers;
-
-import com.example.SchoolStaffRecrutimentPlatform.dto.QualificationsDTO;
 import com.example.SchoolStaffRecrutimentPlatform.model.Qualifications;
 import com.example.SchoolStaffRecrutimentPlatform.model.Users;  // Import Users entity
 import com.example.SchoolStaffRecrutimentPlatform.repository.QualificationRepository;
@@ -41,31 +39,7 @@ public class QualificationController {
         return ResponseEntity.ok(qualification);
     }
 
-    @PostMapping
-    public ResponseEntity<?> createQualification(@RequestBody QualificationsDTO qualificationsDTO) {
-        if (qualificationsDTO.getUsersId() == null) {
-            return ResponseEntity.badRequest().body("User ID is required");
-        }
 
-        // Check by user id for the qualification associated with the user or return null
-        Users user = usersRepository.findById(qualificationsDTO.getUsersId()).orElse(null);
-
-        // if it is null return http 404 with message "User not found"
-        if (user == null) {
-            return ResponseEntity.status(404).body("User not found");
-        }
-
-        // Create a new object with the data saved into it.
-        Qualifications qualification = new Qualifications();
-        qualification.setUsers(user);
-        qualification.setQualificationName(qualificationsDTO.getQualificationName());
-        qualification.setResult(qualificationsDTO.getResult());
-        qualificationRepository.save(qualification);
-
-        Qualifications savedQualification = qualificationRepository.save(qualification);
-        return ResponseEntity.ok(savedQualification);
-
-    }
 
 
     @PutMapping("/{id}")
@@ -76,8 +50,6 @@ public class QualificationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQualification(@PathVariable Long id) {
         Qualifications qualification = qualificationRepository.findById(id).get();
-
-
 
         qualificationRepository.deleteById(id);
         return ResponseEntity.ok("Qualification deleted successfully");
