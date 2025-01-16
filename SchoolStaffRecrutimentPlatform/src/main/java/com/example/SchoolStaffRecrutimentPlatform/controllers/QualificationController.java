@@ -1,6 +1,5 @@
 package com.example.SchoolStaffRecrutimentPlatform.controllers;
-import com.example.SchoolStaffRecrutimentPlatform.model.Qualifications;
-import com.example.SchoolStaffRecrutimentPlatform.model.Users;  // Import Users entity
+import com.example.SchoolStaffRecrutimentPlatform.entities.Qualifications;
 import com.example.SchoolStaffRecrutimentPlatform.repository.QualificationRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.UserRepository;  // Import Users repository
 import org.springframework.beans.factory.annotation.Autowired;

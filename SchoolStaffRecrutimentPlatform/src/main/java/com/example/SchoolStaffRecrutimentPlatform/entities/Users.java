@@ -1,4 +1,4 @@
-package com.example.SchoolStaffRecrutimentPlatform.model;
+package com.example.SchoolStaffRecrutimentPlatform.entities;
 
 import jakarta.persistence.*;
 

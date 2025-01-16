@@ -1,6 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.controllers;
 
-import com.example.SchoolStaffRecrutimentPlatform.model.School;
+import com.example.SchoolStaffRecrutimentPlatform.entities.School;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

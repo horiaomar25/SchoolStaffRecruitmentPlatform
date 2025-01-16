@@ -1,6 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.controllers;
 
-import com.example.SchoolStaffRecrutimentPlatform.model.WorkHistory;
+import com.example.SchoolStaffRecrutimentPlatform.entities.WorkHistory;
 import com.example.SchoolStaffRecrutimentPlatform.repository.UserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.WorkHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

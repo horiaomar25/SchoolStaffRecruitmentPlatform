@@ -1,13 +1,10 @@
 package com.example.SchoolStaffRecrutimentPlatform.controllers;
 
-import com.example.SchoolStaffRecrutimentPlatform.model.Feedback;
+import com.example.SchoolStaffRecrutimentPlatform.entities.Feedback;
 import com.example.SchoolStaffRecrutimentPlatform.repository.FeedbackRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.SchoolRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.UserRepository;
-import com.example.SchoolStaffRecrutimentPlatform.model.Users;
-import com.example.SchoolStaffRecrutimentPlatform.model.School;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
