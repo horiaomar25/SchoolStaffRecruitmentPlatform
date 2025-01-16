@@ -1,6 +1,7 @@
 package com.example.SchoolStaffRecrutimentPlatform.dto;
 
 public class QualificationsDTO {
+    // Using DTO to help pass the data more smoothly
     private String qualificationName;
     private String result;
     private Long users_id;

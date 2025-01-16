@@ -22,6 +22,7 @@ public class AssignmentController {
     private final UserRepository userRepository;
     private final SchoolRepository schoolRepository;
 
+    // Repositories needed have to be injected into Controller so you can make use of built in methods
     @Autowired
     public AssignmentController(AssignmentRepository assignmentRepository, UserRepository userRepository, SchoolRepository schoolRepository) {
         this.assignmentRepository = assignmentRepository;
@@ -36,7 +37,9 @@ public class AssignmentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Assignment> getAssignmentById(@PathVariable Long id) {
+
         Assignment assignment = assignmentRepository.findById(id).orElse(null);
+
         if (assignment == null) {
             return ResponseEntity.notFound().build();
         }
@@ -45,13 +48,15 @@ public class AssignmentController {
 
     @PostMapping
     public ResponseEntity<?> createAssignment(@RequestBody AssignmentDTO assignmentRequest) {
+
         if (assignmentRequest.getUsersId() == null) {
             return ResponseEntity.badRequest().body("User ID is required");
         }
+
         if (assignmentRequest.getSchoolId() == null) {
             return ResponseEntity.badRequest().body("School ID is required");
         }
-
+        // Uses the repository methods findById to look at User class to find
         Users user = userRepository.findById(assignmentRequest.getUsersId()).orElse(null);
         School school = schoolRepository.findById(assignmentRequest.getSchoolId()).orElse(null);
 
@@ -68,7 +73,7 @@ public class AssignmentController {
         assignment.setSchool(school);
         assignment.setRole(assignmentRequest.getRole());
         assignment.setDuration(assignmentRequest.getDuration());
-        assignment.setFeedback(assignmentRequest.getFeedback());
+
 
         Assignment savedAssignment = assignmentRepository.save(assignment);
         return ResponseEntity.ok(savedAssignment);

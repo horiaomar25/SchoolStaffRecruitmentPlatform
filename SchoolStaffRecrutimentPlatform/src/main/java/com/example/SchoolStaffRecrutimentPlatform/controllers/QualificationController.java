@@ -47,11 +47,15 @@ public class QualificationController {
             return ResponseEntity.badRequest().body("User ID is required");
         }
 
+        // Check by user id for the qualification associated with the user or return null
         Users user = usersRepository.findById(qualificationsDTO.getUsersId()).orElse(null);
+
+        // if it is null return http 404 with message "User not found"
         if (user == null) {
             return ResponseEntity.status(404).body("User not found");
         }
 
+        // Create a new object with the data saved into it.
         Qualifications qualification = new Qualifications();
         qualification.setUsers(user);
         qualification.setQualificationName(qualificationsDTO.getQualificationName());
@@ -66,36 +70,14 @@ public class QualificationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Qualifications> updateQualification(@PathVariable Long id, @RequestBody Qualifications qualificationRequest) {
-        Qualifications existingQualification = qualificationRepository.findById(id).get();
 
-        if (existingQualification == null) {
-            return ResponseEntity.status(404).body(null);
-        }
-
-        if(qualificationRequest.getUsers() == null || qualificationRequest.getUsers().getUsersId() == null) {
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        // request the user
-        Users user = usersRepository.findById(qualificationRequest.getUsers().getUsersId()).get();
-        if(user == null) {
-            return ResponseEntity.status(404).body(null);
-        }
-
-        existingQualification.setQualificationName(qualificationRequest.getQualificationName());
-        existingQualification.setResult(qualificationRequest.getResult());
-        existingQualification.setUsers(user);
-
-        Qualifications updatedQualification = qualificationRepository.save(existingQualification);
-        return ResponseEntity.ok(updatedQualification);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQualification(@PathVariable Long id) {
         Qualifications qualification = qualificationRepository.findById(id).get();
-        if(qualification == null) {
-            return ResponseEntity.status(404).body("Qualification not found");
-        }
+
+
 
         qualificationRepository.deleteById(id);
         return ResponseEntity.ok("Qualification deleted successfully");

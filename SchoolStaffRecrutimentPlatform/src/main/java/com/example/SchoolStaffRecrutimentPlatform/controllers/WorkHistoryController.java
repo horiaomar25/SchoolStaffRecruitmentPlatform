@@ -33,11 +33,7 @@ public class WorkHistoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<WorkHistory> getWorkHistoryById(@PathVariable Long id) {
-        WorkHistory workHistory = workHistoryRepository.findById(id).get();
-        if (workHistory != null) {
-            return ResponseEntity.ok(workHistory);
-        }
-        return ResponseEntity.notFound().build();
+
     }
 
 }

@@ -13,9 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
+     // calling in repository
     private final UserRepository userRepository;
 
+    // inject into User Controller
     @Autowired
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;

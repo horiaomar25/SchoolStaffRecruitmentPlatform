@@ -55,26 +55,5 @@ public class FeedbackController {
         return ResponseEntity.ok(savedFeedback);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Feedback> updateFeedback(@PathVariable Long id, @RequestBody Feedback feedback) {
-        Feedback existingFeedback = feedbackRepository.findById(id).get();
-        if (existingFeedback == null) {
-            return ResponseEntity.notFound().build();
-        }
 
-        existingFeedback.setComments(feedback.getComments());
-        Feedback updatedFeedback = feedbackRepository.save(existingFeedback);
-        return ResponseEntity.ok(updatedFeedback);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFeedback(@PathVariable Long id) {
-        Feedback feedback = feedbackRepository.findById(id).get();
-        if (feedback == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        feedbackRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
 }
