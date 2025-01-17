@@ -3,7 +3,7 @@ package com.example.SchoolStaffRecrutimentPlatform.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "AppUser")
 public class Users {
 
 
