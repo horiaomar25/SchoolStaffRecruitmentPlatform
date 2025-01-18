@@ -1,5 +1,6 @@
 # Overview
 The frontend will be stored on this repo [here](https://github.com/horiaomar25/SchoolStaffRecruitmentPlatform-Frontend)
+Trello Board: [here]([https://github.com/horiaomar25/SchoolStaffRecruitmentPlatform-Frontend](https://trello.com/b/RqnogJGI/project))
 
 
 # Introduction
