@@ -14,7 +14,7 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // setting to NOT NULL , default varchar(255) with declaring length
+    // setting to NOT NULL , default varchar(255) without declaring length
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
