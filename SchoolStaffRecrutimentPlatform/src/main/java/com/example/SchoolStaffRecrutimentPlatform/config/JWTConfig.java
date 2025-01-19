@@ -30,5 +30,6 @@ public class JWTConfig  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+
     }
 }
