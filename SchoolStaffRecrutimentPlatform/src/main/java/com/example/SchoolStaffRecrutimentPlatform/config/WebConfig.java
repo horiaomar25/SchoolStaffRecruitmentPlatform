@@ -1,4 +1,4 @@
-package com.example.SchoolStaffRecrutimentPlatform;
+package com.example.SchoolStaffRecrutimentPlatform.config;
 
 
 import org.springframework.context.annotation.Configuration;

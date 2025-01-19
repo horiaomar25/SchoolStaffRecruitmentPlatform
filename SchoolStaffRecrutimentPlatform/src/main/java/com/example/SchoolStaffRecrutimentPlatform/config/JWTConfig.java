@@ -1,33 +1,34 @@
 package com.example.SchoolStaffRecrutimentPlatform.config;
 
-import com.example.SchoolStaffRecrutimentPlatform.service.CustomUserDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
 
+/* TODO:
+    1. Spring Security Config - This file - Deals with session management
+    2. UserDetailService is interface used to retrieve username and password/comes with methods
+    3. Need to create controller that maps request to login
+    4. Password Encoder to hide password in the database
+    5. Utility class - creates tokens
+    6. Filter class - extends OncePerRequestFilter - check JWT on request to the server
+
+ */
 
 @Configuration
 @EnableWebSecurity
 public class JWTConfig  {
-    @Autowired
-   private CustomUserDetailService customUserDetailService;
 
-    // Check authenication
+
+
+    // tells us what can be accessed by anyone and what needs to be authorized(user must login)
+    // Handles session management - to be stateless
+    // enable CSRF(Cross Site Request Forgery) tokens as it adds extra layer of security as this is a web application
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(customUserDetailService);
-    }
-
-    // Gives permission on what can be accessed with auth
-    @Bean
-    public HttpSecurity filterChain(HttpSecurity http) throws Exception {
-    return http
-
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
     }
 }
