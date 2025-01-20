@@ -26,6 +26,7 @@ public class Profile {
     @Column()
     private String profileDescription;
 
+
     @OneToOne
     @JoinColumn(name="users_id")
     private AppUser appUser;
