@@ -14,5 +14,16 @@ public class WorkHistory {
     private String duration;
 
     // Need add School as foreign key - need to create School Entity
+    @OneToOne
+    @JoinColumn(name="school_id")
+    private School school;
+
+    // FK for profile
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
+
+
+
 
 }
