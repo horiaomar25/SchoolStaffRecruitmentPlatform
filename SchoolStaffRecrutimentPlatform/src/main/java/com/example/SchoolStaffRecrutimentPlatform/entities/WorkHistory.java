@@ -1,8 +1,15 @@
 package com.example.SchoolStaffRecrutimentPlatform.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
+
+@Setter
+@Getter
+@AllArgsConstructor
 @Entity
 @Table
 public class WorkHistory {
@@ -23,7 +30,7 @@ public class WorkHistory {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
-
+  public WorkHistory() {}
 
 
 }

@@ -86,4 +86,12 @@ assignment_id INT,
 FOREIGN KEY (assignment_id) REFERENCES Assignment(id),
 )
 
+CREATE TABLE Availability (
+  id INT PRIMARY KEY IDENTITY(1,1),
+  startDate DATE NOT NULL,
+  endDate DATE NOT NULL,
+  users_id INT,
+  FOREIGN KEY (users_id) REFERENCES AppUser(id)
+)
+
 
