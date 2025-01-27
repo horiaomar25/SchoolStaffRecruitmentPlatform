@@ -2,11 +2,10 @@ package com.example.SchoolStaffRecrutimentPlatform.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 
-/* TODO:
-*   Find how to implement Text in Hibernate - DONE
-*   */
 
 @Entity
 @Table(name = "Profile")
@@ -39,12 +38,12 @@ public class Profile {
     // OneToMany one Profile -> Qualifications
     // Bidirectional Relationship as both entities have reference to the other.
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profile")
-    LinkedHashSet<WorkHistory> workHistories = new LinkedHashSet<>();
+    List<WorkHistory> workHistories = new ArrayList<>();
 
 
     // A profile can have multiple entries of Qualification
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profile")
-    LinkedHashSet<Qualifications> qualifications = new LinkedHashSet<>();
+   List<Qualifications> qualifications = new ArrayList<>();
 
 
 }
