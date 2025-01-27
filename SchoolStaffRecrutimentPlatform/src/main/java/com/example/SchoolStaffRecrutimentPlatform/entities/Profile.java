@@ -1,12 +1,18 @@
 package com.example.SchoolStaffRecrutimentPlatform.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
 
+@Setter
+@Getter
+@AllArgsConstructor
 @Entity
 @Table(name = "Profile")
 public class Profile {
@@ -45,5 +51,6 @@ public class Profile {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profile")
    List<Qualifications> qualifications = new ArrayList<>();
 
+    public Profile() {}
 
 }
