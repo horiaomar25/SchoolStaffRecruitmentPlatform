@@ -3,6 +3,7 @@ package com.example.SchoolStaffRecrutimentPlatform.controller;
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +15,12 @@ public class ProfileController {
     ProfileService profileService;
 
     // Post
-    @PostMapping
-    public ResponseEntity<String> createProfile(@RequestBody ProfileDTO profileDTO){
+    @PostMapping("/create")
+    public ResponseEntity<String> createProfile(@RequestBody ProfileDTO profileDTO) {
         String response = profileService.createProfile(profileDTO);
-        return ResponseEntity.ok(response);
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
 
 

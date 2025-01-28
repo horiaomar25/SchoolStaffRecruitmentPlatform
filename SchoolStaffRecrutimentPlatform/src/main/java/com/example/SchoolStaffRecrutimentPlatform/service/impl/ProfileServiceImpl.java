@@ -27,7 +27,8 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public String createProfile(ProfileDTO profileDTO) {
-
+         // Adapter Design Pattern  - Service layer takes on DTO but repository takes on the Entity class,so need to adapt the DTO back to
+        // Entity so the layers are compatible with each other
         Profile newProfile = new Profile();
         newProfile.setFirstName(profileDTO.getFirstName());
         newProfile.setLastName(profileDTO.getLastName());
@@ -75,7 +76,7 @@ public class ProfileServiceImpl implements ProfileService {
         }
 
         newProfile.setQualifications(qualifications); // Saving List of Qualification to the ProfileEntity
-
+        // repository layer is taking in the Entity class with the data being transferred through the DTO class.
         profileRepository.save(newProfile);
 
         return "Profile created successfully";
