@@ -1,5 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.dto;
 
+// Captures user login
 public class LoginRequest {
     private String username;
     private String password;

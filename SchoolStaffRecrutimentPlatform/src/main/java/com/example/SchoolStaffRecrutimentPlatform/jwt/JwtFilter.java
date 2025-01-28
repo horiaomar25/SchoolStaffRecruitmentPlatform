@@ -15,8 +15,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collection;
 
+// Designed to intercept http requests and set up Security context
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+
     private final JwtUtil jwtUtil;
     private UserDetailsService userDetailsService;
 
@@ -29,12 +31,16 @@ public class JwtFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // extracts authorization header from incoming request
         String header = request.getHeader("Authorization");
-
+           // checks if header starts with bearer
         if (header != null && header.startsWith("Bearer ")) {
+            // extracts token after the word "BEARER " with space
             String token = header.substring(7);
+            // use jwtUtil class to validate token
             if (jwtUtil.validateToken(token)) {
                 String username = jwtUtil.getUsernameFromToken(token);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -42,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
             }
         }
-
+        // continues with rest of the filter chain
         filterChain.doFilter(request, response);
     }
 }
