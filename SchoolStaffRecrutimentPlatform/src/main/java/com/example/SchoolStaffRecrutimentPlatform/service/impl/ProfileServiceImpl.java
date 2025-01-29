@@ -156,29 +156,7 @@ public class ProfileServiceImpl implements ProfileService {
 
         Profile existingProfile = existingProfileOpt.get();
 
-
-        //update Qualification List - same structure as the WorkHistory
-        for (QualificationsDTO qualificationsDTO : profileDTO.getQualifications()) {
-            // Fetch the qualification using its ID
-            Optional<Qualifications> existingQualificationOpt = qualificationsRepo.findById(qualificationsDTO.getId());
-
-            if (existingQualificationOpt.isPresent()) {
-                // Retrieve the qualification from the Optional
-                Qualifications existingQualification = existingQualificationOpt.get();
-
-                // Update its fields
-                existingQualification.setQualificationName(qualificationsDTO.getQualificationName());
-                existingQualification.setInstitutionName(qualificationsDTO.getInstitutionName());
-                existingQualification.setYearObtained(qualificationsDTO.getYearObtained());
-                existingQualification.setProfile(existingProfile);
-
-                // Save the updated qualification entity
-                qualificationsRepo.save(existingQualification);
-            } else {
-                // Handle case where qualification is not found (log, throw exception, etc.)
-                System.out.println("Qualification with ID " + qualificationsDTO.getId() + " not found.");
-            }
-        }
+        String updateQualificationsResponse = qualificationService.updateQualification(profileDTO.getQualifications(), existingProfile);
 
         return "Qualifications updated successfully";
     }
