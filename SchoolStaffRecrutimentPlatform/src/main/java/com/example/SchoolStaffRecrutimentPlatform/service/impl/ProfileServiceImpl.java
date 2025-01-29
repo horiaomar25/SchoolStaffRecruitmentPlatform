@@ -3,14 +3,8 @@ package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.QualificationsDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.WorkHistoryDTO;
-import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
-import com.example.SchoolStaffRecrutimentPlatform.entities.Profile;
-import com.example.SchoolStaffRecrutimentPlatform.entities.Qualifications;
-import com.example.SchoolStaffRecrutimentPlatform.entities.WorkHistory;
-import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
-import com.example.SchoolStaffRecrutimentPlatform.repository.ProfileRepository;
-import com.example.SchoolStaffRecrutimentPlatform.repository.QualificationRepository;
-import com.example.SchoolStaffRecrutimentPlatform.repository.WorkHistoryRepository;
+import com.example.SchoolStaffRecrutimentPlatform.entities.*;
+import com.example.SchoolStaffRecrutimentPlatform.repository.*;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,33 +20,37 @@ import java.util.Optional;
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
+   // All dependies injected into the Service
     @Autowired
-    private ProfileRepository profileRepository;
+    private ProfileRepository profileRepo;
+
+   @Autowired
+   QualificationImpl qualificationService;
 
     @Autowired
-    private QualificationRepository qualificationsRepository;
+    private WorkHistoryRepository workHistoryRepo;
 
     @Autowired
-    private WorkHistoryRepository workHistoryRepository;
+    private AppUserRepository appUserRepo;
 
     @Autowired
-    private AppUserRepository appUserRepository;
+    private SchoolRepository schoolRepository;
 
 
     @Override
     public String createProfile(ProfileDTO profileDTO) {
         // User id to associated with Profile
-        Optional<AppUser> appUserOptional = appUserRepository.findById(profileDTO.getAppUserId());
+        Optional<AppUser> appUserOptional = appUserRepo.findById(profileDTO.getAppUserId());
 
-        if(!appUserOptional.isPresent()){
+        if (appUserOptional.isEmpty()) {
             return "User not found";
         }
 
         AppUser appUser = appUserOptional.get();
 
 
-         // Adapter Design Pattern  - Service layer takes on DTO but repository takes on the Entity class,so need to adapt the DTO back to
-        // Entity so the layers are compatible with each other
+        // Adapter Design Pattern  - Service layer takes on DTO but repository takes on the Entity class,so need to adapt the DTO back to
+
         Profile newProfile = new Profile();
 
         newProfile.setFirstName(profileDTO.getFirstName());
@@ -65,46 +63,36 @@ public class ProfileServiceImpl implements ProfileService {
         // Handle dealing with WorkHistory List to create Profile
         // Persist WorkHistory and Qualifications
         List<WorkHistory> workHistories = new ArrayList<>();
-        for(WorkHistoryDTO workHistoryDTO: profileDTO.getWorkHistoryDTO()){
-            // Entity class
-            WorkHistory newWorkHistory = new WorkHistory();
 
-            // Getters and Setters from WorkHistoryDTO that deal with the entity class
-            newWorkHistory.setSchoolName(workHistoryDTO.getSchoolName());
-            newWorkHistory.setRole(workHistoryDTO.getRole());
-            newWorkHistory.setDuration(workHistoryDTO.getDuration());
+        for (WorkHistoryDTO workHistoryDTO : profileDTO.getWorkHistory()) {
+            // Fetch School Entity based on ID
+            Optional<School> schoolOptional = schoolRepository.findById(workHistoryDTO.getSchoolId());
+            if (schoolOptional.isPresent()) {
+                School school = schoolOptional.get();
 
-            newWorkHistory.setProfile(newProfile);
-            workHistories.add(newWorkHistory);
+                // Entity class
+                WorkHistory newWorkHistory = new WorkHistory();
+
+                // Getters and Setters from WorkHistoryDTO that deal with the entity class
+                newWorkHistory.setSchoolName(workHistoryDTO.getSchoolName());
+                newWorkHistory.setRole(workHistoryDTO.getRole());
+                newWorkHistory.setDuration(workHistoryDTO.getDuration());
+                newWorkHistory.setSchool(school);
+
+                newWorkHistory.setProfile(newProfile);
+                workHistories.add(newWorkHistory);
+            }
+
 
         }
 
         newProfile.setWorkHistories(workHistories); // Saving List of WorkHistory to the ProfileEntity
 
+        // Using Qualification Service and calling it in here for better readability.
+        // Passing in the DTO List and the Profile entity
+        String createQualifications = qualificationService.addQualification(profileDTO.getQualifications(), newProfile);
 
-        // Handle dealing with Qualification List to create Qualification Entity(DB)
-        List<Qualifications> qualifications = new ArrayList<>();
-        // Loop through each QualificationsDTO in the ProfileDTO's qualifications list
-        for(QualificationsDTO qualificationsDTO: profileDTO.getQualificationsDTO()){
-
-            // Create new object from Entity class
-            Qualifications newQualifications = new Qualifications();
-
-            // Sets the properties of the Qualification entity using getter and setting from DTO class. Management of data from DTO class
-            newQualifications.setQualificationName(qualificationsDTO.getQualificationName());
-            newQualifications.setInstitutionName(qualificationsDTO.getInstitutionName());
-            newQualifications.setYearObtained(qualificationsDTO.getYearObtained());
-
-            // Qualifications entity is linked to the Profile entity using the setProfile method.
-            newQualifications.setProfile(newProfile);
-
-            // Add the populated Qualifications entity to the qualifications list
-            qualifications.add(newQualifications);
-        }
-
-        newProfile.setQualifications(qualifications); // Saving List of Qualification to the ProfileEntity
-        // repository layer is taking in the Entity class with the data being transferred through the DTO class.
-        profileRepository.save(newProfile);
+        profileRepo.save(newProfile);
 
         return "Profile created successfully";
     }
@@ -113,16 +101,16 @@ public class ProfileServiceImpl implements ProfileService {
     public String deleteProfile(int id) {
         // using repository methods return a Optional<Profile>
         // Optional does not return null, it either contains a value or is empty
-        Optional<Profile> findProfile = profileRepository.findById(id);
+        Optional<Profile> findProfile = profileRepo.findById(id);
 
         // check if there is a value using .isPresent()
-        if(findProfile.isPresent()){
+        if (findProfile.isPresent()) {
             Profile profile = findProfile.get(); // unwraps the object
-            profileRepository.delete(profile);
+            profileRepo.delete(profile);
 
             return "Profile deleted successfully";
 
-        } else{
+        } else {
             return "Profile not found";
         }
     }
@@ -130,18 +118,18 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public String updateProfile(ProfileDTO profileDTO) {
         // Get user id from Profile DTO
-        Optional<AppUser> appUserOptional = appUserRepository.findById(profileDTO.getAppUserId());
+        Optional<AppUser> appUserOptional = appUserRepo.findById(profileDTO.getAppUserId());
 
-        if(!appUserOptional.isPresent()){
+        if (appUserOptional.isEmpty()) {
             return "User not found";
         }
 
         AppUser appUser = appUserOptional.get();
 
         // Get Profile object for update
-        Optional<Profile> updateProfile = profileRepository.findById(profileDTO.getId());
+        Optional<Profile> updateProfile = profileRepo.findById(profileDTO.getId());
 
-        if(!updateProfile.isPresent()){
+        if (updateProfile.isEmpty()) {
             return "Profile not found";
         }
 
@@ -160,9 +148,9 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public String updateQualification(ProfileDTO profileDTO) {
-        Optional<Profile> existingProfileOpt = profileRepository.findById(profileDTO.getId());
+        Optional<Profile> existingProfileOpt = profileRepo.findById(profileDTO.getId());
 
-        if (!existingProfileOpt.isPresent()) {
+        if (existingProfileOpt.isEmpty()) {
             return "Profile not found";
         }
 
@@ -170,45 +158,63 @@ public class ProfileServiceImpl implements ProfileService {
 
 
         //update Qualification List - same structure as the WorkHistory
-        for(QualificationsDTO qualificationsDTO: profileDTO.getQualificationsDTO()){
-            Qualifications existingQualification = qualificationsRepository.findById(QualificationsDTO.getId());
-            existingQualification.setQualificationName(qualificationsDTO.getQualificationName());
-            existingQualification.setInstitutionName(qualificationsDTO.getInstitutionName());
-            existingQualification.setYearObtained(qualificationsDTO.getYearObtained());
-            existingQualification.setProfile(existingProfile);
-            qualificationsRepository.save(existingQualification);
+        for (QualificationsDTO qualificationsDTO : profileDTO.getQualifications()) {
+            // Fetch the qualification using its ID
+            Optional<Qualifications> existingQualificationOpt = qualificationsRepo.findById(qualificationsDTO.getId());
+
+            if (existingQualificationOpt.isPresent()) {
+                // Retrieve the qualification from the Optional
+                Qualifications existingQualification = existingQualificationOpt.get();
+
+                // Update its fields
+                existingQualification.setQualificationName(qualificationsDTO.getQualificationName());
+                existingQualification.setInstitutionName(qualificationsDTO.getInstitutionName());
+                existingQualification.setYearObtained(qualificationsDTO.getYearObtained());
+                existingQualification.setProfile(existingProfile);
+
+                // Save the updated qualification entity
+                qualificationsRepo.save(existingQualification);
+            } else {
+                // Handle case where qualification is not found (log, throw exception, etc.)
+                System.out.println("Qualification with ID " + qualificationsDTO.getId() + " not found.");
+            }
         }
 
         return "Qualifications updated successfully";
-
     }
+
+
 
     @Override
     public String updateWorkHistory(ProfileDTO profileDTO) {
-        Optional<Profile> existingProfileOpt = profileRepository.findById(profileDTO.getId());
+        Optional<Profile> profileOptional = profileRepo.findById(profileDTO.getId());
 
-        if (!existingProfileOpt.isPresent()) {
+        if (profileOptional.isEmpty()) {  // FIXED variable name
             return "Profile not found";
         }
 
-        Profile existingProfile = existingProfileOpt.get();
+        Profile currentExistingProfile = profileOptional.get();
 
-        // update WorkHistory List
-        // loop through WorkHistory
-        for(WorkHistoryDTO workHistoryDTO: profileDTO.getWorkHistoryDTO()){
-            WorkHistory existingWorkHistory = workHistoryRepository.findById(WorkHistoryDTO.getId());
-            existingWorkHistory.setSchoolName(workHistoryDTO.getSchoolName());
-            existingWorkHistory.setRole(workHistoryDTO.getRole());
-            existingWorkHistory.setDuration(workHistoryDTO.getDuration());
-            existingWorkHistory.setProfile(existingProfile); // updates the changes to the profile entity
-            workHistoryRepository.save(existingWorkHistory); // saves the changes to the db
+        // Update WorkHistory List
+        for (WorkHistoryDTO workHistoryDTO : profileDTO.getWorkHistory()) {
+            Optional<WorkHistory> workHistoryOpt = workHistoryRepo.findById(workHistoryDTO.getId());
+
+            if (workHistoryOpt.isPresent()) {
+                WorkHistory existingWorkHistory = workHistoryOpt.get();
+
+                existingWorkHistory.setSchoolName(workHistoryDTO.getSchoolName());
+                existingWorkHistory.setRole(workHistoryDTO.getRole());
+                existingWorkHistory.setDuration(workHistoryDTO.getDuration());
+                existingWorkHistory.setProfile(currentExistingProfile); // FIXED variable name
+
+                workHistoryRepo.save(existingWorkHistory); // Saves changes to the DB
+            } else {
+                System.out.println("Work history with ID " + workHistoryDTO.getId() + " not found.");
+            }
         }
 
-
-
         return "Work History updated successfully";
-
     }
 
-
 }
+

@@ -21,8 +21,8 @@ public class ProfileDTO {
     private String position;
     private String profileDescription;
     private int appUserId;
-    private List<QualificationsDTO> qualificationsDTO = new ArrayList<>();
-    private List<WorkHistoryDTO> workHistoryDTO = new ArrayList<>();
+    private List<QualificationsDTO> qualifications = new ArrayList<>();
+    private List<WorkHistoryDTO> workHistory = new ArrayList<>();
 
 
 }
