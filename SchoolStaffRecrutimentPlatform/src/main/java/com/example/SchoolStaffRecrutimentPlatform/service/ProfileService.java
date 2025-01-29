@@ -8,6 +8,9 @@ public interface ProfileService {
     String deleteProfile(int id);
     String updateProfile(ProfileDTO profileDTO);
 
+    String updateQualification(ProfileDTO profileDTO);
+    String updateWorkHistory(ProfileDTO profileDTO);
+
 
 
 }

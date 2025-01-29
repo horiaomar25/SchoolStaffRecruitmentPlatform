@@ -29,12 +29,33 @@ public class ProfileController {
     }
 
 
+    // Update Profile Entity including Qualification/WorkHistory
+    @PutMapping("/{id}/profileDetails")
+    public ResponseEntity<String> updateProfile(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
+        profileDTO.setId(id);
+        String response = profileService.updateProfile(profileDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
+
+    @PutMapping("/{id}/workhistory")
+    public ResponseEntity<String> updateProfileWorkHistory(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
+        // set id
+        profileDTO.setId(id);
+        String response = profileService.updateWorkHistory(profileDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
+
+    @PutMapping("/{id}/qualifications")
+    public ResponseEntity<String> updateProfileQualifications(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
+        profileDTO.setId(id);
+        String response = profileService.updateQualification(profileDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
 
 
-    // Get
-    
-
-    // Update
 
 
 

@@ -154,6 +154,44 @@ public class ProfileServiceImpl implements ProfileService {
         existingProfile.setProfileDescription(profileDTO.getProfileDescription());
         existingProfile.setAppUser(appUser);
 
+        return "Profile updated successfully";
+
+    }
+
+    @Override
+    public String updateQualification(ProfileDTO profileDTO) {
+        Optional<Profile> existingProfileOpt = profileRepository.findById(profileDTO.getId());
+
+        if (!existingProfileOpt.isPresent()) {
+            return "Profile not found";
+        }
+
+        Profile existingProfile = existingProfileOpt.get();
+
+
+        //update Qualification List - same structure as the WorkHistory
+        for(QualificationsDTO qualificationsDTO: profileDTO.getQualificationsDTO()){
+            Qualifications existingQualification = qualificationsRepository.findById(QualificationsDTO.getId());
+            existingQualification.setQualificationName(qualificationsDTO.getQualificationName());
+            existingQualification.setInstitutionName(qualificationsDTO.getInstitutionName());
+            existingQualification.setYearObtained(qualificationsDTO.getYearObtained());
+            existingQualification.setProfile(existingProfile);
+            qualificationsRepository.save(existingQualification);
+        }
+
+        return "Qualifications updated successfully";
+
+    }
+
+    @Override
+    public String updateWorkHistory(ProfileDTO profileDTO) {
+        Optional<Profile> existingProfileOpt = profileRepository.findById(profileDTO.getId());
+
+        if (!existingProfileOpt.isPresent()) {
+            return "Profile not found";
+        }
+
+        Profile existingProfile = existingProfileOpt.get();
 
         // update WorkHistory List
         // loop through WorkHistory
@@ -166,10 +204,9 @@ public class ProfileServiceImpl implements ProfileService {
             workHistoryRepository.save(existingWorkHistory); // saves the changes to the db
         }
 
-        //update Qualification List - same structure as the
 
 
-
+        return "Work History updated successfully";
 
     }
 
