@@ -6,6 +6,7 @@ import com.example.SchoolStaffRecrutimentPlatform.entities.Profile;
 
 public interface ProfileService {
     String createProfile(ProfileDTO profileDTO);
+  String deleteProfile(int id);
 
 
 

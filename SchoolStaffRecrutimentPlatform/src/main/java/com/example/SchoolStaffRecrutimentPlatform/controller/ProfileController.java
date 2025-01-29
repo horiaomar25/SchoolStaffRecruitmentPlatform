@@ -21,14 +21,22 @@ public class ProfileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteProfile(@PathVariable int id) {
+        String response = profileService.deleteProfile(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
+
 
 
 
     // Get
+    
 
     // Update
 
-    // Response Entity return data and http status.
+
 
 
 }

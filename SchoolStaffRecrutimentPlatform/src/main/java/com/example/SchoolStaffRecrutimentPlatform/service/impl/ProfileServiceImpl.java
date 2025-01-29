@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 // Singleton Design Pattern with @Service annotation - creating a single instance of a class and reuse it - memory efficient
@@ -80,5 +81,26 @@ public class ProfileServiceImpl implements ProfileService {
         profileRepository.save(newProfile);
 
         return "Profile created successfully";
+    }
+
+    @Override
+    public String deleteProfile(int id) {
+        // using repository methods return a Optional<Profile>
+        // Optional does not return null, it either contains a value or is empty
+        Optional<Profile> findProfile = profileRepository.findById(id);
+
+        // check if there is a value using .isPresent()
+        if(findProfile.isPresent()){
+            Profile profile = findProfile.get(); // unwraps the object
+            profileRepository.delete(profile);
+
+            return "Profile deleted successfully";
+
+        } else{
+            return "Profile not found";
+        }
+
+
+
     }
 }
