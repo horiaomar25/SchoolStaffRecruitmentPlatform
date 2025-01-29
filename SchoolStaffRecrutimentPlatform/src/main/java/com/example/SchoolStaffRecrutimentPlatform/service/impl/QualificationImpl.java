@@ -3,12 +3,14 @@ package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 import com.example.SchoolStaffRecrutimentPlatform.dto.QualificationsDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Profile;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Qualifications;
+import com.example.SchoolStaffRecrutimentPlatform.entities.WorkHistory;
 import com.example.SchoolStaffRecrutimentPlatform.repository.QualificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QualificationImpl {
@@ -51,17 +53,23 @@ public class QualificationImpl {
 
         // Loop through each DTO and map it to an entity
         for (QualificationsDTO dto : qualificationsDTOList) {
-            // Create a new qualification entity from DTO
-            Qualifications qualificationEntity = new Qualifications();
+
+            Optional<Qualifications> existingQualification = qualificationRepo.findById(dto.getId());
+
+            if(existingQualification.isEmpty()) {
+                return "Qualification not found.";
+            }
+
+            Qualifications qualifications = existingQualification.get();
 
             // Set the properties of the entity based on the DTO
-            qualificationEntity.setQualificationName(dto.getQualificationName());
-            qualificationEntity.setInstitutionName(dto.getInstitutionName());
-            qualificationEntity.setYearObtained(dto.getYearObtained());
-            qualificationEntity.setProfile(profile); // Set the profile of the user to the qualification
+            qualifications.setQualificationName(dto.getQualificationName());
+            qualifications.setInstitutionName(dto.getInstitutionName());
+            qualifications.setYearObtained(dto.getYearObtained());
+            qualifications.setProfile(profile); // Set the profile of the user to the qualification
 
             // Add the updated qualification to the list
-            updatedQualificationsList.add(qualificationEntity);
+            updatedQualificationsList.add(qualifications);
         }
 
 

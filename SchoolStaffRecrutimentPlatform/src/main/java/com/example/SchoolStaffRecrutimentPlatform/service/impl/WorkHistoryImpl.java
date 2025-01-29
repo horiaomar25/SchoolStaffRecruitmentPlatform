@@ -51,4 +51,39 @@ public class WorkHistoryImpl {
 
         return "Work History Added/Created Successfully";
     }
+
+    public String updateWorkHistory(List<WorkHistoryDTO> workHistoryDTOList, Profile profile){
+
+
+        for(WorkHistoryDTO dto: workHistoryDTOList ){
+           // fetch existing id of WorkHistory entry
+            Optional<WorkHistory> existingWorkHistory = workHistoryRepo.findById(dto.getId());
+            if(existingWorkHistory.isEmpty()){
+                return "Work History Not Found";
+            }
+            WorkHistory workHistory = existingWorkHistory.get();
+
+
+            Optional<School> schoolOptional = schoolRepository.findById(dto.getSchoolId());
+            if (schoolOptional.isEmpty()) {
+                return "School not found with ID: " + dto.getSchoolId();
+            }
+
+            School school = schoolOptional.get();
+
+            workHistory.setSchool(school);
+            workHistory.setRole(dto.getRole());
+            workHistory.setDuration(dto.getDuration());
+            workHistory.setProfile(profile);
+
+
+            workHistoryRepo.save(workHistory);
+
+        }
+
+        return "Work History Updated Successfully";
+
+    }
+
+
 }

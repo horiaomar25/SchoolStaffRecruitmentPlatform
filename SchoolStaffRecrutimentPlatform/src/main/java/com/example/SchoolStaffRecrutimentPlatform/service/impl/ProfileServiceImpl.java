@@ -27,14 +27,13 @@ public class ProfileServiceImpl implements ProfileService {
    @Autowired
    QualificationImpl qualificationService;
 
-    @Autowired
-    private WorkHistoryRepository workHistoryRepo;
+   @Autowired
+   WorkHistoryImpl workHistoryService;
 
     @Autowired
     private AppUserRepository appUserRepo;
 
-    @Autowired
-    private SchoolRepository schoolRepository;
+
 
 
     @Override
@@ -60,33 +59,7 @@ public class ProfileServiceImpl implements ProfileService {
 
         newProfile.setAppUser(appUser);
 
-        // Handle dealing with WorkHistory List to create Profile
-        // Persist WorkHistory and Qualifications
-        List<WorkHistory> workHistories = new ArrayList<>();
-
-        for (WorkHistoryDTO workHistoryDTO : profileDTO.getWorkHistory()) {
-            // Fetch School Entity based on ID
-            Optional<School> schoolOptional = schoolRepository.findById(workHistoryDTO.getSchoolId());
-            if (schoolOptional.isPresent()) {
-                School school = schoolOptional.get();
-
-                // Entity class
-                WorkHistory newWorkHistory = new WorkHistory();
-
-                // Getters and Setters from WorkHistoryDTO that deal with the entity class
-                newWorkHistory.setSchoolName(workHistoryDTO.getSchoolName());
-                newWorkHistory.setRole(workHistoryDTO.getRole());
-                newWorkHistory.setDuration(workHistoryDTO.getDuration());
-                newWorkHistory.setSchool(school);
-
-                newWorkHistory.setProfile(newProfile);
-                workHistories.add(newWorkHistory);
-            }
-
-
-        }
-
-        newProfile.setWorkHistories(workHistories); // Saving List of WorkHistory to the ProfileEntity
+        String createWorkHistory = workHistoryService.addWorkHistory(profileDTO.getWorkHistory(), newProfile);
 
         // Using Qualification Service and calling it in here for better readability.
         // Passing in the DTO List and the Profile entity
@@ -173,23 +146,7 @@ public class ProfileServiceImpl implements ProfileService {
 
         Profile currentExistingProfile = profileOptional.get();
 
-        // Update WorkHistory List
-        for (WorkHistoryDTO workHistoryDTO : profileDTO.getWorkHistory()) {
-            Optional<WorkHistory> workHistoryOpt = workHistoryRepo.findById(workHistoryDTO.getId());
-
-            if (workHistoryOpt.isPresent()) {
-                WorkHistory existingWorkHistory = workHistoryOpt.get();
-
-                existingWorkHistory.setSchoolName(workHistoryDTO.getSchoolName());
-                existingWorkHistory.setRole(workHistoryDTO.getRole());
-                existingWorkHistory.setDuration(workHistoryDTO.getDuration());
-                existingWorkHistory.setProfile(currentExistingProfile); // FIXED variable name
-
-                workHistoryRepo.save(existingWorkHistory); // Saves changes to the DB
-            } else {
-                System.out.println("Work history with ID " + workHistoryDTO.getId() + " not found.");
-            }
-        }
+        String updatedWorkHistoryResponse = workHistoryService.updateWorkHistory(profileDTO.getWorkHistory(), currentExistingProfile);
 
         return "Work History updated successfully";
     }
