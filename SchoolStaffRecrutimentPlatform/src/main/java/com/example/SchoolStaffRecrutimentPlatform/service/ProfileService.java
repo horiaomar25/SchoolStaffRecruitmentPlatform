@@ -10,6 +10,7 @@ public interface ProfileService {
 
     String updateQualification(ProfileDTO profileDTO);
     String updateWorkHistory(ProfileDTO profileDTO);
+   ProfileDTO getProfile(int id);
 
 
 

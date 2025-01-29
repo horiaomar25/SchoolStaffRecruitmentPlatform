@@ -1,16 +1,13 @@
 package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
-import com.example.SchoolStaffRecrutimentPlatform.dto.QualificationsDTO;
-import com.example.SchoolStaffRecrutimentPlatform.dto.WorkHistoryDTO;
+
 import com.example.SchoolStaffRecrutimentPlatform.entities.*;
 import com.example.SchoolStaffRecrutimentPlatform.repository.*;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -35,7 +32,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 
 
-
+    @Transactional
     @Override
     public String createProfile(ProfileDTO profileDTO) {
         // User id to associated with Profile
@@ -70,6 +67,7 @@ public class ProfileServiceImpl implements ProfileService {
         return "Profile created successfully";
     }
 
+    @Transactional
     @Override
     public String deleteProfile(int id) {
         // using repository methods return a Optional<Profile>
@@ -88,6 +86,8 @@ public class ProfileServiceImpl implements ProfileService {
         }
     }
 
+
+    @Transactional
     @Override
     public String updateProfile(ProfileDTO profileDTO) {
         // Get user id from Profile DTO
@@ -118,6 +118,24 @@ public class ProfileServiceImpl implements ProfileService {
         return "Profile updated successfully";
 
     }
+
+    public ProfileDTO getProfile(int id) {
+
+        Optional<Profile> findProfile = profileRepo.findById(id);
+
+
+
+        Profile profile = findProfile.get();
+
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setFirstName(profile.getFirstName());
+        profileDTO.setLastName(profile.getLastName());
+        profileDTO.setPosition(profile.getPosition());
+        profileDTO.setProfileDescription(profile.getProfileDescription());
+
+        return profileDTO;
+    }
+
 
     @Override
     public String updateQualification(ProfileDTO profileDTO) {

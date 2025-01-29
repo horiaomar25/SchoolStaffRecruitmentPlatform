@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/profile")
 public class ProfileController {
@@ -19,6 +21,15 @@ public class ProfileController {
     public ResponseEntity<String> createProfile(@RequestBody ProfileDTO profileDTO) {
         String response = profileService.createProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    // Get
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfileDTO> getProfile(@PathVariable int id) {
+        ProfileDTO profileDto = profileService.getProfile(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(profileDto);
+
     }
 
     @DeleteMapping("/delete/{id}")
