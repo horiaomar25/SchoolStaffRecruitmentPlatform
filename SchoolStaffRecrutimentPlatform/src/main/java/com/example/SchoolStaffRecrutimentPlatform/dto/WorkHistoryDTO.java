@@ -8,11 +8,11 @@ import lombok.Setter;
 public class WorkHistoryDTO {
 
     private int id;
-    private String schoolName;
     private String role;
     private String duration;
     private int schoolId;
     private int profileId;
+    private SchoolDTO school;
 
     public WorkHistoryDTO() {}
 

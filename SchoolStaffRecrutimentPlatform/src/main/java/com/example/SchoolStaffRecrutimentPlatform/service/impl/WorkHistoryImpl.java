@@ -29,7 +29,7 @@ public class WorkHistoryImpl {
 
             WorkHistory workHistory = new WorkHistory();
 
-            workHistory.setSchoolName(dto.getSchoolName());
+
             workHistory.setRole(dto.getRole());
             workHistory.setDuration(dto.getDuration());
             workHistory.setProfile(profile);

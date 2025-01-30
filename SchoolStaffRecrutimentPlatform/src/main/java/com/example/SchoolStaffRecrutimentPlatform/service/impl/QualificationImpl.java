@@ -3,7 +3,7 @@ package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 import com.example.SchoolStaffRecrutimentPlatform.dto.QualificationsDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Profile;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Qualifications;
-import com.example.SchoolStaffRecrutimentPlatform.entities.WorkHistory;
+
 import com.example.SchoolStaffRecrutimentPlatform.repository.QualificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ public class QualificationImpl {
     // Repository gives access to data
     @Autowired
     QualificationRepository qualificationRepo;
+
 
     // DTO carries the incoming request from the client
     // Purpose: Mapping DTO to entity

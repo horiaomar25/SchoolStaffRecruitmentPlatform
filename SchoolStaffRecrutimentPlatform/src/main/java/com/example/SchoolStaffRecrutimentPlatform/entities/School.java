@@ -1,7 +1,11 @@
 package com.example.SchoolStaffRecrutimentPlatform.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "School")
 public class School {
