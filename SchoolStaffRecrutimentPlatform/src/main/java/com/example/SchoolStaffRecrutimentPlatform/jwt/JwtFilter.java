@@ -15,7 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collection;
 
-// Designed to intercept http requests and set up Security context
+// Designed to intercept http requests and set up Security context. Allows your application to perform stateless authentication and authorization.
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 

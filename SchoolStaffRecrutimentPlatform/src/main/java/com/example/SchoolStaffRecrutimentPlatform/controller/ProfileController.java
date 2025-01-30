@@ -27,9 +27,14 @@ public class ProfileController {
     // Get
     @GetMapping("/{id}")
     public ResponseEntity<ProfileDTO> getProfile(@PathVariable int id) {
-        ProfileDTO profileDto = profileService.getProfile(id);
+        try{
+            ProfileDTO profileDTO = profileService.getProfile(id);
+            return ResponseEntity.status(HttpStatus.OK).body(profileDTO);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body(profileDto);
 
     }
 

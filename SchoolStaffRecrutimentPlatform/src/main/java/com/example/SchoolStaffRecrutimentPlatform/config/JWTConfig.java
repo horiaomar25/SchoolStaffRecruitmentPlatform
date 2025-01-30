@@ -35,7 +35,8 @@ public class JWTConfig {
                 .requestMatchers("/api/v1/profile/delete/{id}").authenticated() // cannot delete without authenication
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors();
         return http.build();
     }
 

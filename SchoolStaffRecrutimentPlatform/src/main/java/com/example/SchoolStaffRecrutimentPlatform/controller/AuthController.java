@@ -5,6 +5,7 @@ import com.example.SchoolStaffRecrutimentPlatform.dto.LoginRequest;
 import com.example.SchoolStaffRecrutimentPlatform.dto.RegisterRequest;
 import com.example.SchoolStaffRecrutimentPlatform.service.impl.AppUserImpl;
 import com.example.SchoolStaffRecrutimentPlatform.jwt.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,23 @@ public class AuthController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<?> validate(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader != null && !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        }
+
+        String token = authHeader.substring(7);
+
+        if(jwtUtil.validateToken(token)) {
+            return ResponseEntity.ok(new JwtResponse("Token is valid"));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
         }
     }
 

@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-
+// AbstractAuthenicationToken is base class for authenication tokens in Spring Security. Stores authenicated users
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private final UserDetails principal;
@@ -13,7 +13,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     public JwtAuthenticationToken(UserDetails principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
-        setAuthenticated(true);
+        setAuthenticated(true); // marks user as authenicated
     }
 
     @Override
@@ -23,6 +23,6 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return principal; // 返回认证后的用户
-    }
+        return principal;
+    } // returns the UserDetail object
 }
