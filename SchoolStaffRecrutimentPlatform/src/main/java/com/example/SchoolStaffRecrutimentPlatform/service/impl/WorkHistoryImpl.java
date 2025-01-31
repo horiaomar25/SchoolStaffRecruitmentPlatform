@@ -19,7 +19,7 @@ public class WorkHistoryImpl {
     @Autowired
     WorkHistoryRepository workHistoryRepo;
     @Autowired
-    private SchoolRepository schoolRepository;
+    private SchoolRepository schoolRepo;
 
     public String addWorkHistory(List<WorkHistoryDTO> workHistoryDTOList, Profile profile){
         // Represents List of WorkHistory Entity
@@ -34,7 +34,7 @@ public class WorkHistoryImpl {
             workHistory.setDuration(dto.getDuration());
             workHistory.setProfile(profile);
 
-            Optional<School> schoolOptional = schoolRepository.findById(dto.getSchoolId());
+            Optional<School> schoolOptional = schoolRepo.findById(dto.getSchoolId());
 
             // Check for the Optional
             if(schoolOptional.isPresent()){
@@ -64,7 +64,7 @@ public class WorkHistoryImpl {
             WorkHistory workHistory = existingWorkHistory.get();
 
 
-            Optional<School> schoolOptional = schoolRepository.findById(dto.getSchoolId());
+            Optional<School> schoolOptional = schoolRepo.findById(dto.getSchoolId());
             if (schoolOptional.isEmpty()) {
                 return "School not found with ID: " + dto.getSchoolId();
             }
