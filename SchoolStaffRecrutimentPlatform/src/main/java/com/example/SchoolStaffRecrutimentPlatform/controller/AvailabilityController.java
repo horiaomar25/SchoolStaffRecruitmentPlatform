@@ -14,13 +14,14 @@ public class AvailabilityController {
     @Autowired
     private AvailabilityRepository availabilityRepository;
 
-    @GetMapping
+    @GetMapping("/getdates")
     public List<Availability> getAllAvailability() {
         return availabilityRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Availability createAvailability(@RequestBody Availability availability) {
+        Availability savedAvailability = availabilityRepository.save(availability);
         return availabilityRepository.save(availability);
     }
 
