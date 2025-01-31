@@ -1,6 +1,8 @@
 package com.example.SchoolStaffRecrutimentPlatform.controller;
 
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
+import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
+import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -16,6 +19,8 @@ public class ProfileController {
 
     @Autowired
     ProfileService profileService;
+    @Autowired
+    private AppUserRepository appUserRepository;
 
     // Post
     @PostMapping("/create")
@@ -24,19 +29,23 @@ public class ProfileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    // Get
-    @GetMapping("/{id}")
-    public ResponseEntity<ProfileDTO> getProfile(@PathVariable int id) {
-        try{
-            ProfileDTO profileDTO = profileService.getProfile(id);
-            return ResponseEntity.status(HttpStatus.OK).body(profileDTO);
-        } catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
 
 
+    // Will fetch profile data according to authenticated user
+    @GetMapping("/personal")
+    public ResponseEntity<ProfileDTO> geProfile(Principal principal) {
+        // Principal represent authenicated user
+        String username = principal.getName();
+
+        AppUser appUser = appUserRepository.findByUsername(username); // find the user in the database
+
+        // get the profile through the user_id fk associated with the profile table
+        ProfileDTO profileDTO = profileService.getProfile(appUser.getId()); // get the user_id associated with appUser entity found by Username.
+
+        return ResponseEntity.ok(profileDTO);
+        
     }
+
 
 
 

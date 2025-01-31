@@ -8,7 +8,7 @@ import java.util.Collection;
 // AbstractAuthenicationToken is base class for authenication tokens in Spring Security. Stores authenicated users
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
-    private final UserDetails principal;
+    private final UserDetails principal; // Represent Authenticated User. Is a object that hold user information
 
     public JwtAuthenticationToken(UserDetails principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);

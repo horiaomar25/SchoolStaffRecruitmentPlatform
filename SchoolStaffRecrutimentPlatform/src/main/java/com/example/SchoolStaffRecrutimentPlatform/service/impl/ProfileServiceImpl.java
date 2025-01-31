@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -73,6 +74,70 @@ public class ProfileServiceImpl implements ProfileService {
         return "Profile created successfully";
     }
 
+
+    @Override
+    public ProfileDTO getProfile(int appUserId) {
+        // find Profile by the FK of the user associated with the Profile table
+        Optional<Profile> findProfile = profileRepo.findById(appUserId);
+
+        if (findProfile.isEmpty()) {
+           throw new NoSuchElementException("Profile not found");
+        }
+
+        Profile profile = findProfile.get();
+
+        // Mapping the Entity back to a DTO
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setFirstName(profile.getFirstName());
+        profileDTO.setLastName(profile.getLastName());
+        profileDTO.setPosition(profile.getPosition());
+        profileDTO.setProfileDescription(profile.getProfileDescription());
+
+        List<QualificationsDTO> qualificationsDTOList = new ArrayList<>();
+        for (Qualifications qualification : profile.getQualifications()) {
+            QualificationsDTO qualificationsDTO = new QualificationsDTO();
+            qualificationsDTO.setId(qualification.getId());
+            qualificationsDTO.setQualificationName(qualification.getQualificationName());
+            qualificationsDTO.setInstitutionName(qualification.getInstitutionName());
+            qualificationsDTO.setYearObtained(qualification.getYearObtained());
+            qualificationsDTOList.add(qualificationsDTO);
+        }
+        profileDTO.setQualifications(qualificationsDTOList);
+
+        // Mapping the Entity back to a DTO
+        List<WorkHistoryDTO> workHistoryDTOList = new ArrayList<>();
+       for(WorkHistory workHistory: profile.getWorkHistories()){
+           WorkHistoryDTO workHistoryDTO = new WorkHistoryDTO();
+           workHistoryDTO.setId(workHistory.getId());
+
+           workHistoryDTO.setRole(workHistory.getRole());
+           workHistoryDTO.setDuration(workHistory.getDuration());
+           workHistoryDTO.setSchoolId(workHistory.getSchool().getId()); // get school_id
+           workHistoryDTO.setProfileId(profile.getId());
+           workHistoryDTOList.add(workHistoryDTO);
+
+           // Add school details to WorkHistoryDTO
+           School school = workHistory.getSchool();
+           if (school != null) {
+               SchoolDTO schoolDTO = new SchoolDTO();
+               schoolDTO.setId(school.getId());
+               schoolDTO.setSchoolName(school.getSchoolName());
+               schoolDTO.setSchoolAddress(school.getSchoolAddress());
+               workHistoryDTO.setSchool(schoolDTO);
+           }
+       }
+
+       profileDTO.setWorkHistory(workHistoryDTOList);
+
+        return profileDTO;
+
+
+
+    }
+
+
+
+
     @Transactional
     @Override
     public String deleteProfile(int id) {
@@ -125,57 +190,8 @@ public class ProfileServiceImpl implements ProfileService {
 
     }
 
-    public ProfileDTO getProfile(int id) {
 
-        Optional<Profile> findProfile = profileRepo.findById(id);
 
-        Profile profile = findProfile.get();
-
-        // Mapping the Entity back to a DTO
-        ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setFirstName(profile.getFirstName());
-        profileDTO.setLastName(profile.getLastName());
-        profileDTO.setPosition(profile.getPosition());
-        profileDTO.setProfileDescription(profile.getProfileDescription());
-
-        List<QualificationsDTO> qualificationsDTOList = new ArrayList<>();
-        for (Qualifications qualification : profile.getQualifications()) {
-            QualificationsDTO qualificationsDTO = new QualificationsDTO();
-            qualificationsDTO.setId(qualification.getId());
-            qualificationsDTO.setQualificationName(qualification.getQualificationName());
-            qualificationsDTO.setInstitutionName(qualification.getInstitutionName());
-            qualificationsDTO.setYearObtained(qualification.getYearObtained());
-            qualificationsDTOList.add(qualificationsDTO);
-        }
-        profileDTO.setQualifications(qualificationsDTOList);
-
-        // Mapping the Entity back to a DTO
-        List<WorkHistoryDTO> workHistoryDTOList = new ArrayList<>();
-       for(WorkHistory workHistory: profile.getWorkHistories()){
-           WorkHistoryDTO workHistoryDTO = new WorkHistoryDTO();
-           workHistoryDTO.setId(workHistory.getId());
-
-           workHistoryDTO.setRole(workHistory.getRole());
-           workHistoryDTO.setDuration(workHistory.getDuration());
-           workHistoryDTO.setSchoolId(workHistory.getSchool().getId()); // get school_id
-           workHistoryDTO.setProfileId(profile.getId());
-           workHistoryDTOList.add(workHistoryDTO);
-
-           // Add school details to WorkHistoryDTO
-           School school = workHistory.getSchool();
-           if (school != null) {
-               SchoolDTO schoolDTO = new SchoolDTO();
-               schoolDTO.setId(school.getId());
-               schoolDTO.setSchoolName(school.getSchoolName());
-               schoolDTO.setSchoolAddress(school.getSchoolAddress());
-               workHistoryDTO.setSchool(schoolDTO);
-           }
-       }
-
-       profileDTO.setWorkHistory(workHistoryDTOList);
-
-        return profileDTO;
-    }
 
 
 
@@ -196,7 +212,6 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
 
-
     @Override
     public String updateWorkHistory(ProfileDTO profileDTO) {
         Optional<Profile> profileOptional = profileRepo.findById(profileDTO.getId());
@@ -211,6 +226,8 @@ public class ProfileServiceImpl implements ProfileService {
 
         return "Work History updated successfully";
     }
+
+
 
 }
 
