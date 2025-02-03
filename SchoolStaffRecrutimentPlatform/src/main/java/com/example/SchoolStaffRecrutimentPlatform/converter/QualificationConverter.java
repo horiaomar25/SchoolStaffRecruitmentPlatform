@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class QualificationConverter {
@@ -25,11 +26,9 @@ public class QualificationConverter {
 
 
     // Convert a DTO List of obj of in Entity List
-    public List<Qualifications> convertDTOListToEntityList(List<QualificationsDTO> dtoList, Profile profile){
-        // mapping a List to List
-        // using convertDTOToEntity method to convert each DTO to a entity and then addding it to a List
-        // which will be returned.
-
+    public List<Qualifications> convertDTOListToEntityList(List<QualificationsDTO> qualificationsDtoList, Profile profile){
+        // for each dto, convert it into an entity which will be added/collected into a List
+        return qualificationsDtoList.stream().map(dto-> convertDTOToEntity(dto, profile)).collect(Collectors.toList());
 
     }
 }
