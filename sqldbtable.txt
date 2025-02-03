@@ -70,13 +70,7 @@ users_id int,
 FOREIGN KEY (users_id) REFERENCES AppUser(id)
 )
 
-INSERT INTO Assignment (school_address, school_name)
-VALUES
-('Vicarage Lane,East Ham,London E6 6AD', 'Vicarage Primary School'),
-('Cordelia Street London E14 6DZ', 'Lansbury Lawrence Primary School'),
-('Hoskins Close, Newham, London E16 3HD', 'Scott Wilkie Primary School'),
-('Burdett Estate, Wallwood Street, Tower Hamlets, London E14 7AD', 'Stebon Primary School'),
-('Aston Street, Stepney, Tower Hamlets, London E14 7NG', 'Cayley Primary School')
+
 
 
 
