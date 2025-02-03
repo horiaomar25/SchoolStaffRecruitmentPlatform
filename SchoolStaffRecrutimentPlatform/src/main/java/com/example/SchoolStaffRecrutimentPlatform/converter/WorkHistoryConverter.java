@@ -41,5 +41,28 @@ public class WorkHistoryConverter {
         return workHistoryDtoList.stream().map(dto -> convertDTOToEntity(dto, profile)).collect(Collectors.toList());
     }
 
+    // Convert a single entity into a DTO
+    public WorkHistoryDTO convertEntityToDTO(WorkHistory workHistory) {
+
+        WorkHistoryDTO workHistoryDTO = new WorkHistoryDTO();
+
+        workHistoryDTO.setRole(workHistory.getRole());
+
+        workHistoryDTO.setDuration(workHistory.getDuration());
+
+        workHistoryDTO.setSchoolId(workHistory.getSchool().getId());
+
+        return workHistoryDTO;
+
+
+    }
+
+
+    public List<WorkHistoryDTO> convertEntityListToDTOList(List<WorkHistory> workHistoryList) {
+        return workHistoryList.stream().map(workHistory -> convertEntityToDTO(workHistory)).collect(Collectors.toList());
+
+
+    }
+
 
 }

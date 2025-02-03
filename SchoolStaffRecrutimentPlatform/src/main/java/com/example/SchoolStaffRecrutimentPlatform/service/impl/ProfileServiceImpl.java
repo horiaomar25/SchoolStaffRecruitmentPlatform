@@ -1,5 +1,8 @@
 package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 
+import com.example.SchoolStaffRecrutimentPlatform.converter.ProfileConverter;
+import com.example.SchoolStaffRecrutimentPlatform.converter.QualificationConverter;
+import com.example.SchoolStaffRecrutimentPlatform.converter.WorkHistoryConverter;
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
 
 import com.example.SchoolStaffRecrutimentPlatform.dto.QualificationsDTO;
@@ -37,6 +40,14 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private AppUserRepository appUserRepo;
 
+    @Autowired
+    private ProfileConverter profileConverter;
+    @Autowired
+    private WorkHistoryConverter workHistoryConverter;
+    @Autowired
+    private QualificationConverter qualificationConverter;
+
+
 // Adapter Design Pattern  - Service layer takes on DTO but repository takes on the Entity class,so need to adapt the DTO back to
 
     @Transactional
@@ -51,20 +62,14 @@ public class ProfileServiceImpl implements ProfileService {
 
         AppUser appUser = appUserOptional.get();
 
-        Profile newProfile = new Profile();
-
-        newProfile.setFirstName(profileDTO.getFirstName());
-        newProfile.setLastName(profileDTO.getLastName());
-        newProfile.setPosition(profileDTO.getPosition());
-        newProfile.setProfileDescription(profileDTO.getProfileDescription());
-
+        Profile newProfile = profileConverter.convertDTOToEntity(profileDTO);
         newProfile.setAppUser(appUser);
 
-        String createWorkHistory = workHistoryService.addWorkHistory(profileDTO.getWorkHistory(), newProfile);
+        List<WorkHistory> workHistories = workHistoryConverter.convertDTOListToEntity(profileDTO.getWorkHistory(), newProfile);
+        newProfile.setWorkHistories(workHistories);
 
-        // Using Qualification Service and calling it in here for better readability.
-        // Passing in the DTO List and the Profile entity
-        String createQualifications = qualificationService.addQualification(profileDTO.getQualifications(), newProfile);
+        List<Qualifications> qualifications = qualificationConverter.convertDTOListToEntityList(profileDTO.getQualifications(), newProfile);
+        newProfile.setQualifications(qualifications);
 
         profileRepo.save(newProfile);
 
