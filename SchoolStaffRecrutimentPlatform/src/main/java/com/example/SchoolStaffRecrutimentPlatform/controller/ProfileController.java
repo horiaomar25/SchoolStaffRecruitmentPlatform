@@ -40,7 +40,7 @@ public class ProfileController {
         AppUser appUser = appUserRepository.findByUsername(username); // find the user in the database
 
         // get the profile through the user_id fk associated with the profile table
-        ProfileDTO profileDTO = profileService.getProfile(appUser.getId()); // get the user_id associated with appUser entity found by Username.
+        ProfileDTO profileDTO = profileService.getProfileById(appUser.getId()); // get the user_id associated with appUser entity found by Username.
 
         return ResponseEntity.ok(profileDTO);
         
@@ -58,30 +58,30 @@ public class ProfileController {
 
 
     // Update Profile Entity including Qualification/WorkHistory
-    @PutMapping("/{id}/profileDetails")
-    public ResponseEntity<String> updateProfile(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
-        profileDTO.setId(id);
+    @PutMapping("/update")
+    public ResponseEntity<String> updateProfile(@RequestBody ProfileDTO profileDTO) {
+
         String response = profileService.updateProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }
 
-    @PutMapping("/{id}/workhistory")
-    public ResponseEntity<String> updateProfileWorkHistory(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
-        // set id
-        profileDTO.setId(id);
-        String response = profileService.updateWorkHistory(profileDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-
-    }
-
-    @PutMapping("/{id}/qualifications")
-    public ResponseEntity<String> updateProfileQualifications(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
-        profileDTO.setId(id);
-        String response = profileService.updateQualification(profileDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-
-    }
+//    @PutMapping("/{id}/workhistory")
+//    public ResponseEntity<String> updateProfileWorkHistory(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
+//        // set id
+//        profileDTO.setId(id);
+//        String response = profileService.updateWorkHistory(profileDTO);
+//        return ResponseEntity.status(HttpStatus.OK).body(response);
+//
+//    }
+//
+//    @PutMapping("/{id}/qualifications")
+//    public ResponseEntity<String> updateProfileQualifications(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
+//        profileDTO.setId(id);
+//        String response = profileService.updateQualification(profileDTO);
+//        return ResponseEntity.status(HttpStatus.OK).body(response);
+//
+//    }
 
 
 

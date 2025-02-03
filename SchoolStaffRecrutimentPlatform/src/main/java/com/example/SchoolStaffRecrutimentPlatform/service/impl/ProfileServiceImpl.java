@@ -37,7 +37,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private AppUserRepository appUserRepo;
 
-
+// Adapter Design Pattern  - Service layer takes on DTO but repository takes on the Entity class,so need to adapt the DTO back to
 
     @Transactional
     @Override
@@ -50,9 +50,6 @@ public class ProfileServiceImpl implements ProfileService {
         }
 
         AppUser appUser = appUserOptional.get();
-
-
-        // Adapter Design Pattern  - Service layer takes on DTO but repository takes on the Entity class,so need to adapt the DTO back to
 
         Profile newProfile = new Profile();
 
@@ -74,9 +71,9 @@ public class ProfileServiceImpl implements ProfileService {
         return "Profile created successfully";
     }
 
-
+    // will get the profile using user_id which is a foriegn key in the profile table
     @Override
-    public ProfileDTO getProfile(int appUserId) {
+    public ProfileDTO getProfileById(int appUserId) {
         // find Profile by the FK of the user associated with the Profile table
         Optional<Profile> findProfile = profileRepo.findById(appUserId);
 
@@ -94,6 +91,7 @@ public class ProfileServiceImpl implements ProfileService {
         profileDTO.setProfileDescription(profile.getProfileDescription());
 
         List<QualificationsDTO> qualificationsDTOList = new ArrayList<>();
+
         for (Qualifications qualification : profile.getQualifications()) {
             QualificationsDTO qualificationsDTO = new QualificationsDTO();
             qualificationsDTO.setId(qualification.getId());
@@ -118,6 +116,7 @@ public class ProfileServiceImpl implements ProfileService {
 
            // Add school details to WorkHistoryDTO
            School school = workHistory.getSchool();
+
            if (school != null) {
                SchoolDTO schoolDTO = new SchoolDTO();
                schoolDTO.setId(school.getId());
@@ -130,8 +129,6 @@ public class ProfileServiceImpl implements ProfileService {
        profileDTO.setWorkHistory(workHistoryDTOList);
 
         return profileDTO;
-
-
 
     }
 
@@ -186,14 +183,11 @@ public class ProfileServiceImpl implements ProfileService {
         existingProfile.setProfileDescription(profileDTO.getProfileDescription());
         existingProfile.setAppUser(appUser);
 
+        profileRepo.save(existingProfile);
+
         return "Profile updated successfully";
 
     }
-
-
-
-
-
 
 
     @Override
