@@ -32,4 +32,20 @@ public class QualificationConverter {
         return qualificationsDtoList.stream().map(dto-> convertDTOToEntity(dto, profile)).collect(Collectors.toList());
 
     }
+
+
+    // Convert a single Entity obj into a dto obj
+    public QualificationsDTO convertEntityToDTO(Qualifications qualifications) {
+        QualificationsDTO qualificationsDTO = new QualificationsDTO();
+        qualificationsDTO.setQualificationName(qualifications.getQualificationName());
+        qualificationsDTO.setInstitutionName(qualifications.getInstitutionName());
+        qualificationsDTO.setYearObtained(qualifications.getYearObtained());
+        return qualificationsDTO;
+    }
+
+public List<QualificationsDTO> convertListToDTO(List<Qualifications> qualificationsList) {
+        return qualificationsList.stream().map(qualifications -> convertEntityToDTO(qualifications)).collect(Collectors.toList());
+
+
+    }
 }
