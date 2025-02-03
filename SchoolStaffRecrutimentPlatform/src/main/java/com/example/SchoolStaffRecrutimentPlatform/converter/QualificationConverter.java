@@ -28,6 +28,7 @@ public class QualificationConverter {
     // Convert a DTO List of obj of in Entity List
     public List<Qualifications> convertDTOListToEntityList(List<QualificationsDTO> qualificationsDtoList, Profile profile){
         // for each dto, convert it into an entity which will be added/collected into a List
+        // Collectors creates an Array List by default
         return qualificationsDtoList.stream().map(dto-> convertDTOToEntity(dto, profile)).collect(Collectors.toList());
 
     }

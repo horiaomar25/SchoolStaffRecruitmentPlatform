@@ -21,9 +21,7 @@ public class ProfileConverter {
         profile.setProfileDescription(dto.getProfileDescription());
         profile.setPosition(dto.getPosition());
 
-        if(dto.getAppUserId() != null){
 
-        }
 
 
         return profile;

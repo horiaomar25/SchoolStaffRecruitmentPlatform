@@ -18,7 +18,7 @@ public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     // setting to NOT NULL , default varchar(255) without declaring length
     @Column(nullable = false)
