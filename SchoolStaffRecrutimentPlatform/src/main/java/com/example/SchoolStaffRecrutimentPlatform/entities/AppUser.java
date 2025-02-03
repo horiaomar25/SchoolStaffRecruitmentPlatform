@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 // Annotations from JPA
 @Getter
@@ -22,6 +24,9 @@ public class AppUser {
 
     @Column(nullable = false)
     private String password;
+
+
+
 
 
 

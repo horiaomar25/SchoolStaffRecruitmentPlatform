@@ -3,12 +3,12 @@ package com.example.SchoolStaffRecrutimentPlatform.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-// Captures user login
-@Getter
 @Setter
-public class LoginRequest {
+@Getter
+public class AppUserDTO {
+
+    private int id;
     private String username;
-    private String password;
 
 
 }

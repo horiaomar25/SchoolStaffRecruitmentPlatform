@@ -27,4 +27,5 @@ public class Availability {
     @JoinColumn(name= "users_id", nullable = false)
     private AppUser user;
 
+
 }
