@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 public class QualificationConverter {
-
+     // Converts single DTO obj to Entity obj
     public Qualifications convertDTOToEntity(QualificationsDTO qualificationsDTO, Profile profile) {
         Qualifications qualifications = new Qualifications();
 
@@ -24,7 +24,7 @@ public class QualificationConverter {
     }
 
 
-    // Convert a DTO List of in Entity List
+    // Convert a DTO List of obj of in Entity List
     public List<Qualifications> convertDTOListToEntityList(List<QualificationsDTO> dtoList, Profile profile){
         // mapping a List to List
         // using convertDTOToEntity method to convert each DTO to a entity and then addding it to a List
