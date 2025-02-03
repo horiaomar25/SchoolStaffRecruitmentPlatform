@@ -86,52 +86,19 @@ public class ProfileServiceImpl implements ProfileService {
            throw new NoSuchElementException("Profile not found");
         }
 
+         // entity
         Profile profile = findProfile.get();
 
-        // Mapping the Entity back to a DTO
-        ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setFirstName(profile.getFirstName());
-        profileDTO.setLastName(profile.getLastName());
-        profileDTO.setPosition(profile.getPosition());
-        profileDTO.setProfileDescription(profile.getProfileDescription());
+        ProfileDTO profileDTO = profileConverter.convertEntityToDTO(profile);
 
-        List<QualificationsDTO> qualificationsDTOList = new ArrayList<>();
-
-        for (Qualifications qualification : profile.getQualifications()) {
-            QualificationsDTO qualificationsDTO = new QualificationsDTO();
-            qualificationsDTO.setId(qualification.getId());
-            qualificationsDTO.setQualificationName(qualification.getQualificationName());
-            qualificationsDTO.setInstitutionName(qualification.getInstitutionName());
-            qualificationsDTO.setYearObtained(qualification.getYearObtained());
-            qualificationsDTOList.add(qualificationsDTO);
-        }
+        // If no qualifications are found, set an empty list
+        List<QualificationsDTO> qualificationsDTOList = qualificationConverter.convertEntityListToDTOList(profile.getQualifications() != null ? profile.getQualifications() : new ArrayList<>());
         profileDTO.setQualifications(qualificationsDTOList);
 
-        // Mapping the Entity back to a DTO
-        List<WorkHistoryDTO> workHistoryDTOList = new ArrayList<>();
-       for(WorkHistory workHistory: profile.getWorkHistories()){
-           WorkHistoryDTO workHistoryDTO = new WorkHistoryDTO();
-           workHistoryDTO.setId(workHistory.getId());
+// Similarly, handle work histories:
+        List<WorkHistoryDTO> workHistoryDTOList = workHistoryConverter.convertEntityListToDTOList(profile.getWorkHistories() != null ? profile.getWorkHistories() : new ArrayList<>());
+        profileDTO.setWorkHistory(workHistoryDTOList);
 
-           workHistoryDTO.setRole(workHistory.getRole());
-           workHistoryDTO.setDuration(workHistory.getDuration());
-           workHistoryDTO.setSchoolId(workHistory.getSchool().getId()); // get school_id
-           workHistoryDTO.setProfileId(profile.getId());
-           workHistoryDTOList.add(workHistoryDTO);
-
-           // Add school details to WorkHistoryDTO
-           School school = workHistory.getSchool();
-
-           if (school != null) {
-               SchoolDTO schoolDTO = new SchoolDTO();
-               schoolDTO.setId(school.getId());
-               schoolDTO.setSchoolName(school.getSchoolName());
-               schoolDTO.setSchoolAddress(school.getSchoolAddress());
-               workHistoryDTO.setSchool(schoolDTO);
-           }
-       }
-
-       profileDTO.setWorkHistory(workHistoryDTOList);
 
         return profileDTO;
 

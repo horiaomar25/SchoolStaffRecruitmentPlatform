@@ -1,5 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.converter;
 
+import com.example.SchoolStaffRecrutimentPlatform.dto.SchoolDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.WorkHistoryDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Profile;
 import com.example.SchoolStaffRecrutimentPlatform.entities.School;
@@ -52,6 +53,15 @@ public class WorkHistoryConverter {
 
         workHistoryDTO.setSchoolId(workHistory.getSchool().getId());
 
+        // If school is not null, set the schoolName in SchoolDTO
+        if (workHistory.getSchool() != null) {
+            SchoolDTO schoolDTO = new SchoolDTO();
+            workHistoryDTO.setSchool(schoolDTO);
+            schoolDTO.setSchoolName(workHistory.getSchool().getSchoolName());
+
+
+        }
+
         return workHistoryDTO;
 
 
@@ -59,7 +69,7 @@ public class WorkHistoryConverter {
 
 
     public List<WorkHistoryDTO> convertEntityListToDTOList(List<WorkHistory> workHistoryList) {
-        return workHistoryList.stream().map(workHistory -> convertEntityToDTO(workHistory)).collect(Collectors.toList());
+        return workHistoryList.stream().map(this::convertEntityToDTO).collect(Collectors.toList());
 
 
     }

@@ -43,9 +43,7 @@ public class QualificationConverter {
         return qualificationsDTO;
     }
 
-public List<QualificationsDTO> convertListToDTO(List<Qualifications> qualificationsList) {
-        return qualificationsList.stream().map(qualifications -> convertEntityToDTO(qualifications)).collect(Collectors.toList());
-
-
+    public List<QualificationsDTO> convertEntityListToDTOList(List<Qualifications> qualificationsList) {
+        return qualificationsList.stream().map(this::convertEntityToDTO).collect(Collectors.toList());
     }
 }
