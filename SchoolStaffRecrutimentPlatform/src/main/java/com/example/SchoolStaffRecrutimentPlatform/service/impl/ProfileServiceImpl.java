@@ -149,11 +149,8 @@ public class ProfileServiceImpl implements ProfileService {
 
         // update fields in Profile Entity
         Profile existingProfile = updateProfile.get();
-        existingProfile.setFirstName(profileDTO.getFirstName());
-        existingProfile.setLastName(profileDTO.getLastName());
-        existingProfile.setPosition(profileDTO.getPosition());
-        existingProfile.setProfileDescription(profileDTO.getProfileDescription());
-        existingProfile.setAppUser(appUser);
+         existingProfile = profileConverter.convertDTOToEntity(profileDTO);
+
 
         profileRepo.save(existingProfile);
 
@@ -182,7 +179,7 @@ public class ProfileServiceImpl implements ProfileService {
     public String updateWorkHistory(ProfileDTO profileDTO) {
         Optional<Profile> profileOptional = profileRepo.findById(profileDTO.getId());
 
-        if (profileOptional.isEmpty()) {  // FIXED variable name
+        if (profileOptional.isEmpty()) {
             return "Profile not found";
         }
 

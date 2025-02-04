@@ -34,6 +34,17 @@ VALUES
 ('Burdett Estate, Wallwood Street, Tower Hamlets, London E14 7AD', 'Stebon Primary School'),
 ('Aston Street, Stepney, Tower Hamlets, London E14 7NG', 'Cayley Primary School')
 
+INSERT INTO School (school_address, school_name)
+VALUES
+('Uxbridge Road Shepherd Bush London W12 8LH', 'St. Stephen CE Primary School'),
+('Bigland Street, Wapping, Tower Hamlets, London E1 2ND', 'Bigland Green Primary School'),
+('Camden Street, Camden, London NW1 0LL','Richard Cobden Primary School')
+INSERT INTO School (school_address, school_name)
+VALUES
+('Tonbridge Street, Camden, London WC1H 9EG', 'Argyle Primary School'),
+('Wilmot Street, Tower Hamlets, London E2 0BP','Hague Primary School')
+
+
 
 Need to add Qualifications and WorkHistory to Profile so they are all together when fetched from the database
 CREATE TABLE Qualifications (

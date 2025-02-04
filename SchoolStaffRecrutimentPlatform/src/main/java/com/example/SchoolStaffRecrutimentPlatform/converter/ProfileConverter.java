@@ -1,6 +1,7 @@
 package com.example.SchoolStaffRecrutimentPlatform.converter;
 
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
+import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Profile;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class ProfileConverter {
         profile.setLastName(dto.getLastName());
         profile.setProfileDescription(dto.getProfileDescription());
         profile.setPosition(dto.getPosition());
+        AppUser appUser = new AppUser();
+        profile.setAppUser(appUser);
+
+
 
 
 
@@ -35,6 +40,17 @@ public class ProfileConverter {
         profileDTO.setProfileDescription(profile.getProfileDescription());
         profileDTO.setPosition(profile.getPosition());
         return profileDTO;
+
+    }
+
+
+    // Updating Profile
+    public Profile convertDTOToEntityForUpdate(ProfileDTO dto, Profile existingProfile){
+        existingProfile.setFirstName(dto.getFirstName());
+        existingProfile.setLastName(dto.getLastName());
+        existingProfile.setProfileDescription(dto.getProfileDescription());
+        existingProfile.setPosition(dto.getPosition());
+        return existingProfile;
 
     }
 }

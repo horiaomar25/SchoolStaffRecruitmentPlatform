@@ -7,7 +7,6 @@ import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -29,8 +28,6 @@ public class ProfileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
-
     // Will fetch profile data according to authenticated user
     @GetMapping("/personal")
     public ResponseEntity<ProfileDTO> geProfile(Principal principal) {
@@ -46,17 +43,6 @@ public class ProfileController {
         
     }
 
-
-
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteProfile(@PathVariable int id) {
-        String response = profileService.deleteProfile(id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-
-    }
-
-
     // Update Profile Entity including Qualification/WorkHistory
     @PutMapping("/update")
     public ResponseEntity<String> updateProfile( @RequestBody ProfileDTO profileDTO) {
@@ -66,23 +52,13 @@ public class ProfileController {
 
     }
 
-//    @PutMapping("/{id}/workhistory")
-//    public ResponseEntity<String> updateProfileWorkHistory(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
-//        // set id
-//        profileDTO.setId(id);
-//        String response = profileService.updateWorkHistory(profileDTO);
-//        return ResponseEntity.status(HttpStatus.OK).body(response);
-//
-//    }
-//
-//    @PutMapping("/{id}/qualifications")
-//    public ResponseEntity<String> updateProfileQualifications(@PathVariable int id, @RequestBody ProfileDTO profileDTO) {
-//        profileDTO.setId(id);
-//        String response = profileService.updateQualification(profileDTO);
-//        return ResponseEntity.status(HttpStatus.OK).body(response);
-//
-//    }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteProfile(@PathVariable int id) {
+        String response = profileService.deleteProfile(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
 
 
 
