@@ -44,10 +44,10 @@ public class ProfileController {
     }
 
     // Update Profile Entity including Qualification/WorkHistory
-    @PutMapping("/update")
-    public ResponseEntity<String> updateProfile( @RequestBody ProfileDTO profileDTO) {
+    @PatchMapping("/update")
+    public ResponseEntity<ProfileDTO> updateProfile( @RequestBody ProfileDTO profileDTO) {
 
-        String response = profileService.updateProfile(profileDTO);
+        ProfileDTO response = profileService.updateProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }

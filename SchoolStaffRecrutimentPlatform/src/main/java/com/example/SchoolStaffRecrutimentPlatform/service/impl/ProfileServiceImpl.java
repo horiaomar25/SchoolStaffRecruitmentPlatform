@@ -69,7 +69,6 @@ public class ProfileServiceImpl implements ProfileService {
             throw new NoSuchElementException("Profile not found");
         }
 
-
         Profile profile = findProfile.get();
 
         ProfileDTO profileDTO = profileConverter.convertEntityToDTO(profile);
@@ -100,35 +99,28 @@ public class ProfileServiceImpl implements ProfileService {
         }
     }
 
-
+   // Gets the existing profile id and its data. Using the converter to update fields and send back to the client
     @Transactional
     @Override
-    public String updateProfile(ProfileDTO profileDTO) {
-        // Get user id from Profile DTO
-        Optional<AppUser> appUserOptional = appUserRepo.findById(profileDTO.getAppUserId());
-
-        if (appUserOptional.isEmpty()) {
-            return "User not found";
-        }
-
-        AppUser appUser = appUserOptional.get();
+    public ProfileDTO updateProfile(ProfileDTO profileDTO) {
 
         // Get Profile object for update
         Optional<Profile> updateProfile = profileRepo.findById(profileDTO.getId());
 
         if (updateProfile.isEmpty()) {
-            return "Profile not found";
+            throw new NoSuchElementException("Profile not found");
         }
 
 
         // update fields in Profile Entity
         Profile existingProfile = updateProfile.get();
-        existingProfile = profileConverter.convertDTOToEntity(profileDTO);
 
 
-        profileRepo.save(existingProfile);
+        Profile updatedProfile = profileConverter.convertDTOToEntityForUpdate(profileDTO, existingProfile);
 
-        return "Profile updated successfully";
+        Profile savedProfile = profileRepo.save(updatedProfile);
+
+        return profileConverter.convertEntityToDTO(savedProfile);
 
     }
 
