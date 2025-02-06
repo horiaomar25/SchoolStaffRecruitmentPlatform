@@ -6,6 +6,7 @@ import com.example.SchoolStaffRecrutimentPlatform.dto.SchoolDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.WorkHistoryDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.*;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
+import com.example.SchoolStaffRecrutimentPlatform.repository.SchoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,10 @@ public class ProfileConverter {
     @Autowired
     AppUserRepository appUserRepository;
 
+    @Autowired
+    SchoolRepository schoolRepository;
+
+    // Used for Post request
     public Profile convertDTOToEntity(ProfileDTO profileDTO){
 
         Profile profile = new Profile();
@@ -36,8 +41,7 @@ public class ProfileConverter {
                     workHistoryEntity.setDuration(workHistory.getDuration());
                     workHistoryEntity.setProfile(profile);
 
-                    School school = new School();
-                    school.setId(workHistory.getSchoolId());
+                    School school = schoolRepository.findById(workHistory.getSchoolId()).get();
                     workHistoryEntity.setSchool(school);
 
                     return workHistoryEntity;
@@ -53,6 +57,7 @@ public class ProfileConverter {
                     qualificationsEntity.setQualificationName(qualifications.getQualificationName());
                     qualificationsEntity.setInstitutionName(qualifications.getInstitutionName());
                     qualificationsEntity.setYearObtained(qualifications.getYearObtained());
+                    qualificationsEntity.setProfile(profile);
                     return qualificationsEntity;
                 })
                 .collect(Collectors.toList());
@@ -90,6 +95,7 @@ public class ProfileConverter {
             SchoolDTO schoolDTO = new SchoolDTO();
             schoolDTO.setId(workHistory.getSchool().getId());
             schoolDTO.setSchoolName(workHistory.getSchool().getSchoolName());
+            schoolDTO.setSchoolAddress(workHistory.getSchool().getSchoolAddress());
 
             workHistoryDTO.setSchool(schoolDTO);
 

@@ -23,8 +23,8 @@ public class ProfileController {
 
     // Post
     @PostMapping("/create")
-    public ResponseEntity<String> createProfile(@RequestBody ProfileDTO profileDTO) {
-        String response = profileService.createProfile(profileDTO);
+    public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO) {
+        ProfileDTO response = profileService.createProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
