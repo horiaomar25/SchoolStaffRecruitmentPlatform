@@ -11,14 +11,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class QualificationConverter {
-     // Converts single DTO obj to Entity obj
+    // Converts single DTO obj to Entity obj
     public Qualifications convertDTOToEntity(QualificationsDTO qualificationsDTO, Profile profile) {
         Qualifications qualifications = new Qualifications();
-
-            qualifications.setQualificationName(qualificationsDTO.getQualificationName());
-            qualifications.setInstitutionName(qualificationsDTO.getInstitutionName());
-            qualifications.setYearObtained(qualificationsDTO.getYearObtained());
-            qualifications.setProfile(profile);
+        qualifications.setQualificationName(qualificationsDTO.getQualificationName());
+        qualifications.setInstitutionName(qualificationsDTO.getInstitutionName());
+        qualifications.setYearObtained(qualificationsDTO.getYearObtained());
+        qualifications.setProfile(profile);
 
 
         return qualifications;

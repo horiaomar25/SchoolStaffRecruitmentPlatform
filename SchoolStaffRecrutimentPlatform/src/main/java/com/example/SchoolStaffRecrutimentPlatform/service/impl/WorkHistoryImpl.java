@@ -52,11 +52,12 @@ public class WorkHistoryImpl {
         return "Work History Added/Created Successfully";
     }
 
+
     public String updateWorkHistory(List<WorkHistoryDTO> workHistoryDTOList, Profile profile){
 
 
         for(WorkHistoryDTO dto: workHistoryDTOList ){
-           // fetch existing id of WorkHistory entry
+            // fetch existing id of WorkHistory entry
             Optional<WorkHistory> existingWorkHistory = workHistoryRepo.findById(dto.getId());
             if(existingWorkHistory.isEmpty()){
                 return "Work History Not Found";
@@ -84,6 +85,8 @@ public class WorkHistoryImpl {
         return "Work History Updated Successfully";
 
     }
+
+
 
 
 }

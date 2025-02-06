@@ -27,15 +27,15 @@ import java.util.Optional;
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-   // All dependies injected into the Service
+    // All dependies injected into the Service
     @Autowired
     private ProfileRepository profileRepo;
 
-   @Autowired
-   QualificationImpl qualificationService;
+    @Autowired
+    QualificationImpl qualificationService;
 
-   @Autowired
-   WorkHistoryImpl workHistoryService;
+    @Autowired
+    WorkHistoryImpl workHistoryService;
 
     @Autowired
     private AppUserRepository appUserRepo;
@@ -83,10 +83,10 @@ public class ProfileServiceImpl implements ProfileService {
         Optional<Profile> findProfile = profileRepo.findById(appUserId);
 
         if (findProfile.isEmpty()) {
-           throw new NoSuchElementException("Profile not found");
+            throw new NoSuchElementException("Profile not found");
         }
 
-         // entity
+        // entity
         Profile profile = findProfile.get();
 
         ProfileDTO profileDTO = profileConverter.convertEntityToDTO(profile);
@@ -149,7 +149,7 @@ public class ProfileServiceImpl implements ProfileService {
 
         // update fields in Profile Entity
         Profile existingProfile = updateProfile.get();
-         existingProfile = profileConverter.convertDTOToEntity(profileDTO);
+        existingProfile = profileConverter.convertDTOToEntity(profileDTO);
 
 
         profileRepo.save(existingProfile);
@@ -175,6 +175,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
 
+
+
     @Override
     public String updateWorkHistory(ProfileDTO profileDTO) {
         Optional<Profile> profileOptional = profileRepo.findById(profileDTO.getId());
@@ -193,4 +195,3 @@ public class ProfileServiceImpl implements ProfileService {
 
 
 }
-
