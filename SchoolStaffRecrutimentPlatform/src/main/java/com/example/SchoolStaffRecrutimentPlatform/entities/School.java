@@ -16,8 +16,15 @@ public class School {
 
     @Column(nullable = false)
     private String schoolName;
+
     @Column(nullable = false)
     private String schoolAddress;
+
+    @Column(nullable = false)
+    private String schoolPicture;
+
+    @Column(nullable = false)
+    private String schoolWebsite;
 
 
 }

@@ -10,6 +10,7 @@ public class SchoolDTO {
     private int id;
     private String schoolName;
     private String schoolAddress;
+    private String schoolPicture;
     public SchoolDTO() {}
 
 }

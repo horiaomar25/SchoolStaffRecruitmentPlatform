@@ -69,7 +69,7 @@ public class ProfileConverter {
 
     }
 
-     // used for the GET request
+    // used for the GET request
     // Service layer uses this prepare data for the client
     public ProfileDTO convertEntityToDTO(Profile profile){
 
@@ -83,25 +83,27 @@ public class ProfileConverter {
         profileDTO.setAppUserId(profile.getAppUser().getId());
 
         List<WorkHistoryDTO> workHistoryDTOList = profile.getWorkHistories().stream()
-        .map(workHistory -> {
-            WorkHistoryDTO workHistoryDTO = new WorkHistoryDTO();
-            workHistoryDTO.setId(workHistory.getId());
-            workHistoryDTO.setRole(workHistory.getRole());
-            workHistoryDTO.setDuration(workHistory.getDuration());
-            workHistoryDTO.setSchoolId(workHistory.getSchool().getId());
-            workHistoryDTO.setProfileId(profile.getId());
+                .map(workHistory -> {
+                    WorkHistoryDTO workHistoryDTO = new WorkHistoryDTO();
+                    workHistoryDTO.setId(workHistory.getId());
+                    workHistoryDTO.setRole(workHistory.getRole());
+                    workHistoryDTO.setDuration(workHistory.getDuration());
+                    workHistoryDTO.setSchoolId(workHistory.getSchool().getId());
+                    workHistoryDTO.setProfileId(profile.getId());
 
-            // Mapping the School to a Work History entry
-            SchoolDTO schoolDTO = new SchoolDTO();
-            schoolDTO.setId(workHistory.getSchool().getId());
-            schoolDTO.setSchoolName(workHistory.getSchool().getSchoolName());
-            schoolDTO.setSchoolAddress(workHistory.getSchool().getSchoolAddress());
+                    // Mapping the School to a Work History entry
+                    SchoolDTO schoolDTO = new SchoolDTO();
+                    schoolDTO.setId(workHistory.getSchool().getId());
+                    schoolDTO.setSchoolName(workHistory.getSchool().getSchoolName());
+                    schoolDTO.setSchoolAddress(workHistory.getSchool().getSchoolAddress());
+                    schoolDTO.setSchoolPicture(workHistory.getSchool().getSchoolPicture());
 
-            workHistoryDTO.setSchool(schoolDTO);
 
-            return workHistoryDTO;
+                    workHistoryDTO.setSchool(schoolDTO);
 
-        })
+                    return workHistoryDTO;
+
+                })
                 .collect(Collectors.toList());
 
         List<QualificationsDTO> qualificationsDTOList = profile.getQualifications().stream()

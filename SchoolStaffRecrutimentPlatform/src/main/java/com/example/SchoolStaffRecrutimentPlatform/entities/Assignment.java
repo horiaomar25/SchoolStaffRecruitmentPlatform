@@ -16,7 +16,7 @@ public class Assignment {
     private int id;
 
     @Column
-    private String position;
+    private String assignmentPosition;
 
     @Column(columnDefinition = "TEXT")
     private String assignmentDescription;
