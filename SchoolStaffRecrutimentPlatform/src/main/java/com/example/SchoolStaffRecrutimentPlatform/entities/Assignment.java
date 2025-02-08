@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Entity
@@ -22,11 +24,11 @@ public class Assignment {
     private String assignmentDescription;
 
 
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private LocalDate startDate;
+
+
+    private LocalDate endDate;
 
     @ManyToOne
     @JoinColumn(name = "school_id", nullable = false)

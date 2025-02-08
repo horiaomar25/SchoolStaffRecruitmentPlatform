@@ -3,17 +3,18 @@ package com.example.SchoolStaffRecrutimentPlatform.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 public class TimeSheetDTO {
     private int id;
-    private Date startTime;
-    private Date endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
     private SchoolDTO school;
     private AppUserDTO user;
     private AssignmentDTO assignment;
+    private int assignmentId;
     public TimeSheetDTO() {}
 
 }

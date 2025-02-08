@@ -97,6 +97,9 @@ VALUES
   This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
   '2025-02-10', '2025-02-14', 5, NULL);
 
+
+
+
   INSERT INTO School (school_name,school_address,school_picture,school_website)
   VALUES
   ('Vicarage Primary School','Vicarage Lane,East Ham,London E6 6AD','https://vicarage.newham.sch.uk/wp-content/uploads/2024/03/sch-logo.png', 'https://vicarage.newham.sch.uk/'),
