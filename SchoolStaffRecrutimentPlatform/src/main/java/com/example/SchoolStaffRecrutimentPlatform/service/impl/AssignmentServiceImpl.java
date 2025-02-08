@@ -29,7 +29,31 @@ public class AssignmentServiceImpl {
     @Autowired
     AppUserRepository appUserRepository;
 
+    // Find the assignment the user has selected and assign the userId to that assignment so it can be added to the dashboard
+   public Assignment acceptAssignment (int appUserId, int assignmentId) {
+       // Find the assignment
+       Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
 
+       // Find User
+       Optional<AppUser> appUserOpt = appUserRepository.findById(appUserId);
+
+       if(assignmentOpt.isEmpty()){
+           throw new NoSuchElementException("Assignment not found");
+       }
+
+       if(appUserOpt.isEmpty()){
+           throw new NoSuchElementException("User not found");
+       }
+       // Unwraps objects so it can be used
+       AppUser appUser = appUserOpt.get();
+       Assignment assignment = assignmentOpt.get();
+
+       assignment.setUser(appUser);
+
+       return assignmentRepository.save(assignment);
+
+
+   }
 
    public TimeSheet createTimeSheet(int assignmentId) {
        // Find Assignment by Id
