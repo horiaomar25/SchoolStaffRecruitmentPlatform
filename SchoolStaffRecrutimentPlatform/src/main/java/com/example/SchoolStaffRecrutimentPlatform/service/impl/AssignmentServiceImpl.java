@@ -29,6 +29,8 @@ public class AssignmentServiceImpl {
     @Autowired
     AppUserRepository appUserRepository;
 
+
+
    public TimeSheet createTimeSheet(int assignmentId) {
        // Find Assignment by Id
        Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
@@ -39,8 +41,15 @@ public class AssignmentServiceImpl {
        Assignment assignment = assignmentOpt.get();
 
        TimeSheet timeSheet = new TimeSheet();
-      timeSheet.setStartDate(assignment.getStartDate());
-      timeSheet.setEndDate(assignment.getEndDate());
+       timeSheet.setStartDate(assignment.getStartDate());
+       timeSheet.setEndDate(assignment.getEndDate());
+
+       timeSheet.setAssignment(assignment);
+       timeSheet.setUser(assignment.getUser());
+
+       timeSheet.createAllDates();
+
+       return timeSheetRepository.save(timeSheet);
 
    }
 

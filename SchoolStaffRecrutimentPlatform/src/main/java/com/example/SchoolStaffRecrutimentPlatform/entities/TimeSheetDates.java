@@ -23,5 +23,8 @@ public class TimeSheetDates {
     @JoinColumn(name = "timesheet_id", nullable = false) // foriegn key to TimeSheet
     private TimeSheet timeSheet;
 
-    public TimeSheetDates() {}
+    public TimeSheetDates(LocalDate date, TimeSheet timeSheet) {
+        this.date = date;
+        this.timeSheet = timeSheet;
+    }
 }
