@@ -8,7 +8,9 @@ import com.example.SchoolStaffRecrutimentPlatform.repository.AssignmentRepositor
 import com.example.SchoolStaffRecrutimentPlatform.repository.SchoolRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.TimeSheetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -70,12 +72,34 @@ public class AssignmentServiceImpl {
 
        timeSheet.setAssignment(assignment);
        timeSheet.setUser(assignment.getUser());
+       timeSheet.setSchool(assignment.getSchool());
 
        timeSheet.createAllDates();
 
        return timeSheetRepository.save(timeSheet);
 
    }
+    public Assignment getAcceptedAssignment(int appUserId) {
+        // Find the user by ID
+        Optional<AppUser> appUserOpt = appUserRepository.findById(appUserId);
+
+        if (appUserOpt.isEmpty()) {
+            throw new NoSuchElementException("User not found");
+        }
+
+        // Get the user (no need to re-assign appUserId)
+        AppUser appUser = appUserOpt.get();
+
+        // Find the assignment by user ID
+        Assignment assignment = assignmentRepository.findByUser(appUser);
+
+        if (assignment == null) {
+            throw new NoSuchElementException("No assignment found for this user");
+        }
+
+        return assignment;
+    }
+
 
 
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -26,8 +27,8 @@ public class TimeSheet {
     private LocalDate endDate;
 
     // Use the TimeSheetDates to create a list of dates from the assignment to allow user to tick of the days to be submitted
-    @OneToMany(mappedBy = "timeSheet", cascade = CascadeType.ALL)
-    ArrayList<TimeSheetDates> timeSheetDatesList = new ArrayList<>();
+    @OneToMany(mappedBy = "timeSheet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<TimeSheetDates> timeSheetDatesList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "school_id", nullable = false)
@@ -41,6 +42,10 @@ public class TimeSheet {
     @OneToOne
     @JoinColumn(name = "assignment_id", nullable = false, unique = true)
     private Assignment assignment;
+
+    public TimeSheet() {
+        this.timeSheetDatesList = new ArrayList<>();
+    }
 
 
 

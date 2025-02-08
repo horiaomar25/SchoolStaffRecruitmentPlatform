@@ -1,5 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,8 +21,11 @@ public class TimeSheetDates {
     private LocalDate date; // holding each date for the timesheet for user to tick off
 
     @ManyToOne
-    @JoinColumn(name = "timesheet_id", nullable = false) // foriegn key to TimeSheet
+    @JoinColumn(name = "timesheet_id", nullable = false)// foriegn key to TimeSheet
+    @JsonIgnore  // used to prevent infinite data from the list
     private TimeSheet timeSheet;
+
+    public TimeSheetDates() {}
 
     public TimeSheetDates(LocalDate date, TimeSheet timeSheet) {
         this.date = date;
