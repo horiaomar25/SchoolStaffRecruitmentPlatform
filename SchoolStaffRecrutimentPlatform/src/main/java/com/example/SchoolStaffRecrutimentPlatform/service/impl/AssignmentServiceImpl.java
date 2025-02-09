@@ -1,5 +1,7 @@
 package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 
+import com.example.SchoolStaffRecrutimentPlatform.converter.TimeSheetConverter;
+import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.example.SchoolStaffRecrutimentPlatform.entities.TimeSheet;
@@ -22,14 +24,15 @@ public class AssignmentServiceImpl {
     @Autowired
     AssignmentRepository assignmentRepository;
 
-    @Autowired
-    SchoolRepository schoolRepository;
 
     @Autowired
     TimeSheetRepository timeSheetRepository;
 
     @Autowired
     AppUserRepository appUserRepository;
+
+    @Autowired
+    TimeSheetConverter timeSheetConverter;
 
     // Find the assignment the user has selected and assign the userId to that assignment so it can be added to the dashboard
    public Assignment acceptAssignment (int appUserId, int assignmentId) {
@@ -57,7 +60,7 @@ public class AssignmentServiceImpl {
 
    }
 
-   public TimeSheet createTimeSheet(int assignmentId) {
+   public TimeSheetDTO createTimeSheet(int assignmentId) {
        // Find Assignment by Id
        Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
        if (assignmentOpt.isEmpty()) {
@@ -71,14 +74,18 @@ public class AssignmentServiceImpl {
        timeSheet.setEndDate(assignment.getEndDate());
 
        timeSheet.setAssignment(assignment);
-       timeSheet.setUser(assignment.getUser());
-       timeSheet.setSchool(assignment.getSchool());
+
+
 
        timeSheet.createAllDates();
 
-       return timeSheetRepository.save(timeSheet);
+       TimeSheet savedTimeSheet = timeSheetRepository.save(timeSheet);
+
+       return timeSheetConverter.convertTimeSheetToTimeSheetDTO(savedTimeSheet);
 
    }
+
+
     public Assignment getAcceptedAssignment(int appUserId) {
         // Find the user by ID
         Optional<AppUser> appUserOpt = appUserRepository.findById(appUserId);
@@ -87,7 +94,7 @@ public class AssignmentServiceImpl {
             throw new NoSuchElementException("User not found");
         }
 
-        // Get the user (no need to re-assign appUserId)
+
         AppUser appUser = appUserOpt.get();
 
         // Find the assignment by user ID

@@ -1,5 +1,7 @@
 package com.example.SchoolStaffRecrutimentPlatform.controller;
 
+import com.example.SchoolStaffRecrutimentPlatform.converter.TimeSheetConverter;
+import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.example.SchoolStaffRecrutimentPlatform.entities.TimeSheet;
@@ -31,6 +33,8 @@ public class AssignmentController {
     private AppUserRepository appUserRepository;
     @Autowired
     private TimeSheetRepository timeSheetRepository;
+    @Autowired
+    private TimeSheetConverter timeSheetConverter;
 
 
     // Get all unassigned
@@ -81,26 +85,26 @@ public class AssignmentController {
 
 
     @PostMapping("/{assignmentId}/timesheet")
-    public ResponseEntity<TimeSheet> createTimeSheet(@PathVariable int assignmentId) {
-        TimeSheet timesheet = assignmentService.createTimeSheet(assignmentId);
+    public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) {
+        TimeSheetDTO timeSheetDTO = assignmentService.createTimeSheet(assignmentId);
 
-        if (timesheet == null) {
-            return ResponseEntity.noContent().build();
-        }
 
-        return ResponseEntity.ok(timesheet);
+        return ResponseEntity.ok(timeSheetDTO);
 
     }
 
     @GetMapping("/{assignmentId}/gettimesheet")
-    public ResponseEntity<TimeSheet> getTimeSheetByAssignmentId(@PathVariable int assignmentId) {
+    public ResponseEntity<TimeSheetDTO> getTimeSheetByAssignmentId(@PathVariable int assignmentId) {
+
         TimeSheet timeSheet = timeSheetRepository.findByAssignmentId(assignmentId);
 
         if (timeSheet == null) {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(timeSheet);
+        TimeSheetDTO timeSheetDTO = timeSheetConverter.convertTimeSheetToTimeSheetDTO(timeSheet);
+
+        return ResponseEntity.ok(timeSheetDTO);
 
     }
 }

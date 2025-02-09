@@ -11,11 +11,12 @@ import java.time.LocalDate;
 public class AssignmentDTO {
     private int assignmentId;
     private String assignmentPosition;
-    private String assignmentDescription;
+
     private LocalDate startDate;
     private LocalDate endDate;
     private int schoolId;
-    private SchoolDTO school;
-    private Integer appUserId;
+    private String schoolName;
+
+
 
 }
