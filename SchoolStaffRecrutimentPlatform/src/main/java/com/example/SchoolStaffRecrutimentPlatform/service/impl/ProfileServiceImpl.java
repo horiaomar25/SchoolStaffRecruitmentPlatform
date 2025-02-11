@@ -3,6 +3,8 @@ package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 import com.example.SchoolStaffRecrutimentPlatform.converter.ProfileConverter;
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.*;
+import com.example.SchoolStaffRecrutimentPlatform.exceptions.ProfileNotFoundException;
+import com.example.SchoolStaffRecrutimentPlatform.exceptions.UserNotFoundException;
 import com.example.SchoolStaffRecrutimentPlatform.repository.*;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
 import jakarta.transaction.Transactional;
@@ -35,13 +37,13 @@ public class ProfileServiceImpl implements ProfileService {
    // Takes DTO  from the Controller layer and transforms that data through the converters
     @Transactional
     @Override
-    public ProfileDTO createProfile(ProfileDTO profileDTO) {
+    public ProfileDTO createProfile(ProfileDTO profileDTO) throws UserNotFoundException {
         // Finds the user
         Optional<AppUser> appUserOptional = appUserRepo.findById(profileDTO.getAppUserId());
 
 
         if(appUserOptional.isEmpty()){
-            throw new NoSuchElementException("User not found");
+            throw new UserNotFoundException("User not found");
         }
 
         // Converts the DTO to Entity including Qualifications and WorkHistory
@@ -66,14 +68,11 @@ public class ProfileServiceImpl implements ProfileService {
         Optional<Profile> findProfile = profileRepo.findById(appUserId);
 
         if (findProfile.isEmpty()) {
-            throw new NoSuchElementException("Profile not found");
+            throw new ProfileNotFoundException("Profile not found");
         }
 
         Profile profile = findProfile.get();
 
-//        ProfileDTO profileDTO = profileConverter.convertEntityToDTO(profile);
-
-//        return profileDTO;
 
         return profileConverter.convertEntityToDTO(profile);
 
@@ -110,7 +109,7 @@ public class ProfileServiceImpl implements ProfileService {
         Optional<Profile> updateProfile = profileRepo.findById(profileDTO.getId());
 
         if (updateProfile.isEmpty()) {
-            throw new NoSuchElementException("Profile not found");
+            throw new ProfileNotFoundException("Profile not found");
         }
 
 

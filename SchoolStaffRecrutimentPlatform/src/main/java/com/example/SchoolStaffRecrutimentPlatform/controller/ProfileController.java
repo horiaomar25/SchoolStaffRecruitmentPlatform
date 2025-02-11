@@ -2,6 +2,7 @@ package com.example.SchoolStaffRecrutimentPlatform.controller;
 
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
+import com.example.SchoolStaffRecrutimentPlatform.exceptions.UserNotFoundException;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,18 @@ public class ProfileController {
     @Autowired
     private AppUserRepository appUserRepository;
 
-    // Post
+    // Cannot create a profile without a user being found
     @PostMapping("/create")
-    public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO) {
-        ProfileDTO response = profileService.createProfile(profileDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO) throws UserNotFoundException {
+        try{
+            ProfileDTO response = profileService.createProfile(profileDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        } catch (UserNotFoundException exception ){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+
+        }
+
     }
 
     // Will fetch profile data according to authenticated user

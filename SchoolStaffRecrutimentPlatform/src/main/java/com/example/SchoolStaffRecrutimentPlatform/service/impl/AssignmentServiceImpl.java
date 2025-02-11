@@ -7,6 +7,9 @@ import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.example.SchoolStaffRecrutimentPlatform.entities.TimeSheet;
+
+import com.example.SchoolStaffRecrutimentPlatform.exceptions.AssignmentNotFoundException;
+import com.example.SchoolStaffRecrutimentPlatform.exceptions.UserNotFoundException;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AssignmentRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.TimeSheetRepository;
@@ -36,7 +39,7 @@ public class AssignmentServiceImpl {
     AssignmentConverter assignmentConverter;
 
     // Find the assignment the user has selected and assign the userId to that assignment so it can be added to the dashboard
-   public Assignment acceptAssignment (int appUserId, int assignmentId) {
+   public Assignment acceptAssignment (int appUserId, int assignmentId) throws UserNotFoundException {
        // Find the assignment
        Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
 
@@ -44,15 +47,16 @@ public class AssignmentServiceImpl {
        Optional<AppUser> appUserOpt = appUserRepository.findById(appUserId);
 
        if(assignmentOpt.isEmpty()){
-           throw new NoSuchElementException("Assignment not found");
+           throw new AssignmentNotFoundException("Assignment not found");
        }
 
        if(appUserOpt.isEmpty()){
-           throw new NoSuchElementException("User not found");
+           throw new UserNotFoundException("User not found");
        }
 
        // Unwraps objects so it can be used
        AppUser appUser = appUserOpt.get();
+
        Assignment assignment = assignmentOpt.get();
 
        assignment.setUser(appUser);
@@ -63,7 +67,7 @@ public class AssignmentServiceImpl {
    }
 
 
-   public TimeSheetDTO createTimeSheet(int assignmentId) {
+   public TimeSheetDTO createTimeSheet(int assignmentId) throws UserNotFoundException {
        // Find Assignment by Id
        Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
 
@@ -83,7 +87,7 @@ public class AssignmentServiceImpl {
        // Fetch the User associated with the Assignment
        AppUser user = assignment.getUser();  // Assuming getUser() returns the associated user
        if (user == null) {
-           throw new NoSuchElementException("User not found for the given assignment");
+           throw new UserNotFoundException("User not found for the given assignment");
        }
 
        timeSheet.createAllDates(); // uses the startDate and endDate to get all date in between for the timesheet
@@ -99,12 +103,12 @@ public class AssignmentServiceImpl {
    }
 
 
-    public AssignmentDTO getAcceptedAssignment(int appUserId) {
+    public AssignmentDTO getAcceptedAssignment(int appUserId) throws UserNotFoundException {
         // Find the user by ID
         Optional<AppUser> appUserOpt = appUserRepository.findById(appUserId);
 
         if (appUserOpt.isEmpty()) {
-            throw new NoSuchElementException("User not found");
+            throw new UserNotFoundException("User not found");
         }
 
 
@@ -114,7 +118,7 @@ public class AssignmentServiceImpl {
         Assignment assignment = assignmentRepository.findByUser(appUser);
 
         if (assignment == null) {
-            throw new NoSuchElementException("No assignment found for this user");
+            throw new AssignmentNotFoundException("No assignment found for this user");
         }
 
 
