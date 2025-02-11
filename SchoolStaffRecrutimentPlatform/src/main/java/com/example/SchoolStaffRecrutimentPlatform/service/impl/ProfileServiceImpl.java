@@ -2,7 +2,6 @@ package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 
 import com.example.SchoolStaffRecrutimentPlatform.converter.ProfileConverter;
 import com.example.SchoolStaffRecrutimentPlatform.dto.ProfileDTO;
-
 import com.example.SchoolStaffRecrutimentPlatform.entities.*;
 import com.example.SchoolStaffRecrutimentPlatform.repository.*;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
@@ -14,13 +13,14 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
-// Singleton Design Pattern with @Service annotation - creating a single instance of a class and reuse it - memory efficient
-// Factory Design Pattern - there can be multiple impl classes of one interface
+
+
+
 // Service class takes care of the creation of the object
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-    // All dependies injected into the Service
+    // All dependicies injected into the Service
     @Autowired
     private ProfileRepository profileRepo;
 
@@ -71,9 +71,11 @@ public class ProfileServiceImpl implements ProfileService {
 
         Profile profile = findProfile.get();
 
-        ProfileDTO profileDTO = profileConverter.convertEntityToDTO(profile);
+//        ProfileDTO profileDTO = profileConverter.convertEntityToDTO(profile);
 
-        return profileDTO;
+//        return profileDTO;
+
+        return profileConverter.convertEntityToDTO(profile);
 
     }
 
@@ -83,7 +85,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Transactional
     @Override
     public String deleteProfile(int id) {
-        // using repository methods return a Optional<Profile>
+        // using repository methods return an Optional<Profile>
         // Optional does not return null, it either contains a value or is empty
         Optional<Profile> findProfile = profileRepo.findById(id);
 

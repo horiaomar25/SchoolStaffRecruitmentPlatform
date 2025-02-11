@@ -7,7 +7,7 @@ import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.example.SchoolStaffRecrutimentPlatform.entities.TimeSheet;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AssignmentRepository;
-import com.example.SchoolStaffRecrutimentPlatform.repository.SchoolRepository;
+
 import com.example.SchoolStaffRecrutimentPlatform.repository.TimeSheetRepository;
 import com.example.SchoolStaffRecrutimentPlatform.service.impl.AssignmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/v1/assignments")
@@ -54,7 +53,7 @@ public class AssignmentController {
         AppUser appUser = appUserRepository.findByUsername(userName);
 
         if (appUser == null) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
        Assignment assignment = assignmentService.getAcceptedAssignment(appUser.getId());
@@ -67,29 +66,32 @@ public class AssignmentController {
 
     @PutMapping("/{assignmentId}/accept")
     public ResponseEntity<Assignment> acceptAssignment(@PathVariable int assignmentId, Principal principal) {
-        // Get username
+
+        if (principal == null || principal.getName() == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
         String username = principal.getName();
+
 
         AppUser appUser = appUserRepository.findByUsername(username);
 
-        Assignment assignment = assignmentService.acceptAssignment(assignmentId, appUser.getId());
-
-        if (assignment == null) {
-            return ResponseEntity.notFound().build();
+        if (appUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
+        Assignment assignment = assignmentService.acceptAssignment(appUser.getId(), assignmentId);
         return ResponseEntity.ok(assignment);
-
-
     }
+
 
 
     @PostMapping("/{assignmentId}/timesheet")
     public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) {
-        TimeSheetDTO timeSheetDTO = assignmentService.createTimeSheet(assignmentId);
 
+        TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
 
-        return ResponseEntity.ok(timeSheetDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
 

@@ -10,8 +10,9 @@ import java.util.List;
 public class TimeSheetDTO {
     private int id;
 
-  private List<TimeSheetDatesDTO> timeSheetDTOList;
+    private List<TimeSheetDatesDTO> timeSheetDates;
     private AssignmentDTO assignment;
+    private AppUserDTO appUser;
 
     public TimeSheetDTO() {}
 

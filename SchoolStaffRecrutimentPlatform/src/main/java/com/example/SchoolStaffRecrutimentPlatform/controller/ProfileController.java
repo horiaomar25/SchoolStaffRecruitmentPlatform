@@ -10,14 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/v1/profile")
 public class ProfileController {
 
     @Autowired
-    ProfileService profileService;
+    private ProfileService profileService;
     @Autowired
     private AppUserRepository appUserRepository;
 
@@ -30,7 +30,7 @@ public class ProfileController {
 
     // Will fetch profile data according to authenticated user
     @GetMapping("/personal")
-    public ResponseEntity<ProfileDTO> geProfile(Principal principal) {
+    public ResponseEntity<ProfileDTO> getProfile(Principal principal) {
         // Principal represent authenicated user
         String username = principal.getName();
 
@@ -45,7 +45,7 @@ public class ProfileController {
 
     // Update Profile Entity including Qualification/WorkHistory
     @PatchMapping("/update")
-    public ResponseEntity<ProfileDTO> updateProfile( @RequestBody ProfileDTO profileDTO) {
+    public ResponseEntity<ProfileDTO> updateProfile(@RequestBody ProfileDTO profileDTO) {
 
         ProfileDTO response = profileService.updateProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);

@@ -1,5 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.converter;
 
+import com.example.SchoolStaffRecrutimentPlatform.dto.AppUserDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.AssignmentDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDatesDTO;
@@ -24,9 +25,9 @@ public class TimeSheetConverter {
                     dto.setDate(dates.getDate());
                     return dto;
                 })
-                .toList();
+                .collect(Collectors.toList());
 
-        timeSheetDTO.setTimeSheetDTOList(datesList);
+        timeSheetDTO.setTimeSheetDates(datesList);
 
         // Convert Assignment to exclude user details
         AssignmentDTO assignmentDTO = new AssignmentDTO();
@@ -38,7 +39,19 @@ public class TimeSheetConverter {
         assignmentDTO.setSchoolId(timeSheet.getAssignment().getSchool().getId());
         assignmentDTO.setSchoolName(timeSheet.getAssignment().getSchool().getSchoolName());
 
-       timeSheetDTO.setAssignment(assignmentDTO);
+        timeSheetDTO.setAssignment(assignmentDTO);
+
+        // Set user for the timesheet
+        AppUserDTO userDto = new AppUserDTO();
+
+        if(timeSheet.getAssignment().getUser() != null) {
+            userDto.setId(timeSheet.getAssignment().getUser().getId());
+            userDto.setUsername(timeSheet.getAssignment().getUser().getUsername());
+        }
+
+        timeSheetDTO.setAppUser(userDto);
+
+
 
        return timeSheetDTO;
     }

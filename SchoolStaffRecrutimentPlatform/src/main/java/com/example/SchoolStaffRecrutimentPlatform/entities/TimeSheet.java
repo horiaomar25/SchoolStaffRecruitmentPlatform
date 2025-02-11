@@ -30,9 +30,6 @@ public class TimeSheet {
     @OneToMany(mappedBy = "timeSheet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<TimeSheetDates> timeSheetDatesList = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "school_id", nullable = false)
-    private School school;
 
     @ManyToOne
     @JoinColumn(name = "users_id", nullable = false)

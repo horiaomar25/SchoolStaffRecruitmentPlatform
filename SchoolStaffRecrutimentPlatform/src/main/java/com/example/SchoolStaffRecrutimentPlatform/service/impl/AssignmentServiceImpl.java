@@ -7,13 +7,9 @@ import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.example.SchoolStaffRecrutimentPlatform.entities.TimeSheet;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AssignmentRepository;
-import com.example.SchoolStaffRecrutimentPlatform.repository.SchoolRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.TimeSheetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -60,6 +56,7 @@ public class AssignmentServiceImpl {
 
    }
 
+
    public TimeSheetDTO createTimeSheet(int assignmentId) {
        // Find Assignment by Id
        Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
@@ -67,17 +64,26 @@ public class AssignmentServiceImpl {
            throw new NoSuchElementException("Assignment not found");
        }
 
-       Assignment assignment = assignmentOpt.get();
+       Assignment assignment = assignmentOpt.get(); // unwraps assignment
 
+       // Create timesheet based on assignment details
        TimeSheet timeSheet = new TimeSheet();
        timeSheet.setStartDate(assignment.getStartDate());
        timeSheet.setEndDate(assignment.getEndDate());
 
        timeSheet.setAssignment(assignment);
 
+       // Fetch the User associated with the Assignment
+       AppUser user = assignment.getUser();  // Assuming getUser() returns the associated user
+       if (user == null) {
+           throw new NoSuchElementException("User not found for the given assignment");
+       }
 
+       timeSheet.createAllDates(); // uses the startDate and endDate to get all date in between for the timesheet
 
-       timeSheet.createAllDates();
+       // set the user
+       timeSheet.setUser(user);
+
 
        TimeSheet savedTimeSheet = timeSheetRepository.save(timeSheet);
 
