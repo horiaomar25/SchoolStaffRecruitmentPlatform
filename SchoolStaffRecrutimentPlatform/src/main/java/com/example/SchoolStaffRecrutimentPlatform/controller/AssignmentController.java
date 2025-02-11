@@ -46,6 +46,7 @@ public class AssignmentController {
         return ResponseEntity.ok(unassignedAssignment);
     }
 
+    // fetch accepted assignment
     @GetMapping("/accepted")
     public ResponseEntity<Assignment> getAcceptedAssignment(Principal principal) {
         String userName = principal.getName();

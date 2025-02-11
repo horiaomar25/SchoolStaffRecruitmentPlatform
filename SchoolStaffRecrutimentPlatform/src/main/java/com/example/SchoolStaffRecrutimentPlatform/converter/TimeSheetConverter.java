@@ -29,7 +29,7 @@ public class TimeSheetConverter {
 
         timeSheetDTO.setTimeSheetDates(datesList);
 
-        // Convert Assignment to exclude user details
+        // Convert Assignment to exclude user password from client side
         AssignmentDTO assignmentDTO = new AssignmentDTO();
         assignmentDTO.setAssignmentId(timeSheet.getAssignment().getId());
         assignmentDTO.setAssignmentPosition(timeSheet.getAssignment().getAssignmentPosition());

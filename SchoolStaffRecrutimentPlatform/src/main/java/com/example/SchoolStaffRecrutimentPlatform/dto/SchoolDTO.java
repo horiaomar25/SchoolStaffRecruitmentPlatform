@@ -11,6 +11,8 @@ public class SchoolDTO {
     private String schoolName;
     private String schoolAddress;
     private String schoolPicture;
+    private String schoolWebsite;
+
     public SchoolDTO() {}
 
 }

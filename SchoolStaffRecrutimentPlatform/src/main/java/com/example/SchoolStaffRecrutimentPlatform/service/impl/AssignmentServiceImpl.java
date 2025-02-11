@@ -45,6 +45,7 @@ public class AssignmentServiceImpl {
        if(appUserOpt.isEmpty()){
            throw new NoSuchElementException("User not found");
        }
+
        // Unwraps objects so it can be used
        AppUser appUser = appUserOpt.get();
        Assignment assignment = assignmentOpt.get();
