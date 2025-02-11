@@ -1,6 +1,8 @@
 package com.example.SchoolStaffRecrutimentPlatform.service.impl;
 
+import com.example.SchoolStaffRecrutimentPlatform.converter.AssignmentConverter;
 import com.example.SchoolStaffRecrutimentPlatform.converter.TimeSheetConverter;
+import com.example.SchoolStaffRecrutimentPlatform.dto.AssignmentDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
@@ -29,6 +31,9 @@ public class AssignmentServiceImpl {
 
     @Autowired
     TimeSheetConverter timeSheetConverter;
+
+    @Autowired
+    AssignmentConverter assignmentConverter;
 
     // Find the assignment the user has selected and assign the userId to that assignment so it can be added to the dashboard
    public Assignment acceptAssignment (int appUserId, int assignmentId) {
@@ -61,6 +66,7 @@ public class AssignmentServiceImpl {
    public TimeSheetDTO createTimeSheet(int assignmentId) {
        // Find Assignment by Id
        Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
+
        if (assignmentOpt.isEmpty()) {
            throw new NoSuchElementException("Assignment not found");
        }
@@ -93,7 +99,7 @@ public class AssignmentServiceImpl {
    }
 
 
-    public Assignment getAcceptedAssignment(int appUserId) {
+    public AssignmentDTO getAcceptedAssignment(int appUserId) {
         // Find the user by ID
         Optional<AppUser> appUserOpt = appUserRepository.findById(appUserId);
 
@@ -111,7 +117,13 @@ public class AssignmentServiceImpl {
             throw new NoSuchElementException("No assignment found for this user");
         }
 
-        return assignment;
+
+       AssignmentConverter assignmentConverter = new AssignmentConverter();
+
+        AssignmentDTO assignmentDTO = assignmentConverter.convertEntityToDto(assignment);
+
+
+        return assignmentDTO;
     }
 
 

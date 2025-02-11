@@ -1,6 +1,7 @@
 package com.example.SchoolStaffRecrutimentPlatform.controller;
 
 import com.example.SchoolStaffRecrutimentPlatform.converter.TimeSheetConverter;
+import com.example.SchoolStaffRecrutimentPlatform.dto.AssignmentDTO;
 import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
@@ -48,7 +49,8 @@ public class AssignmentController {
 
     // fetch accepted assignment
     @GetMapping("/accepted")
-    public ResponseEntity<Assignment> getAcceptedAssignment(Principal principal) {
+    public ResponseEntity<AssignmentDTO> getAcceptedAssignment(Principal principal) {
+
         String userName = principal.getName();
 
         AppUser appUser = appUserRepository.findByUsername(userName);
@@ -57,12 +59,13 @@ public class AssignmentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-       Assignment assignment = assignmentService.getAcceptedAssignment(appUser.getId());
+       AssignmentDTO assignmentDTO = assignmentService.getAcceptedAssignment(appUser.getId());
 
-        if (assignment == null) {
+        if (assignmentDTO == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.ok(assignment);
+
+        return ResponseEntity.ok(assignmentDTO);
     }
 
     @PutMapping("/{assignmentId}/accept")
