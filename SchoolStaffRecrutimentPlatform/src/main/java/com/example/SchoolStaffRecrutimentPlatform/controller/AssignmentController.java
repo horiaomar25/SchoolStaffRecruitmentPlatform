@@ -6,6 +6,7 @@ import com.example.SchoolStaffRecrutimentPlatform.dto.TimeSheetDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.example.SchoolStaffRecrutimentPlatform.entities.TimeSheet;
+import com.example.SchoolStaffRecrutimentPlatform.exceptions.UserNotFoundException;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AssignmentRepository;
 
@@ -49,7 +50,7 @@ public class AssignmentController {
 
     // fetch accepted assignment
     @GetMapping("/accepted")
-    public ResponseEntity<AssignmentDTO> getAcceptedAssignment(Principal principal) {
+    public ResponseEntity<AssignmentDTO> getAcceptedAssignment(Principal principal) throws UserNotFoundException {
 
         String userName = principal.getName();
 
@@ -69,7 +70,7 @@ public class AssignmentController {
     }
 
     @PutMapping("/{assignmentId}/accept")
-    public ResponseEntity<Assignment> acceptAssignment(@PathVariable int assignmentId, Principal principal) {
+    public ResponseEntity<Assignment> acceptAssignment(@PathVariable int assignmentId, Principal principal) throws UserNotFoundException {
 
         if (principal == null || principal.getName() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -91,7 +92,7 @@ public class AssignmentController {
 
 
     @PostMapping("/{assignmentId}/timesheet")
-    public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) {
+    public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) throws UserNotFoundException {
 
         TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
 

@@ -122,7 +122,7 @@ public class AssignmentServiceImpl {
         }
 
 
-       AssignmentConverter assignmentConverter = new AssignmentConverter();
+
 
         AssignmentDTO assignmentDTO = assignmentConverter.convertEntityToDto(assignment);
 
