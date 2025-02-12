@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL) // exclude null values from JSON response as the use of Assignment DTO differs.
+// exclude null values from JSON response as the use of Assignment DTO differs.
 public class AssignmentDTO {
     private int assignmentId;
     private String assignmentPosition;

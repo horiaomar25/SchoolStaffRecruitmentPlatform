@@ -35,7 +35,7 @@ public class AssignmentConverter {
 
             schoolDTO.setSchoolAddress(assignment.getSchool().getSchoolAddress());
 
-            schoolDTO.setSchoolPicture(assignment.getSchool().getSchoolWebsite());
+            schoolDTO.setSchoolPicture(assignment.getSchool().getSchoolPicture());
 
             schoolDTO.setSchoolWebsite(assignment.getSchool().getSchoolWebsite());
 

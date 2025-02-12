@@ -67,12 +67,12 @@ public class AssignmentServiceImpl {
    }
 
 
-   public TimeSheetDTO createTimeSheet(int assignmentId) throws UserNotFoundException {
+   public TimeSheetDTO createTimeSheet(int assignmentId)  {
        // Find Assignment by Id
        Optional<Assignment> assignmentOpt = assignmentRepository.findById(assignmentId);
 
        if (assignmentOpt.isEmpty()) {
-           throw new NoSuchElementException("Assignment not found");
+           throw new AssignmentNotFoundException("Assignment not found");
        }
 
        Assignment assignment = assignmentOpt.get(); // unwraps assignment
@@ -120,9 +120,6 @@ public class AssignmentServiceImpl {
         if (assignment == null) {
             throw new AssignmentNotFoundException("No assignment found for this user");
         }
-
-
-
 
         AssignmentDTO assignmentDTO = assignmentConverter.convertEntityToDto(assignment);
 

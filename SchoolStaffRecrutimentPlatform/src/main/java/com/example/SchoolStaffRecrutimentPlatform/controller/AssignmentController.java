@@ -92,7 +92,7 @@ public class AssignmentController {
 
 
     @PostMapping("/{assignmentId}/timesheet")
-    public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) throws UserNotFoundException {
+    public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) {
 
         TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
 

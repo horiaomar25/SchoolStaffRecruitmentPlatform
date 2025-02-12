@@ -1,4 +1,4 @@
 package com.example.SchoolStaffRecrutimentPlatform.controller;
 
-public class TimeSheetController {
+public class AuthControllerTest {
 }
