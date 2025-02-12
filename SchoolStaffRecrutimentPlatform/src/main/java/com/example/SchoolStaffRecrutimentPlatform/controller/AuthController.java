@@ -61,7 +61,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
-        if (appUserService.findByEmail(registerRequest.getUsername()) != null) {
+        if (appUserService.findByUsername(registerRequest.getUsername()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already taken");
         }
 
@@ -71,7 +71,7 @@ public class AuthController {
 
    @DeleteMapping("/delete")
    public ResponseEntity<String> deleteUser(@RequestParam String username) {
-        appUserService.deleteByEmail(username);
+        appUserService.deleteByUsername(username);
         return ResponseEntity.ok("User deleted successfully");
    }
 

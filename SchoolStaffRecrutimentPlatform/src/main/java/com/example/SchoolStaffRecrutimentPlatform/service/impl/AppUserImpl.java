@@ -18,6 +18,7 @@ public class AppUserImpl {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // encodes the password in the database
     public AppUser registerUser(String email, String password) {
         AppUser appUser = new AppUser();
         appUser.setUsername(email);
@@ -25,12 +26,12 @@ public class AppUserImpl {
         return appUserRepository.save(appUser);
     }
 
-    public AppUser findByEmail(String username) {
+    public AppUser findByUsername(String username) {
         return appUserRepository.findByUsername(username);
     }
 
     @Transactional
-    public void deleteByEmail(String username) {
+    public void deleteByUsername(String username) {
         appUserRepository.deleteByUsername(username);
     }
 }
