@@ -83,10 +83,10 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Transactional
     @Override
-    public String deleteProfile(int id) {
+    public String deleteProfile(int profileId) {
         // using repository methods return an Optional<Profile>
         // Optional does not return null, it either contains a value or is empty
-        Optional<Profile> findProfile = profileRepo.findById(id);
+        Optional<Profile> findProfile = profileRepo.findById(profileId);
 
         // check if there is a value using .isPresent()
         if (findProfile.isPresent()) {
@@ -96,7 +96,7 @@ public class ProfileServiceImpl implements ProfileService {
             return "Profile deleted successfully";
 
         } else {
-            return "Profile not found";
+            throw new ProfileNotFoundException("Profile not found");
         }
     }
 
