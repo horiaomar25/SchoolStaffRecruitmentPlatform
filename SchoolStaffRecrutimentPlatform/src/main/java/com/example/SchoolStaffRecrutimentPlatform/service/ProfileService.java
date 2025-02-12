@@ -9,7 +9,7 @@ public interface ProfileService {
 
     ProfileDTO getProfileById(int appUserId);
 
-    String deleteProfile(int id);
+    String deleteProfile(int profileId);
 
     ProfileDTO updateProfile(ProfileDTO profileDTO);
 
