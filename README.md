@@ -1,77 +1,58 @@
-# Overview
+# What is needed to run this project
+- Postman
+- MSSQL server
+- Nextjs - can be installed with npm install
+- You will need access to the frontend repo. Linked below.
+  
 The frontend will be stored on this repo [here](https://github.com/horiaomar25/SchoolStaffRecruitmentPlatform-Frontend)
-Trello Board: [link](https://trello.com/b/RqnogJGI/project)
 
 
-# Introduction
-This project aims to create a system for primary school recruitment agencies that provide the neccessary information all on 1 platform for both their staff and school clients. This software will addresses inefficiencies in connecting education recruitment agencies, supply staff, and primary schools, fostering smoother collaboration between the 3.
+# Step 1: Create database in MSSQL called SchoolStaffRecruitmentDB
+![Image](https://github.com/user-attachments/assets/17b24bfb-546e-498d-9f34-3a527ae928aa)
 
-The project involves the development of a CRM type platform that simplifies recruitment and staffing for primary schools through agencies. It will enable:
+# Step 2: Open up this SpringBoot application
+Enter your credentials to connect the database to the project.
 
-- Recruitment agencies to share detailed candidate profiles with schools.
-- Schools to efficiently review candidates and book suitable staff to meet specific needs.
-- Supply staff, such as teachers and teaching assistants, to create and manage profiles, highlight experience, and upload essential documents(timesheets).
-- Schools will be able to provide written feedback for supply staff at the end of their contract that can then be placed on their profile for other schools clients to be able to see. 
+# Step 3: Run the SpringBoot project to create the tables of your database
+Make sure the following is the same:
+![Image](https://github.com/user-attachments/assets/ea299b15-c9c1-457d-b3f7-c1a78d50bea2)
 
-# Background
-Schools across the UK are facing a shortage of teachers and teaching assistants, leading to a growing reliance on agencies to provide supply staff. This has become a costly solution, as highlighted in the articles linked below:  
+Once you have created your tables, change it to update:
+![image](https://github.com/user-attachments/assets/6c0fd632-79e5-4f8e-864e-285c121749eb)
 
-- [£13 million spent on supply teachers in Caerphilly last year](https://www.southwalesargus.co.uk/news/24509537.13m-spent-caerphilly-supply-teachers-last-year/)
-- [School staff recruitment 'challenging' says Hertfordshire agency](https://www.bbc.co.uk/news/uk-england-beds-bucks-herts-64810330)
-  
-Primary schools spend a lot on agency staff to cover teaching and support roles. To get the best value, it’s important for schools to have a insight into candidates interests/experience. 
+# Step 4: Copy and paste the insert statements into MSSQL for your database
+The Insert statements are in the InsertStatements.txt. Keep them in the same order.
 
-From my experience working with several teaching agencies for both primary schools and private nurseries, most communication between agencies, supply staff, and schools happens through emails, phone calls, and text messages. Some education recruitment agency still rely on paper for timesheets. However, this process can be inefficient and time-consuming.  
+# Step 4: Open up Postman
+Create 3 POST Requests:
+![image](https://github.com/user-attachments/assets/2377ac42-623a-4496-982b-964c25d3c7ce)
 
-This is article brings up some interesting points about more engagement needed with supply staff as well as mention of software being used in both Scotland, Northern Ireland and soon in Wales to make it easier for both schools and supply staff to find available staff quickly:
-- [Scotland and Northern Ireland have it sussed - it’s time England caught up with its neighbours](https://www.theheadteacher.com/staff-management/recruitment/the-teacher-supply-system-isnt-working)
+# Step 5: Register Request
 
-As highlighted in this article, there is already software in use in Scotland, Northern Ireland, and soon in Wales, which makes it easier for schools and supply staff to find suitable candidates quickly. Unfortunately, such a system is not yet available in England, despite having the highest number of schools in the UK.
+ This is the needed url : http://localhost:8080/api/v1/auth/register
+ 
+In the ProfileJSONData.txt file you find the JSON object to paste and the URL needed.
+![image](https://github.com/user-attachments/assets/56938530-514e-4d47-b9e6-5ef271bbeea2)
 
-# Outline
+This is the expected results
+![image](https://github.com/user-attachments/assets/690f8df9-2084-4412-99e4-da33e877b0fd)
 
-For the scoop of my project, I will be focusing on London schools for the most part. I want to have a main focus on the school client. 
+# Step 5: Login Request to get the token to create our dummy profile from the json object
+To login with our now registered user, you must enter this url: http://localhost:8080/api/v1/auth/login 
 
-This is my MVP for the creation on this project:
+with expected response:
+![image](https://github.com/user-attachments/assets/d0402d8d-e769-46cd-94b8-37262afadd18)
 
-  Supply Staff:
-- Profile creation with qualifications, work history, and school feedback.
-- Calendar to mark avaliability.
-- Clear details on assigned schools, locations, and roles.
-- A personal work history log to build experience and credibility.
+You must copy the token in the response body of the login request excluding the quotation marks like below:
+![image](https://github.com/user-attachments/assets/24fb3b96-2704-4056-a14c-77682d9e0427)
+
+# Step 6: Create our dummy profile with CreateProfileData POST request:
+In the ProfileJSONData you will find the Profile json data:
+![image](https://github.com/user-attachments/assets/94e16dd6-7aae-4ba5-980d-a77c2fd89e04)
 
 
 
-In terms of scalability I would create these features for recruiter and school:
 
-Schools:
-- Ability to browse candidate profiles with qualifications and feedback.
-- Selected candidate sent to recruiter.
-- Access to a history of supply staff who have previously worked at their school.
-- Simplified feedback mechanism for supply staff performance.
-- Dashboard to summarize all information.
-  
-Recruiters:
-- Platform to manage schools clients and supply staff.
-- Tools to manage communication and assignments efficiently.
-- Scheduling features for assigning shifts and tracking staff availability.
-- Overview of staff performance based on school feedback.
-
-  I am considering using Java Springboot to build my API to handle the data from supply staff and information about school. I might consider using Http Server.
-  I am considering using React/Next.js for building the frontend. 
-
-# Conclusion
-The development of a CRM type system for primary school recruitment represents a step forward in addressing the challenges faced by recruitment agencies, supply staff, and schools in the education sector. By offering a user-friendly platform, the system aims to enhance  collaboration across all parties involved. 
-
-This solution not only simplifies the recruitment and scheduling process but also empowers supply staff to manage their profiles, availability, and professional growth effectively. Schools benefit from access to detailed candidate profiles, scheduling tools, and performance reviews, enabling them to make informed hiring decisions and improve classroom outcomes.
-
-# Other Projects Ideas
-
-LendLogic
-
-I previously did a group project on mortgage tool for a financial company. The project is linked here: [https://github.com/horiaomar25/Lend-Logic](url) .
-
-We focused on first time buyers and those looking to remortgage. I would like to narrow the scope on this project and focus on one user group (First Time Buyers). The first time buyer dashboard can be better developed.
 
 
 
