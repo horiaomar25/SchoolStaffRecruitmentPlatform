@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
-// find the Profile by AppUser id (user_id)
+
 }

@@ -30,8 +30,5 @@ public class AppUserImpl {
         return appUserRepository.findByUsername(username);
     }
 
-    @Transactional
-    public void deleteByUsername(String username) {
-        appUserRepository.deleteByUsername(username);
-    }
+
 }

@@ -23,8 +23,10 @@ public class Profile {
     // setting to NOT NULL , default varchar(255) without declaring length
     @Column(nullable = false)
     private String firstName;
+
     @Column(nullable = false)
     private String lastName;
+
     @Column(nullable = false)
     private String position;
 

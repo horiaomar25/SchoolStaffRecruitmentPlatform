@@ -4,7 +4,7 @@ import com.example.SchoolStaffRecrutimentPlatform.dto.JwtResponse;
 import com.example.SchoolStaffRecrutimentPlatform.dto.LoginRequest;
 import com.example.SchoolStaffRecrutimentPlatform.dto.RegisterRequest;
 import com.example.SchoolStaffRecrutimentPlatform.service.impl.AppUserImpl;
-import com.example.SchoolStaffRecrutimentPlatform.jwt.JwtUtil;
+import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class AuthController {
     private AppUserImpl appUserService;
 
 
-    // Using generics on login because of various response in data types that may occur. Keeping it open atm.
+    // Authenticates a user and returns JWT token if user details match what is in the database
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -42,6 +42,7 @@ public class AuthController {
         }
     }
 
+    // Validate the JWT token. Check for the format and verifies token.
     @PostMapping("/validate")
     public ResponseEntity<?> validate(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
@@ -59,6 +60,7 @@ public class AuthController {
         }
     }
 
+    // Allows user to register username and password.
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
         if (appUserService.findByUsername(registerRequest.getUsername()) != null) {
@@ -69,10 +71,7 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully");
     }
 
-   @DeleteMapping("/delete")
-   public ResponseEntity<String> deleteUser(@RequestParam String username) {
-        appUserService.deleteByUsername(username);
-        return ResponseEntity.ok("User deleted successfully");
-   }
+
+
 
 }

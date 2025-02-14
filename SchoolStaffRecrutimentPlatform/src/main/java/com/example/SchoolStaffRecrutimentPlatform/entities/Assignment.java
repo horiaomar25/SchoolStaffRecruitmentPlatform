@@ -24,10 +24,10 @@ public class Assignment {
     private String assignmentDescription;
 
 
-
+   @Column
     private LocalDate startDate;
 
-
+   @Column
     private LocalDate endDate;
 
     @ManyToOne
@@ -37,8 +37,6 @@ public class Assignment {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true) // initially null so that when a user accepts the assignment it will be added to their dashboard
     private AppUser user;
-
-
 
 
 

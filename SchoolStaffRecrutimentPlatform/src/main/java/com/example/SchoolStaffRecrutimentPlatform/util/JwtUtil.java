@@ -1,4 +1,4 @@
-package com.example.SchoolStaffRecrutimentPlatform.jwt;
+package com.example.SchoolStaffRecrutimentPlatform.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -30,7 +30,7 @@ public class JwtUtil {
         return doGenerateToken(claims, username);
     }
 
-    // constructs JWT token using claims(email), issue date of token and expiration(valid for 1hr).
+    // constructs JWT token using claims(username), issue date of token and expiration(valid for 1hr).
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims) // Set additional data
@@ -41,7 +41,7 @@ public class JwtUtil {
                 .compact(); // converts into string format to be sent to client
     }
 
-    // Verifies Token validility within 1hr. After an 1hr it will expire and user will have to login in again.
+    // Verifies Token validality within 1hr. After an 1hr it will expire and user will have to log in in again.
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token); // decodes and verifies the token

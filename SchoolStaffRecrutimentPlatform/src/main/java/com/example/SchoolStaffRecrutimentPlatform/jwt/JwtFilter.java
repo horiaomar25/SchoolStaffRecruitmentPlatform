@@ -1,5 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.jwt;
 
+import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // extracts authorization header from incoming request
         String header = request.getHeader("Authorization");
-           // checks if header starts with bearer
+        // checks if header starts with bearer
         if (header != null && header.startsWith("Bearer ")) {
             // extracts token after the word "BEARER " with space
             String token = header.substring(7);

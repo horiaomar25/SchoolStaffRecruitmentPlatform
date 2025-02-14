@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkHistoryRepository extends JpaRepository<WorkHistory, Integer> {
-    // You can define custom query methods here if needed
+
 }

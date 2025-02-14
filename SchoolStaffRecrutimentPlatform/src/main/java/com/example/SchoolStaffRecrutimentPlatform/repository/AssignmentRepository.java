@@ -10,9 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface AssignmentRepository extends JpaRepository<Assignment, Integer> {
-    List<Assignment> findByUserId(int userId);
 
+    // Help to find all unassigned assignment
     List<Assignment> findByUserIsNull();
 
-   Assignment findByUser(AppUser appUser);
+    // Returning the accepted assignment which is associated to the user by id
+    Assignment findByUser(AppUser appUser);
 }

@@ -215,25 +215,7 @@ public class AssignmentServiceImplTest {
     }
 
 
-    @Test
-    void getAcceptedAssignment_WhenAssignmentDoesNotExist_ThrowException() throws UserNotFoundException {
 
-        int appUserId = 1;
-        AppUser appUser = new AppUser();
-        appUser.setId(appUserId);
-
-
-        when(appUserRepository.findById(appUserId)).thenReturn(Optional.of(appUser)); // User found
-
-        Assignment assignment = new Assignment();
-
-        when(assignmentRepository.findByUser(appUser)).thenReturn(null);
-
-        AssignmentNotFoundException expectedException = assertThrows(AssignmentNotFoundException.class, () -> assignmentServiceImpl.getAcceptedAssignment(appUserId));
-
-        assertEquals("No assignment found for this user", expectedException.getMessage());
-
-    }
 
     @Test
     void getAcceptedAssignment_WhenUserDoesNotExist_ThrowUserNotFoundException() throws UserNotFoundException {

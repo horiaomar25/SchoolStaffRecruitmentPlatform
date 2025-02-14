@@ -5,13 +5,18 @@ import com.example.SchoolStaffRecrutimentPlatform.exceptions.UserNotFoundExcepti
 
 
 public interface ProfileService {
+
+
     ProfileDTO createProfile(ProfileDTO profileDTO) throws UserNotFoundException;
 
     ProfileDTO getProfileById(int appUserId);
 
+
     String deleteProfile(int profileId);
 
     ProfileDTO updateProfile(ProfileDTO profileDTO);
+
+
 
 
 

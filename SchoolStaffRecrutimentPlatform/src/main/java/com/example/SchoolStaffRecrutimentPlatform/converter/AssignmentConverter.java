@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AssignmentConverter {
-
+    // Mapping Entity to DTO
     public AssignmentDTO convertEntityToDto(Assignment assignment) {
         AssignmentDTO assignmentDTO = new AssignmentDTO();
 

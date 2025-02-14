@@ -38,13 +38,17 @@ public class AssignmentController {
     private TimeSheetConverter timeSheetConverter;
 
 
-    // Get all unassigned
+    // Get all unassigned assignments
+
     @GetMapping("/unassigned")
     public ResponseEntity<List<Assignment>> getAllAssignments() {
+
         List<Assignment> unassignedAssignment = assignmentRepository.findByUserIsNull();
+
         if (unassignedAssignment.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
+
         return ResponseEntity.ok(unassignedAssignment);
     }
 
@@ -69,6 +73,7 @@ public class AssignmentController {
         return ResponseEntity.ok(assignmentDTO);
     }
 
+    // Allows user to accept assignment
     @PutMapping("/{assignmentId}/accept")
     public ResponseEntity<Assignment> acceptAssignment(@PathVariable int assignmentId, Principal principal) throws UserNotFoundException {
 
@@ -90,16 +95,22 @@ public class AssignmentController {
     }
 
 
-
+   // Creates a timesheet based on the start date and end date and calculates the dates in between using method in timesheet entity
     @PostMapping("/{assignmentId}/timesheet")
     public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) {
 
         TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
 
+        if (response == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(null); // Ensure response is not empty
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
 
+    // Fetches the created timesheet
     @GetMapping("/{assignmentId}/gettimesheet")
     public ResponseEntity<TimeSheetDTO> getTimeSheetByAssignmentId(@PathVariable int assignmentId) {
 

@@ -85,9 +85,10 @@ public class AssignmentServiceImpl {
        timeSheet.setAssignment(assignment);
 
        // Fetch the User associated with the Assignment
-       AppUser user = assignment.getUser();  // Assuming getUser() returns the associated user
+       AppUser user = assignment.getUser();
+
        if (user == null) {
-           throw new UserNotFoundException("User not found for the given assignment");
+           throw new NoSuchElementException("User not found for the given assignment");
        }
 
        timeSheet.createAllDates(); // uses the startDate and endDate to get all date in between for the timesheet
@@ -115,14 +116,10 @@ public class AssignmentServiceImpl {
         AppUser appUser = appUserOpt.get();
 
         // Find the assignment by user ID
-        Assignment assignment = assignmentRepository.findByUser(appUser);
+        Optional<Assignment> assignment = Optional.ofNullable(assignmentRepository.findByUser(appUser));
 
-        if (assignment == null) {
-            throw new AssignmentNotFoundException("No assignment found for this user");
-        }
-
-        AssignmentDTO assignmentDTO = assignmentConverter.convertEntityToDto(assignment);
-
+        AssignmentDTO assignmentDTO = assignment.map(assignmentToMap -> assignmentConverter.convertEntityToDto(assignmentToMap))
+                .orElse(null);
 
         return assignmentDTO;
     }

@@ -37,7 +37,7 @@ public class TimeSheet {
 
     // One timesheet per assignment
     @OneToOne
-    @JoinColumn(name = "assignment_id", nullable = false, unique = true)
+    @JoinColumn(name = "assignment_id", nullable = false)
     private Assignment assignment;
 
     public TimeSheet() {

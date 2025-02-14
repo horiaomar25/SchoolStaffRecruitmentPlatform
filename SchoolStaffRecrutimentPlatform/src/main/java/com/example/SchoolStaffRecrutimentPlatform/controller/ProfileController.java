@@ -19,12 +19,13 @@ public class ProfileController {
 
     @Autowired
     private ProfileService profileService;
+
     @Autowired
     private AppUserRepository appUserRepository;
 
-    // Cannot create a profile without a user being found
+    // Create a profile. UserId is needed
     @PostMapping("/create")
-    public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO) throws UserNotFoundException {
+    public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO)  {
         try{
             ProfileDTO response = profileService.createProfile(profileDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -51,7 +52,7 @@ public class ProfileController {
         
     }
 
-    // Update Profile Entity including Qualification/WorkHistory
+    // Update Profile Entity. Only profile description can be updated at this time.
     @PatchMapping("/update")
     public ResponseEntity<ProfileDTO> updateProfile(@RequestBody ProfileDTO profileDTO) {
 
@@ -60,7 +61,7 @@ public class ProfileController {
 
     }
 
-
+    // Can delete profile via profileId
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteProfile(@PathVariable int id) {
         String response = profileService.deleteProfile(id);
