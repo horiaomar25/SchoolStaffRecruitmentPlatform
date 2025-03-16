@@ -17,10 +17,10 @@ RUN ./mvnw clean package -DskipTests
 
 
 FROM openjdk:17-jdk-slim
-WORKDIR /SchoolStaffRecruitmentPlatform  # Change WORKDIR in Stage 2 as well
+WORKDIR /SchoolStaffRecruitmentPlatform
 
 
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/SchoolStaffRecruitmentPlatform-0.0.1-SNAPSHOT.jar app.jar
 
 
 EXPOSE 8080
