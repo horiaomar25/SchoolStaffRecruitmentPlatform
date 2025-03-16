@@ -1,24 +1,17 @@
-# Stage 1: Build the application
+# Stage 1: Build the Spring Boot application using Maven
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Stage 1: Build the application using Maven
-FROM maven:3.8.5-openjdk-17-slim AS build
-WORKDIR /app
-
-# Copy Maven project files
+# Copy the project files
 COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw .
+COPY src /app/src  # This copies the entire src directory, including src/main/resources
 
-# Copy source code and resources separately
-COPY src/main/java ./src/main/java
-COPY src/main/resources ./src/main/resources
-
-# Set execution permissions for the Maven wrapper
+# Set execution permission for Maven Wrapper
 RUN chmod +x ./mvnw
 
-# Build the project without running tests
+# Build the application (skip tests for faster build)
 RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Run the application using OpenJDK
@@ -28,11 +21,8 @@ WORKDIR /app
 # Copy the built JAR file from the previous stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose port 8080 for the application
+# Expose the application port
 EXPOSE 8080
-
-# Set environment variables (optional, can be overridden by Render)
-ENV SPRING_PROFILES_ACTIVE=prod
 
 # Start the Spring Boot application
 ENTRYPOINT ["java", "-jar", "/app.jar"]
