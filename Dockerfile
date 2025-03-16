@@ -2,11 +2,18 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy the Maven project files
+# Stage 1: Build the application using Maven
+FROM maven:3.8.5-openjdk-17-slim AS build
+WORKDIR /app
+
+# Copy Maven project files
 COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw .
-COPY src src
+
+# Copy source code and resources separately
+COPY src/main/java ./src/main/java
+COPY src/main/resources ./src/main/resources
 
 # Set execution permissions for the Maven wrapper
 RUN chmod +x ./mvnw
