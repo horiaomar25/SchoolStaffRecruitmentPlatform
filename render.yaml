@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: your-service-name
+    runtime: docker
+    dockerfilePath: Dockerfile
+    buildCommand: "./mvnw clean package"
+    port: 10000
