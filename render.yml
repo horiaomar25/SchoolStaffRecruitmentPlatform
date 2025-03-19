@@ -3,5 +3,5 @@ services:
     name: school-staff-api
     runtime: docker
     dockerfilePath: Dockerfile
-    buildCommand: "mvn clean package"
+    buildCommand: "./mvnw package"
     port: 10000
