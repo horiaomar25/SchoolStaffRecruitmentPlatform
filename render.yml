@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: school-staff-api
+    runtime: docker
+    dockerfilePath: Dockerfile
+    buildCommand: "mvn clean package"
+    port: 10000
