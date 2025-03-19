@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: school-staff-api
-    runtime: docker
-    dockerfilePath: Dockerfile
-    buildCommand: "./mvnw package"
-    port: 10000
