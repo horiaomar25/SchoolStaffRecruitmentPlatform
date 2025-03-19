@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: your-service-name
+    name: SchoolStaffRecruitmentPlatformAPI
     runtime: docker
     dockerfilePath: Dockerfile
     buildCommand: "./mvnw clean package"
