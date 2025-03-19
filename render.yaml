@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: SchoolStaffRecruitmentPlatformAPI
-    runtime: docker
-    dockerfilePath: Dockerfile
-    buildCommand: "./mvnw clean package"
-    port: 10000
