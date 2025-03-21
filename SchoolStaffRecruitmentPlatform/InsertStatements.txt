@@ -1,0 +1,116 @@
+  INSERT INTO School (school_name,school_address,school_picture,school_website)
+  VALUES
+  ('Vicarage Primary School','Vicarage Lane,East Ham,London E6 6AD','https://vicarage.newham.sch.uk/wp-content/uploads/2024/03/sch-logo.png', 'https://vicarage.newham.sch.uk/'),
+  ('Lansbury Lawrence Primary School','Cordelia Street London E14 6DZ', 'https://lansburylawrence.towerhamlets.sch.uk/wp-content/uploads/2020/10/ll_logo.jpg','https://lansburylawrence.towerhamlets.sch.uk/'),
+  ('Scott Wilkie Primary School','Hoskins Close, Newham, London E16 3HD','https://scottwilkie.newham.sch.uk/wp-content/uploads/2022/07/sw-logo.png','https://scottwilkie.newham.sch.uk/' ),
+  ('Stebon Primary School','Burdett Estate, Wallwood Street, Tower Hamlets, London E14 7AD','https://stebon.org.uk/wp-content/uploads/2020/12/Stebon.png', 'https://stebon.org.uk/'),
+  ('Cayley Primary School','Aston Street, Stepney, Tower Hamlets, London E14 7NG','https://www.cayley.towerhamlets.sch.uk/images/school-logo-white.svg', 'https://www.cayley.towerhamlets.sch.uk/' ),
+  ('St. Stephen CE Primary School','Uxbridge Road Shepherd Bush London W12 8LH','https://www.ststephensce.lbhf.sch.uk/wp-content/themes/St-Stephens/assets/img/logo_blue.png', 'https://www.ststephensce.lbhf.sch.uk/' ),
+  ('Bigland Green Primary School','Bigland Street, Wapping, Tower Hamlets, London E1 2ND', 'https://biglandgreen.towerhamlets.sch.uk/wp-content/uploads/2019/07/logo-small-1.png','https://biglandgreen.towerhamlets.sch.uk/' ),
+  ('Richard Cobden Primary School','Camden Street, Camden, London NW1 0LL','https://www.edarabia.com/wp-content/uploads/2018/04/richard-cobden-primary-school-camden-london-england.jpg', 'https://www.rcobden.camden.sch.uk/'),
+  ('Argyle Primary School','Tonbridge Street, Camden, London WC1H 9EG','https://www.argyle.camden.sch.uk/_site/data/files/images/logos/5EC6CA02AC328062C23356BAEBDBF0A7.png','https://www.argyle.camden.sch.uk/'  ),
+  ('Hague Primary School','Wilmot Street, Tower Hamlets, London E2 0BP','https://www.edarabia.com/wp-content/uploads/2018/05/hague-primary-school-tower-hamlets-london.png', 'https://www.shhfederation.org/?category=hague')
+
+
+  INSERT INTO Assignment (assignment_position, assignment_description, start_date, end_date, school_id, user_id)
+VALUES
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role at Vicarage Primary School in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-02-17', '2025-02-21', 1, NULL),
+
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-03-03', '2025-03-07', 2, NULL),
+
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-03-10', '2025-03-14', 3, NULL),
+
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-03-24', '2025-03-28', 4, NULL),
+
+
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-03-24', '2025-03-28', 6, NULL),
+
+
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-03-24', '2025-03-28', 7, NULL),
+
+
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-03-24', '2025-03-28', 8, NULL),
+
+('Year 1 Teacher',
+ 'As a Year 1 Teacher, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+ Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+ Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+ This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+ '2025-03-24', '2025-03-28', 9, NULL),
+
+ ('Year 1 Teacher',
+  'As a Year 1 Teacher at Cayley Primary School, you will play a vital role in providing a stimulating and supportive learning environment for young children in their early stages of education. You will be responsible for delivering high-quality teaching, fostering a love for learning, and ensuring the academic, social, and emotional development of each child in your class.
+
+  Key Responsibilities: You will be responsible for curriculum delivery by planning, preparing, and delivering engaging lessons in line with the national curriculum and school policies. You will also manage the classroom by creating a positive and inclusive learning environment that encourages student participation and good behavior. In addition, you will monitor and assess student progress, providing feedback to pupils and parents to support individual learning needs.
+
+  Furthermore, as part of your role, you will support the well-being of all students by promoting confidence, independence, and a positive attitude towards learning. You will collaborate effectively with colleagues, parents, and external professionals to support student development and maintain high educational standards. Additionally, you will engage in continuous professional learning and contribute to the school’s improvement initiatives.
+
+  This role is an exciting opportunity to make a meaningful impact on the lives of young learners and be part of a supportive school community.',
+  '2025-02-10', '2025-02-14', 5, NULL);
+
+
+
+
+
+
+
+

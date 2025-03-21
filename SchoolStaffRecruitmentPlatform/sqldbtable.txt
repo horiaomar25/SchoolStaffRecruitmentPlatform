@@ -1,0 +1,82 @@
+use SchoolStaffRecruitmentPlatform;
+
+
+CREATE TABLE AppUser (
+  id INT PRIMARY KEY IDENTITY(1,1),
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+)
+
+
+CREATE TABLE Profile(
+ id int PRIMARY KEY IDENTITY(1,1),
+ profilePicture VARCHAR(255),
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL,
+  profileDescription TEXT,
+  users_id int,
+  FOREIGN KEY (users_id) REFERENCES AppUser(id),
+)
+
+
+CREATE TABLE School (
+id int PRIMARY KEY IDENTITY(1,1),
+schoolName  VARCHAR(255),
+schoolAddress  VARCHAR(255)
+)
+
+
+Need to add Qualifications and WorkHistory to Profile so they are all together when fetched from the database
+CREATE TABLE Qualifications (
+  id int PRIMARY KEY IDENTITY(1,1),
+  qualificationName VARCHAR(255),
+  institution VARCHAR(255),
+  yearObtained int,
+ profile_id int,
+  FOREIGN KEY (profile_id) REFERENCES Profile(id)
+)
+
+
+CREATE TABLE WorkHistory (
+id int PRIMARY KEY IDENTITY(1,1),
+schoolName VARCHAR(255),
+role VARCHAR(255),
+duration VARCHAR(255),
+school_id int,
+FOREIGN KEY (school_id) REFERENCES School (id),
+ profile_id int,
+FOREIGN KEY (profile_id) REFERENCES Profile(id)
+)
+
+
+CREATE TABLE Assignment (
+id int PRIMARY KEY IDENTITY(1,1),
+role VARCHAR(255),
+startDate date,
+endDate date,
+Assignmentdescription text,
+school_id int,
+FOREIGN KEY (school_id) REFERENCES School (id),
+users_id int,
+FOREIGN KEY (users_id) REFERENCES AppUser(id)
+)
+
+
+
+
+
+CREATE TABLE TimeSheets (
+id int PRIMARY KEY IDENTITY(1,1),
+ startDate Date,
+ endDate Date,
+school_id INT,
+FOREIGN KEY (school_id) REFERENCES School (id),
+users_id int,
+FOREIGN KEY (users_id) REFERENCES AppUser (id),
+assignment_id INT,
+FOREIGN KEY (assignment_id) REFERENCES Assignment(id),
+)
+
+
+
