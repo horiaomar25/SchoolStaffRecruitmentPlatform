@@ -6,10 +6,9 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+		<relativePath/> </parent>
 	<groupId>com.example</groupId>
-	<artifactId>SchoolStaffRecrutimentPlatform</artifactId>
+	<artifactId>SchoolStaffRecruitmentPlatform</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SchoolStaffRecruitmentPlatform</name>
 	<description>School Staff Platform</description>
@@ -44,10 +43,8 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.7.2</version> <!-- Use the latest stable version -->
-		</dependency>
+			<version>42.7.2</version> </dependency>
 
-		<!-- Spring Boot Starter for HikariCP (default connection pool) -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -111,11 +108,9 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version> <!-- Use the appropriate version for your project -->
-			<scope>provided</scope>
+			<version>4.0.1</version> <scope>provided</scope>
 		</dependency>
 
-		<!-- Testing Dependencies -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -135,22 +130,23 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.13.0</version> <!-- Ensure you are using a compatible version -->
-				<configuration>
-					<source>17</source>
-					<target>17</target>
-					<annotationProcessorPaths>
-						<annotationProcessorPath>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-							<version>1.18.32</version> <!-- Updated version of Lombok -->
-						</annotationProcessorPath>
-					</annotationProcessorPaths>
-				</configuration>
+				<version>3.13.0</version> <configuration>
+				<source>17</source>
+				<target>17</target>
+				<annotationProcessorPaths>
+					<annotationProcessorPath>
+						<groupId>org.projectlombok</groupId>
+						<artifactId>lombok</artifactId>
+						<version>1.18.32</version> </annotationProcessorPath>
+				</annotationProcessorPaths>
+			</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.example.SchoolStaffRecruitmentPlatform.SchoolStaffRecruitmentPlatformApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
