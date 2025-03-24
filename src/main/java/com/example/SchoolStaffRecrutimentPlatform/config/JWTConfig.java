@@ -31,7 +31,7 @@ public class JWTConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll()// these endpoints allow to be accessed without authentication
+                .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/logout").permitAll()// these endpoints allow to be accessed without authentication
                 .requestMatchers("/api/v1/profile/delete/{id}","/api/v1/profile/personal",  "/api/v1/profile/update", "/api/v1/assignments/accepted","/api/v1/assignments/{assignmentId}/accept","/api/v1/assignments/{assignmentId}/timesheet","/api/v1/assignments/{assignmentId}/timesheet").authenticated() // cannot delete without authenication
                 .anyRequest().authenticated()
                 .and()
