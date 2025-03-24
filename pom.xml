@@ -145,7 +145,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.example.SchoolStaffRecruitmentPlatform.SchoolStaffRecruitmentPlatformApplication</mainClass>
+					<mainClass>com.example.SchoolStaffRecrutimentPlatform.SchoolStaffRecruitmentPlatformApplication</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
