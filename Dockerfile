@@ -8,4 +8,4 @@ FROM openjdk:17-jdk-slim
 WORKDIR /
 COPY --from=build /app/target/SchoolStaffRecruitmentPlatform-0.0.1-SNAPSHOT.jar SchoolStaffRecrutimentPlatform.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "SchoolStaffRecruitmentPlatform.jar"]
+ENTRYPOINT ["java", "-jar", "SchoolStaffRecruitmentPlatform-0.0.1-SNAPSHOT.jar"]
