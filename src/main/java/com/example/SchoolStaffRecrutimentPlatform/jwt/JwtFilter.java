@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,12 +19,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collection;
 
-// Designed to intercept http requests and set up Security context. Allows your application to perform stateless authentication and authorization.
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private UserDetailsService userDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
 
     public JwtFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
@@ -33,50 +35,41 @@ public class JwtFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = null;
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
+        String token = null;
         Cookie[] cookies = request.getCookies();
 
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                if("jwtToken".equals(cookie.getName())){
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwtToken".equals(cookie.getName())) {
                     token = cookie.getValue();
                     break;
                 }
             }
         }
 
-        if(token != null && jwtUtil.validateToken(token)){
-            String username = jwtUtil.getUsernameFromToken(token);
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-
-            SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
+        if (token != null) {
+            logger.info("JWT Token found in cookie: {}", token);
+            if (jwtUtil.validateToken(token)) {
+                String username = jwtUtil.getUsernameFromToken(token);
+                try {
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+                    SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
+                    logger.info("User authenticated: {}", username);
+                } catch (Exception e) {
+                    logger.error("Error loading user details for: {}", username, e);
+                }
+            } else {
+                logger.warn("Invalid JWT Token: {}", token);
+            }
+        } else {
+            logger.warn("JWT Token not found in cookie.");
         }
 
-
-
-//        // extracts authorization header from incoming request
-//        String header = request.getHeader("Authorization");
-//        // checks if header starts with bearer
-//        if (header != null && header.startsWith("Bearer ")) {
-//            // extracts token after the word "BEARER " with space
-//            String token = header.substring(7);
-//            // use jwtUtil class to validate token
-//            if (jwtUtil.validateToken(token)) {
-//                String username = jwtUtil.getUsernameFromToken(token);
-//                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-//                Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-//                SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
-//            }
-//        }
-
-        // continues with rest of the filter chain
         filterChain.doFilter(request, response);
     }
 }
