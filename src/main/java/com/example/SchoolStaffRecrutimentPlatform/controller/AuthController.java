@@ -60,15 +60,23 @@ public class AuthController {
     // Validate the JWT token. Check for the format and verifies token.
     @PostMapping("/validate")
     public ResponseEntity<?> validate(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        Cookie[] cookies = request.getCookies();
 
-        if (authHeader != null && !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwtToken".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
         }
 
-        String token = authHeader.substring(7);
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No token found");
+        }
 
-        if(jwtUtil.validateToken(token)) {
+        if (jwtUtil.validateToken(token)) {
             return ResponseEntity.ok(new JwtResponse("Token is valid"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
