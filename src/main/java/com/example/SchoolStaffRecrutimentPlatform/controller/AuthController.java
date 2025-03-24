@@ -6,12 +6,14 @@ import com.example.SchoolStaffRecrutimentPlatform.dto.RegisterRequest;
 import com.example.SchoolStaffRecrutimentPlatform.service.impl.AppUserImpl;
 import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.Cookie;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -29,15 +31,27 @@ public class AuthController {
 
     // Authenticates a user and returns JWT token if user details match what is in the database
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {
+
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
+
             String token = jwtUtil.generateToken(loginRequest.getUsername());
-            return ResponseEntity.ok(new JwtResponse(token));
+
+            // Set Cookies for production use
+            Cookie cookie = new Cookie("jwtToken", token);
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
+            return ResponseEntity.ok("Login Successful");
+
         } catch (Exception e) {
+
             e.printStackTrace();
+
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
