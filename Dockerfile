@@ -4,6 +4,6 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
-COPY --from=build /target/SchoolStaffRecrutimentPlatform-0.0.1-SNAPSHOT.jar SchoolStaffRecrutimentPlatform.jar
+COPY --from=build /target/SchoolStaffRecruitmentPlatform-0.0.1-SNAPSHOT.jar SchoolStaffRecrutimentPlatform.jar
 EXPOSE 8080
-ENTRYPOINT["java", "-jar", "SchoolStaffRecrutimentPlatform.jar"]
+ENTRYPOINT["java", "-jar", "SchoolStaffRecruitmentPlatform.jar"]
