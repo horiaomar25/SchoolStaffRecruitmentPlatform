@@ -42,6 +42,7 @@ public class AuthController {
 
             // Set Cookies for production use
             Cookie cookie = new Cookie("jwtToken", token);
+            cookie.setMaxAge(3600); // 1hr login time
             cookie.setHttpOnly(true);
             cookie.setPath("/");
             response.addCookie(cookie);
@@ -59,19 +60,25 @@ public class AuthController {
     // Validate the JWT token. Check for the format and verifies token.
     @PostMapping("/validate")
     public ResponseEntity<?> validate(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        Cookie[] cookies = request.getCookies();
 
-        if (authHeader != null && !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        if(cookies != null){
+            for(Cookie cookie : cookies){
+                if("jwtToken".equals(cookie.getName())){
+                    token = cookie.getValue();
+                    break;
+                }
+            }
         }
 
-        String token = authHeader.substring(7);
-
-        if(jwtUtil.validateToken(token)) {
+        if(token != null && jwtUtil.validateToken(token)){
             return ResponseEntity.ok(new JwtResponse("Token is valid"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
         }
+
+
     }
 
     // Allows user to register username and password.
@@ -85,7 +92,16 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully");
     }
 
-
+    // Allow user to logout
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("jwtToken", null); // clears the token
+        cookie.setMaxAge(0); // clears cookie
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return ResponseEntity.ok("Logout successfully");
+    }
 
 
 }
