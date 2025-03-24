@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // Needed to connect to React to access data
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://localhost:3000", "https://srs-horias-projects-dc29575b.vercel.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH","OPTIONS") // Allows for these requests
                 .allowedHeaders("*")
                 .allowCredentials(true);
