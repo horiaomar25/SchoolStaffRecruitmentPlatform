@@ -125,12 +125,14 @@ public class AuthController {
     // OPTIONS request handling for /validate
     @RequestMapping(value = "/validate", method = RequestMethod.OPTIONS)
     public ResponseEntity<?> handleValidateOptions() {
+        System.out.println("Options validate triggered");
         return ResponseEntity.ok().build();
     }
 
     // OPTIONS request handling for /login
     @RequestMapping(value = "/login", method = RequestMethod.OPTIONS)
     public ResponseEntity<?> handleLoginOptions() {
+        System.out.println("Options login triggered");
         return ResponseEntity.ok().build();
     }
 
