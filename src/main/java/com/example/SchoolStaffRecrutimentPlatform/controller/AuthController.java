@@ -122,5 +122,17 @@ public class AuthController {
         return ResponseEntity.ok("Logout successfully");
     }
 
+    // OPTIONS request handling for /validate
+    @RequestMapping(value = "/validate", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleValidateOptions() {
+        return ResponseEntity.ok().build();
+    }
+
+    // OPTIONS request handling for /login
+    @RequestMapping(value = "/login", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleLoginOptions() {
+        return ResponseEntity.ok().build();
+    }
+
 
 }
