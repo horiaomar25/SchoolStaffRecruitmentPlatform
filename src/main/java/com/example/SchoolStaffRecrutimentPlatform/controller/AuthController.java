@@ -8,12 +8,16 @@ import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.Cookie;
+
+import java.time.Duration;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -39,15 +43,16 @@ public class AuthController {
 
             String token = jwtUtil.generateToken(loginRequest.getUsername());
 
-            // Set Cookies for production use
-            Cookie cookie = new Cookie("jwtToken", token);
-            cookie.setMaxAge(3600); // 1hr login time
-            cookie.setHttpOnly(true);
-            cookie.setSecure(true); // Added secure flag
-            cookie.setPath("/");
-            cookie.setDomain("schoolstaffrecruitmentplatform.onrender.com"); //Added Domain
+            ResponseCookie cookie = ResponseCookie.from("jwtToken", token)
+                            .maxAge(Duration.ofHours(1))
+                                    .httpOnly(true)
+                                            . secure(true)
+                                                    .path("/")
+                                                            .domain("schoolstaffrecruitmentplatform.onrender.com")
+                                                                    .sameSite("Strict")
+                                                                            .build();
 
-            response.addCookie(cookie);
+            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
             return ResponseEntity.ok("Login Successful");
 
