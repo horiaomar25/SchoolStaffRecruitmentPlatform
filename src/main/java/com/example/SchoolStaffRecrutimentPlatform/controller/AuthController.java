@@ -33,7 +33,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {
-
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
@@ -44,15 +43,16 @@ public class AuthController {
             Cookie cookie = new Cookie("jwtToken", token);
             cookie.setMaxAge(3600); // 1hr login time
             cookie.setHttpOnly(true);
+            cookie.setSecure(true); // Added secure flag
             cookie.setPath("/");
+            cookie.setDomain("schoolstaffrecruitmentplatform.onrender.com"); //Added Domain
+
             response.addCookie(cookie);
 
             return ResponseEntity.ok("Login Successful");
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
