@@ -48,7 +48,7 @@ public class AuthController {
                                     .httpOnly(true)
                                             . secure(true)
                                                     .path("/")
-                                                            .domain("schoolstaffrecruitmentplatform.onrender.com")
+                                                            .domain("srs-nu.vercel.app")
                                                                     .sameSite("Strict")
                                                                             .build();
 
