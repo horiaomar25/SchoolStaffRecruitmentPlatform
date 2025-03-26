@@ -44,12 +44,12 @@ public class AuthController {
 
             String token = jwtUtil.generateToken(loginRequest.getUsername());
 
-            ResponseCookie cookie = ResponseCookie.from(token)
+            ResponseCookie cookie = ResponseCookie.from("jwtToken", token)
                     .maxAge(Duration.ofHours(1))
                     .httpOnly(true)
                     . secure(true)
                     .path("/")
-                    .sameSite("Strict")
+                    .sameSite("Lax")
                     .build();
 
             String cookieHeader = cookie.toString();
