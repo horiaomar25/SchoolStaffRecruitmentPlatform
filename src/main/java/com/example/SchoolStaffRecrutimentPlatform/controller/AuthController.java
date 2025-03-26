@@ -47,9 +47,9 @@ public class AuthController {
             ResponseCookie cookie = ResponseCookie.from("jwtToken", token)
                     .maxAge(Duration.ofHours(1))
                     .httpOnly(true)
-                    .secure(request.isSecure()) // Use request.isSecure() here
+                    .secure(true) // Explicitly set secure to true
                     .path("/")
-                    .sameSite("Lax")
+                    .sameSite("None") // Use SameSite: None
                     .build();
 
             String cookieHeader = cookie.toString();
