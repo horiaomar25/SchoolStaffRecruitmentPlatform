@@ -143,7 +143,14 @@ public class AuthController {
     @RequestMapping(value = "/login", method = RequestMethod.OPTIONS)
     public ResponseEntity<?> handleLoginOptions() {
 
-        return ResponseEntity.ok().build();
+        System.out.println("Options login triggered");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "https://srs-nu.vercel.app");
+        headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
+        headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        headers.add("Access-Control-Allow-Credentials", "true");
+        headers.add("Access-Control-Max-Age", "3600");
+        return ResponseEntity.ok().headers(headers).build();
     }
 
 
