@@ -49,18 +49,19 @@ public class AuthController {
                     .httpOnly(true)
                     . secure(true)
                     .path("/")
-                    .domain("srs-nu.vercel.app")
                     .sameSite("Strict")
                     .build();
 
-            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+            String cookieHeader = cookie.toString();
+            System.out.println("Set-Cookie Header: " + cookieHeader); // Log the header
+            response.addHeader(HttpHeaders.SET_COOKIE, cookieHeader);
 
             return ResponseEntity.ok("Login Successful");
 
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    Collections.singletonMap("message", "Invalid credentials") // Return JSON
+                    Collections.singletonMap("message", "Invalid credentials")
             );
         }
     }
