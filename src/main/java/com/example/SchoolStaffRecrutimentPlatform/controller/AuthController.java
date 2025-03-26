@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.Cookie;
 
 import java.time.Duration;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -36,7 +37,7 @@ public class AuthController {
 
     // Authenticates a user and returns JWT token if user details match what is in the database
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response, HttpServletRequest request) { // Add HttpServletRequest
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response, HttpServletRequest request) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
@@ -44,27 +45,31 @@ public class AuthController {
 
             String token = jwtUtil.generateToken(loginRequest.getUsername());
 
-            ResponseCookie cookie = ResponseCookie.from("jwtToken", token)
-                    .maxAge(Duration.ofHours(1))
+            // Create a ResponseCookie
+            ResponseCookie jwtCookie = ResponseCookie.from("jwtToken", token)
                     .httpOnly(true)
-                    .secure(request.isSecure()) // Use request.isSecure() here
+                    .secure(true) // Set to true in production with HTTPS
                     .path("/")
-                    .sameSite("Lax")
+                    .maxAge(Duration.ofDays(7).getSeconds())
+                    .sameSite("None") // Set to 'None' for cross-site requests with 'Secure'
                     .build();
 
-            String cookieHeader = cookie.toString();
-            System.out.println("Set-Cookie Header: " + cookieHeader); // Log the header
-            response.addHeader(HttpHeaders.SET_COOKIE, cookieHeader);
+            // Create a JSON response
+            Map<String, String> jsonResponse = new HashMap<>();
+            jsonResponse.put("message", "Login successful");
+            jsonResponse.put("token", token); // Include the token in the JSON response
 
-            return ResponseEntity.ok("Login Successful");
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    .body(jsonResponse); // Return the JSON response
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    Collections.singletonMap("message", "Invalid credentials")
-            );
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Login failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
+
 
     // Validate the JWT token. Check for the format and verifies token.
     @PostMapping("/validate")
