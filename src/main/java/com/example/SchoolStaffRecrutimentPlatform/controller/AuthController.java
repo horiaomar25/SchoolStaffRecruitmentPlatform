@@ -36,7 +36,7 @@ public class AuthController {
 
     // Authenticates a user and returns JWT token if user details match what is in the database
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response, HttpServletRequest request) { // Add HttpServletRequest
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
@@ -47,7 +47,7 @@ public class AuthController {
             ResponseCookie cookie = ResponseCookie.from("jwtToken", token)
                     .maxAge(Duration.ofHours(1))
                     .httpOnly(true)
-                    . secure(true)
+                    .secure(request.isSecure()) // Use request.isSecure() here
                     .path("/")
                     .sameSite("Lax")
                     .build();
