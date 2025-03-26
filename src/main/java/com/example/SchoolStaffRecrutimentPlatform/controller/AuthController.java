@@ -127,6 +127,8 @@ public class AuthController {
     @RequestMapping(value = "/validate", method = RequestMethod.OPTIONS)
     public ResponseEntity<?> handleValidateOptions() {
         System.out.println("Options validate triggered");
+        // http header object to add cors control
+        // response entity to include header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Allow-Origin", "https://srs-nu.vercel.app"); // Replace with your frontend origin
         headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -140,16 +142,8 @@ public class AuthController {
     // OPTIONS request handling for /login
     @RequestMapping(value = "/login", method = RequestMethod.OPTIONS)
     public ResponseEntity<?> handleLoginOptions() {
-        System.out.println("Options login triggered");
-        // http header object to add cors control
-        // response entity to include header
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "https://srs-nu.vercel.app");
-        headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
-        headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        headers.add("Access-Control-Allow-Credentials", "true");
-        headers.add("Access-Control-Max-Age", "3600");
-        return ResponseEntity.ok().headers(headers).build();
+
+        return ResponseEntity.ok().build();
     }
 
 
