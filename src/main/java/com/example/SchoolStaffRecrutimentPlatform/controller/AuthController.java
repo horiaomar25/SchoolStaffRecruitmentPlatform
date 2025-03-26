@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.Cookie;
 
 import java.time.Duration;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -44,13 +45,13 @@ public class AuthController {
             String token = jwtUtil.generateToken(loginRequest.getUsername());
 
             ResponseCookie cookie = ResponseCookie.from("jwtToken", token)
-                            .maxAge(Duration.ofHours(1))
-                                    .httpOnly(true)
-                                            . secure(true)
-                                                    .path("/")
-                                                            .domain("srs-nu.vercel.app")
-                                                                    .sameSite("Strict")
-                                                                            .build();
+                    .maxAge(Duration.ofHours(1))
+                    .httpOnly(true)
+                    . secure(true)
+                    .path("/")
+                    .domain("srs-nu.vercel.app")
+                    .sameSite("Strict")
+                    .build();
 
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
@@ -58,7 +59,9 @@ public class AuthController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                    Collections.singletonMap("message", "Invalid credentials") // Return JSON
+            );
         }
     }
 
