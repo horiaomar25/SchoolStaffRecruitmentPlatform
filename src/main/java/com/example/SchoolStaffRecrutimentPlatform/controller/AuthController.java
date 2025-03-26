@@ -69,38 +69,37 @@ public class AuthController {
     // Validate the JWT token. Check for the format and verifies token.
     @PostMapping("/validate")
     public ResponseEntity<?> validate(HttpServletRequest request) {
-       String token = null;
+        String token = null;
 
-       // Try to get token from Authorization header
+        // Try to get token from Authorization header
         String header = request.getHeader("Authorization");
 
-        if(header != null && header.startsWith("Bearer ")) {
+        if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7);
         }
 
-        // Token not found in the heaader
-        if(token == null) {
+        // Token not found in the header
+        if (token == null) {
             Cookie[] cookies = request.getCookies();
 
-            if(cookies != null) {
-                for (Cookie cookie : cookies){
-                    if("jwtToken".equals(cookie.getName())) {
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("jwtToken".equals(cookie.getName())) {
                         token = cookie.getValue();
                         break;
                     }
                 }
             }
-
         }
 
-        if(token == null){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No token found");
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "No token found"));
         }
 
-        if(jwtUtil.validateToken(token)){
-            return ResponseEntity.ok(new JwtResponse("Token is valid"));
+        if (jwtUtil.validateToken(token)) {
+            return ResponseEntity.ok(Collections.singletonMap("message", "Token is valid")); // Return JSON
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("message", "Invalid token")); // Return JSON
         }
     }
 
