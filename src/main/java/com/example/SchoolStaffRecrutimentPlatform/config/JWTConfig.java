@@ -28,7 +28,7 @@ public class JWTConfig {
         http.csrf().disable()
                 .authorizeRequests()
                 .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/logout", "/api/v1/auth/validate").permitAll()
-                .requestMatchers("/api/v1/profile/delete/{id}", "/api/v1/profile/personal", "/api/v1/profile/update", "/api/v1/assignments/accepted", "/api/v1/assignments/{assignmentId}/accept", "/api/v1/assignments/{assignmentId}/timesheet", "/api/v1/assignments/{assignmentId}/timesheet").authenticated()
+                .requestMatchers("/api/v1/profile/delete/{id}", "/api/v1/profile/personal", "/api/v1/profile/create","/api/v1/profile/update", "/api/v1/assignments/accepted","/api/v1/assignments/{assignmentId}/gettimesheet", "/api/v1/assignments/{assignmentId}/accept", "/api/v1/assignments/{assignmentId}/timesheet", "/api/v1/assignments/unassigned").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
