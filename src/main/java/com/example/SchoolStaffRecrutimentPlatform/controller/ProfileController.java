@@ -76,10 +76,25 @@ public class ProfileController {
 
     // Update Profile Entity. Only profile description can be updated at this time.
     @PatchMapping("/update")
-    public ResponseEntity<ProfileDTO> updateProfile(@RequestBody ProfileDTO profileDTO) {
+    public ResponseEntity<ProfileDTO> updateProfile(HttpServletRequest request, @RequestBody ProfileDTO profileDTO) {
+
+        String token = getTokenFromCookie(request);
+        if (token == null || !jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        String username = jwtUtil.getUsernameFromToken(token);
+        AppUser appUser = appUserRepository.findByUsername(username);
+
+        if (appUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
         ProfileDTO response = profileService.updateProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+
+//        ProfileDTO response = profileService.updateProfile(profileDTO);
+//        return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }
 
