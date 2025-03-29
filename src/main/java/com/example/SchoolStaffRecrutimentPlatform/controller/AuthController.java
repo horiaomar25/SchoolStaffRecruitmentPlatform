@@ -83,7 +83,7 @@ public class AuthController {
             token = header.substring(7);
         }
 
-        // Token not found in the heaader
+        // Token not found in the header
         if(token == null) {
             Cookie[] cookies = request.getCookies();
 
