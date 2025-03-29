@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("api/**")
                 .allowedOrigins("https://srs-nu.vercel.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
-                .allowedHeaders("Content-Type", "Authorization", "Cookie") // adding Cookie header
+                .allowedHeaders("Content-Type", "Authorization")
                 .allowCredentials(true);
     }
 }
