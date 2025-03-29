@@ -12,6 +12,9 @@ import com.example.SchoolStaffRecrutimentPlatform.repository.AssignmentRepositor
 
 import com.example.SchoolStaffRecrutimentPlatform.repository.TimeSheetRepository;
 import com.example.SchoolStaffRecrutimentPlatform.service.impl.AssignmentServiceImpl;
+import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +39,9 @@ public class AssignmentController {
     private TimeSheetRepository timeSheetRepository;
     @Autowired
     private TimeSheetConverter timeSheetConverter;
+    @Autowired
+    private JwtUtil jwtUtil;
+
 
 
     // Get all unassigned assignments
@@ -54,23 +60,46 @@ public class AssignmentController {
 
     // fetch accepted assignment
     @GetMapping("/accepted")
-    public ResponseEntity<AssignmentDTO> getAcceptedAssignment(Principal principal) throws UserNotFoundException {
+    public ResponseEntity<AssignmentDTO> getAcceptedAssignment(HttpServletRequest request) throws UserNotFoundException {
 
-        String userName = principal.getName();
+        String token = getTokenFromCookie(request);
+
+        if(token == null || !jwtUtil.validateToken(token)){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        String userName = jwtUtil.getUsernameFromToken(token);
 
         AppUser appUser = appUserRepository.findByUsername(userName);
 
-        if (appUser == null) {
+        if(appUser == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-       AssignmentDTO assignmentDTO = assignmentService.getAcceptedAssignment(appUser.getId());
+        AssignmentDTO assignmentDTO = assignmentService.getAcceptedAssignment(appUser.getId());
 
-        if (assignmentDTO == null) {
+        if(assignmentDTO == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         return ResponseEntity.ok(assignmentDTO);
+
+
+//        String userName = principal.getName();
+//
+//        AppUser appUser = appUserRepository.findByUsername(userName);
+//
+//        if (appUser == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        }
+//
+//       AssignmentDTO assignmentDTO = assignmentService.getAcceptedAssignment(appUser.getId());
+//
+//        if (assignmentDTO == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        }
+//
+//        return ResponseEntity.ok(assignmentDTO);
     }
 
     // Allows user to accept assignment
@@ -97,32 +126,82 @@ public class AssignmentController {
 
    // Creates a timesheet based on the start date and end date and calculates the dates in between using method in timesheet entity
     @PostMapping("/{assignmentId}/timesheet")
-    public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId) {
+    public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId, HttpServletRequest request) {
 
-        TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
-
-        if (response == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(null); // Ensure response is not empty
+        String token = getTokenFromCookie(request);
+        if (token == null || !jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
+        String username = jwtUtil.getUsernameFromToken(token);
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if (appUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
+        if (response == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+
+
+//        TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
+//
+//        if (response == null) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .body(null); // Ensure response is not empty
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
 
     // Fetches the created timesheet
     @GetMapping("/{assignmentId}/gettimesheet")
-    public ResponseEntity<TimeSheetDTO> getTimeSheetByAssignmentId(@PathVariable int assignmentId) {
+    public ResponseEntity<TimeSheetDTO> getTimeSheetByAssignmentId(@PathVariable int assignmentId,HttpServletRequest request) {
 
+        String token = getTokenFromCookie(request);
+        if (token == null || !jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        String username = jwtUtil.getUsernameFromToken(token);
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if (appUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
         TimeSheet timeSheet = timeSheetRepository.findByAssignmentId(assignmentId);
-
         if (timeSheet == null) {
             return ResponseEntity.noContent().build();
         }
 
         TimeSheetDTO timeSheetDTO = timeSheetConverter.convertTimeSheetToTimeSheetDTO(timeSheet);
-
         return ResponseEntity.ok(timeSheetDTO);
 
+//        TimeSheet timeSheet = timeSheetRepository.findByAssignmentId(assignmentId);
+//
+//        if (timeSheet == null) {
+//            return ResponseEntity.noContent().build();
+//        }
+//
+//        TimeSheetDTO timeSheetDTO = timeSheetConverter.convertTimeSheetToTimeSheetDTO(timeSheet);
+//
+//        return ResponseEntity.ok(timeSheetDTO);
+
+    }
+
+    // Helper method to extract token from cookie
+    private String getTokenFromCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwtToken".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 }
