@@ -46,19 +46,9 @@ public class ProfileController {
     // Will fetch profile data according to authenticated user
     @GetMapping("/personal")
     public ResponseEntity<ProfileDTO> getProfile(HttpServletRequest request) {
-        String token = null;
 
-        // Try to get token from Authorization header
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7); // Remove "Bearer " prefix
-        }
 
-        // If no token in header, try cookie
-        if (token == null) {
-            token = getTokenFromCookie(request);
-        }
-
+        String token = getTokenFromCookie(request);
         if (token == null || !jwtUtil.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
@@ -73,22 +63,6 @@ public class ProfileController {
         ProfileDTO profileDTO = profileService.getProfileById(appUser.getId());
 
         return ResponseEntity.ok(profileDTO);
-
-//        String token = getTokenFromCookie(request);
-//        if (token == null || !jwtUtil.validateToken(token)) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-//        }
-//
-//        String username = jwtUtil.getUsernameFromToken(token);
-//        AppUser appUser = appUserRepository.findByUsername(username);
-//
-//        if (appUser == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//
-//        ProfileDTO profileDTO = profileService.getProfileById(appUser.getId());
-//
-//        return ResponseEntity.ok(profileDTO);
 
 
 //        // Principal represent authenicated user
