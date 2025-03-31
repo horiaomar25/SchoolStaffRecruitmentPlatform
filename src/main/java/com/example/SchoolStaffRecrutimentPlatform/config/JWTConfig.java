@@ -1,7 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.config;
 
 import com.example.SchoolStaffRecrutimentPlatform.jwt.JwtFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,22 +20,21 @@ import java.util.List;
 @EnableWebSecurity
 public class JWTConfig {
 
-    private JwtFilter jwtFilter;
+    private final JwtFilter jwtFilter;
 
-    @Autowired
-    public void setJwtFilter(JwtFilter jwtFilter) {
+    public JWTConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Explicit CORS config
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS before security
+                .csrf(csrf -> csrf.disable()) // Disable CSRF for JWT
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/logout", "/api/v1/auth/validate").permitAll()
-                        .requestMatchers("/api/v1/profile/**", "/api/v1/assignments/**").authenticated()
+                        .requestMatchers("/api/v1/auth/**").permitAll() // Allow all auth endpoints
+                        .requestMatchers("/api/v1/profile/**", "/api/v1/assignments/**").authenticated() // Secure these
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -47,7 +45,7 @@ public class JWTConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://srs-nu.vercel.app")); // Your frontend URL
+        configuration.setAllowedOrigins(List.of("https://srs-nu.vercel.app")); // Your frontend
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
@@ -55,5 +53,10 @@ public class JWTConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
