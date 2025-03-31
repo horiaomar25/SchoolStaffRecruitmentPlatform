@@ -64,16 +64,6 @@ public class ProfileController {
 
         return ResponseEntity.ok(profileDTO);
 
-
-//        // Principal represent authenicated user
-//        String username = principal.getName();
-//
-//        AppUser appUser = appUserRepository.findByUsername(username); // find the user in the database
-//
-//        // get the profile through the user_id fk associated with the profile table
-//        ProfileDTO profileDTO = profileService.getProfileById(appUser.getId()); // get the user_id associated with appUser entity found by Username.
-//
-//        return ResponseEntity.ok(profileDTO);
         
     }
 
