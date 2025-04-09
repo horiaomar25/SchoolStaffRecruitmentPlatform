@@ -47,7 +47,7 @@ public class AuthController {
 
             // Create a ResponseCookie
             ResponseCookie jwtCookie = ResponseCookie.from("jwtToken", token)
-                    .httpOnly(true)
+                    .httpOnly(false) //browser should access token
                     .secure(true) // Set to true in production with HTTPS
                     .path("/")
                     .maxAge(Duration.ofDays(7).getSeconds())
