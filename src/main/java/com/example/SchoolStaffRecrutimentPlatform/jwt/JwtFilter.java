@@ -3,7 +3,6 @@ package com.example.SchoolStaffRecrutimentPlatform.jwt;
 import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,43 +37,42 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = null;
 
-        Cookie[] cookies = request.getCookies();
+        // **COMMENTED OUT: Cookie-based token extraction**
+        // Cookie[] cookies = request.getCookies();
+        //
+        // if(cookies != null){
+        //     for(Cookie cookie : cookies){
+        //         if("jwtToken".equals(cookie.getName())){
+        //             token = cookie.getValue();
+        //             break;
+        //         }
+        //     }
+        // }
+        //
+        // if(token != null && jwtUtil.validateToken(token)){
+        //     String username = jwtUtil.getUsernameFromToken(token);
+        //
+        //     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        //
+        //     Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        //
+        //     SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
+        // }
 
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                if("jwtToken".equals(cookie.getName())){
-                    token = cookie.getValue();
-                    break;
-                }
+        // **UNCOMMENTED and ACTIVE: Authorization header-based token extraction and validation**
+        String header = request.getHeader("Authorization");
+        // checks if header starts with bearer
+        if (header != null && header.startsWith("Bearer ")) {
+            // extracts token after the word "BEARER " with space
+            token = header.substring(7);
+            // use jwtUtil class to validate token
+            if (jwtUtil.validateToken(token)) {
+                String username = jwtUtil.getUsernameFromToken(token);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+                SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
             }
         }
-
-        if(token != null && jwtUtil.validateToken(token)){
-            String username = jwtUtil.getUsernameFromToken(token);
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-
-            SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
-        }
-
-
-
-//        // extracts authorization header from incoming request
-//        String header = request.getHeader("Authorization");
-//        // checks if header starts with bearer
-//        if (header != null && header.startsWith("Bearer ")) {
-//            // extracts token after the word "BEARER " with space
-//            String token = header.substring(7);
-//            // use jwtUtil class to validate token
-//            if (jwtUtil.validateToken(token)) {
-//                String username = jwtUtil.getUsernameFromToken(token);
-//                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-//                Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-//                SecurityContextHolder.getContext().setAuthentication(new JwtAuthenticationToken(userDetails, authorities));
-//            }
-//        }
 
         // continues with rest of the filter chain
         filterChain.doFilter(request, response);
