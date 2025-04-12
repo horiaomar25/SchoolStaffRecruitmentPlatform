@@ -62,7 +62,7 @@ public class AssignmentController {
     @GetMapping("/accepted")
     public ResponseEntity<AssignmentDTO> getAcceptedAssignment(HttpServletRequest request) throws UserNotFoundException {
 
-        String token = getTokenFromCookie(request);
+        String token = getTokenFromHeader(request);
 
         if(token == null || !jwtUtil.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -128,7 +128,7 @@ public class AssignmentController {
     @PostMapping("/{assignmentId}/timesheet")
     public ResponseEntity<TimeSheetDTO> createTimeSheet(@PathVariable int assignmentId, HttpServletRequest request) {
 
-        String token = getTokenFromCookie(request);
+        String token = getTokenFromHeader(request);
         if (token == null || !jwtUtil.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
@@ -162,7 +162,7 @@ public class AssignmentController {
     @GetMapping("/{assignmentId}/gettimesheet")
     public ResponseEntity<TimeSheetDTO> getTimeSheetByAssignmentId(@PathVariable int assignmentId,HttpServletRequest request) {
 
-        String token = getTokenFromCookie(request);
+        String token = getTokenFromHeader(request);
         if (token == null || !jwtUtil.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
@@ -193,15 +193,13 @@ public class AssignmentController {
     }
 
     // Helper method to extract token from cookie
-    private String getTokenFromCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("jwtToken".equals(cookie.getName())) {
-                    return cookie.getValue();
-                }
-            }
+    private String getTokenFromHeader(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+
+        if(header != null && header.startsWith("Bearer ")){
+            return header.substring(7);
         }
+
         return null;
     }
 }
