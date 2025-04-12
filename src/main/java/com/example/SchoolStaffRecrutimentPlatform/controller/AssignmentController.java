@@ -13,7 +13,6 @@ import com.example.SchoolStaffRecrutimentPlatform.repository.AssignmentRepositor
 import com.example.SchoolStaffRecrutimentPlatform.repository.TimeSheetRepository;
 import com.example.SchoolStaffRecrutimentPlatform.service.impl.AssignmentServiceImpl;
 import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,21 +84,6 @@ public class AssignmentController {
         return ResponseEntity.ok(assignmentDTO);
 
 
-//        String userName = principal.getName();
-//
-//        AppUser appUser = appUserRepository.findByUsername(userName);
-//
-//        if (appUser == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//
-//       AssignmentDTO assignmentDTO = assignmentService.getAcceptedAssignment(appUser.getId());
-//
-//        if (assignmentDTO == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//
-//        return ResponseEntity.ok(assignmentDTO);
     }
 
     // Allows user to accept assignment
@@ -146,16 +130,6 @@ public class AssignmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
 
-
-//        TimeSheetDTO response = assignmentService.createTimeSheet(assignmentId);
-//
-//        if (response == null) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//                    .body(null); // Ensure response is not empty
-//        }
-//
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-
     }
 
     // Fetches the created timesheet
@@ -179,16 +153,6 @@ public class AssignmentController {
 
         TimeSheetDTO timeSheetDTO = timeSheetConverter.convertTimeSheetToTimeSheetDTO(timeSheet);
         return ResponseEntity.ok(timeSheetDTO);
-
-//        TimeSheet timeSheet = timeSheetRepository.findByAssignmentId(assignmentId);
-//
-//        if (timeSheet == null) {
-//            return ResponseEntity.noContent().build();
-//        }
-//
-//        TimeSheetDTO timeSheetDTO = timeSheetConverter.convertTimeSheetToTimeSheetDTO(timeSheet);
-//
-//        return ResponseEntity.ok(timeSheetDTO);
 
     }
 

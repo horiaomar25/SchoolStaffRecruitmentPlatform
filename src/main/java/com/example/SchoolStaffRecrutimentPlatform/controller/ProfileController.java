@@ -6,7 +6,6 @@ import com.example.SchoolStaffRecrutimentPlatform.exceptions.UserNotFoundExcepti
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
 import com.example.SchoolStaffRecrutimentPlatform.service.ProfileService;
 import com.example.SchoolStaffRecrutimentPlatform.util.JwtUtil;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +46,7 @@ public class ProfileController {
     public ResponseEntity<ProfileDTO> getProfile(HttpServletRequest request) {
 
 
-        String token = getTokenFromCookie(request);
+        String token = getTokenFromHeader(request);
         if (token == null || !jwtUtil.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
@@ -70,7 +69,7 @@ public class ProfileController {
     @PatchMapping("/update")
     public ResponseEntity<ProfileDTO> updateProfile(HttpServletRequest request, @RequestBody ProfileDTO profileDTO) {
 
-        String token = getTokenFromCookie(request);
+        String token = getTokenFromHeader(request);
         if (token == null || !jwtUtil.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
@@ -99,15 +98,13 @@ public class ProfileController {
     }
 
     // Helper method to extract token from cookie
-    private String getTokenFromCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("jwtToken".equals(cookie.getName())) {
-                    return cookie.getValue();
-                }
-            }
+    private String getTokenFromHeader(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+
+        if(header != null && header.startsWith("Bearer ")){
+            return header.substring(7);
         }
+
         return null;
     }
 
