@@ -84,8 +84,6 @@ public class ProfileController {
         ProfileDTO response = profileService.updateProfile(profileDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
-//        ProfileDTO response = profileService.updateProfile(profileDTO);
-//        return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }
 
