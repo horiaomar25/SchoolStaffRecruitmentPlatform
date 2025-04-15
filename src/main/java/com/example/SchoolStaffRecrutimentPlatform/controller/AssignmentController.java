@@ -88,13 +88,15 @@ public class AssignmentController {
 
     // Allows user to accept assignment
     @PutMapping("/{assignmentId}/accept")
-    public ResponseEntity<Assignment> acceptAssignment(@PathVariable int assignmentId, Principal principal) throws UserNotFoundException {
+    public ResponseEntity<Assignment> acceptAssignment(@PathVariable int assignmentId, HttpServletRequest request) throws UserNotFoundException {
 
-        if (principal == null || principal.getName() == null) {
+        String token = getTokenFromHeader(request);
+
+        if(token == null || !jwtUtil.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
-        String username = principal.getName();
+        String username = jwtUtil.getUsernameFromToken(token);
 
 
         AppUser appUser = appUserRepository.findByUsername(username);
