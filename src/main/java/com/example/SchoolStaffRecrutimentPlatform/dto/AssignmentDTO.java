@@ -1,5 +1,6 @@
 package com.example.SchoolStaffRecrutimentPlatform.dto;
 
+import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,8 +21,6 @@ public class AssignmentDTO {
     private int schoolId;
     private SchoolDTO schoolDTO;
     private AppUserDTO appUserDTO;
-
-
 
 
 

@@ -1,6 +1,7 @@
 package com.example.SchoolStaffRecrutimentPlatform.controller;
 
 import com.example.SchoolStaffRecrutimentPlatform.converter.TimeSheetConverter;
+import com.example.SchoolStaffRecrutimentPlatform.dto.AssignmentDTO;
 import com.example.SchoolStaffRecrutimentPlatform.entities.AppUser;
 import com.example.SchoolStaffRecrutimentPlatform.entities.Assignment;
 import com.example.SchoolStaffRecrutimentPlatform.repository.AppUserRepository;
@@ -53,6 +54,9 @@ public class AssignmentControllerTest {
 
     @MockitoBean
     private JwtUtil jwtUtil;
+
+    @MockitoBean
+    private AssignmentDTO assignmentDTO;
 
     @Test
     public void getUnassignedAssignments_WhenAssignmentsExist_ReturnsOk() throws Exception {
@@ -118,6 +122,41 @@ public class AssignmentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.assignmentPosition").value("Year 1 Teacher"))
                 .andExpect(jsonPath("$.id").value(1));
+
+    }
+
+    // Get accepted assignment
+    @Test
+    public void getAcceptedAssignment_whenUserIdSet_returnAcceptedAssignment() throws Exception{
+        // Arrange
+        String userName = "johnDoe";
+        String token = "valid.jwt.token";
+
+        AppUser mockAppUser = new AppUser();
+        mockAppUser.setId(1);
+        mockAppUser.setUsername(userName);
+
+
+        AssignmentDTO assignmentDTO = new AssignmentDTO();
+        assignmentDTO.setAssignmentId(1);
+        assignmentDTO.setAssignmentPosition("Year 1 Teacher");
+        assignmentDTO.setAssignmentDescription("As a Year 1 Teacher...");
+        assignmentDTO.setStartDate(LocalDate.of(2025, 2, 17));
+        assignmentDTO.setEndDate(LocalDate.of(2025, 2, 21));
+
+        // Mock repository
+        when(jwtUtil.validateToken(token)).thenReturn(true);
+        when(jwtUtil.getUsernameFromToken(token)).thenReturn(userName);
+        when(appUserRepository.findByUsername(userName)).thenReturn(mockAppUser);
+        when(assignmentService.getAcceptedAssignment(mockAppUser.getId())).thenReturn(assignmentDTO);
+
+        // Act & Assert
+        mockMvc.perform(get("/api/v1/assignments/accepted")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.assignmentPosition").value("Year 1 Teacher"))
+                .andExpect(jsonPath("$.assignmentId").value(1));
+
 
     }
 
