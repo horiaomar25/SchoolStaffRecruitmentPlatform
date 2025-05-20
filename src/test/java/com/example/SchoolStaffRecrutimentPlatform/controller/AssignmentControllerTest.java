@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
@@ -156,6 +155,19 @@ public class AssignmentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.assignmentPosition").value("Year 1 Teacher"))
                 .andExpect(jsonPath("$.assignmentId").value(1));
+
+
+    }
+
+    @Test
+    public void createTimeSheet_whenAcceptAssignment_returnTimeSheetDates(){
+        // Arrange
+        String userName = "johnDoe";
+        String token = "valid.jwt.token";
+
+        AppUser mockAppUser = new AppUser();
+        mockAppUser.setId(1);
+        mockAppUser.setUsername(userName);
 
 
     }
